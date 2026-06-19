@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bay Area Campsite Finder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    [x-cloak] { display: none; }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-900">
+
+<div class="max-w-7xl mx-auto px-4 py-6">
+
+  <!-- Header -->
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold tracking-tight">🏕️ Bay Area Campsite Finder</h1>
+    <p class="text-stone-600 mt-1">One place to check every campground around the Bay. Pick dates, filter, click through to book.</p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+
+    <!-- ========== FILTER SIDEBAR ========== -->
+    <aside class="bg-white border border-stone-200 rounded-xl p-5 h-fit lg:sticky lg:top-4 space-y-5">
+
+      <!-- Dates -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Dates</label>
+        <div class="space-y-2">
+          <input id="startDate" type="date" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm" />
+          <input id="endDate" type="date" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button data-quick="weekend" class="quick-date flex-1 text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">This wknd</button>
+          <button data-quick="next-weekend" class="quick-date flex-1 text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">Next wknd</button>
+        </div>
+      </div>
+
+      <!-- Drive time -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Max drive from SF</label>
+        <select id="maxDrive" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm">
+          <option value="999">Any</option>
+          <option value="45">45 min</option>
+          <option value="60">1 hr</option>
+          <option value="90">1.5 hr</option>
+          <option value="120">2 hr</option>
+        </select>
+      </div>
+
+      <!-- Environment -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Environment</label>
+        <div id="envFilters" class="space-y-1.5 text-sm">
+          <label class="flex items-center gap-2"><input type="checkbox" value="redwoods" class="rounded"> 🌲 Redwoods</label>
+          <label class="flex items-center gap-2"><input type="checkbox" value="coast" class="rounded"> 🌊 Coast</label>
+          <label class="flex items-center gap-2"><input type="checkbox" value="lake" class="rounded"> 🛶 Lake</label>
+          <label class="flex items-center gap-2"><input type="checkbox" value="oak_woodland" class="rounded"> 🌳 Oak woodland</label>
+          <label class="flex items-center gap-2"><input type="checkbox" value="grassland" class="rounded"> 🌾 Grassland</label>
+          <label class="flex items-center gap-2"><input type="checkbox" value="chaparral" class="rounded"> 🌵 Chaparral</label>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Availability</label>
+        <label class="flex items-center gap-2 text-sm font-medium text-emerald-700">
+          <input id="availOnly" type="checkbox" class="rounded accent-emerald-600"> 🟢 Available only
+        </label>
+      </div>
+
+      <!-- Toggles -->
+      <div class="space-y-2 text-sm">
+        <label class="flex items-center gap-2"><input id="dogsOnly" type="checkbox" class="rounded"> 🐕 Dogs allowed</label>
+        <label class="flex items-center gap-2"><input id="rvOnly" type="checkbox" class="rounded"> 🚐 RV sites</label>
+        <label class="flex items-center gap-2"><input id="driveInOnly" type="checkbox" class="rounded"> 🚗 Drive-in only</label>
+      </div>
+
+      <button id="clearFilters" class="w-full text-xs text-stone-500 hover:text-stone-900 pt-2 border-t border-stone-200">Clear filters</button>
+    </aside>
+
+    <!-- ========== RESULTS ========== -->
+    <main>
+      <div id="statusBar" class="flex flex-wrap items-center gap-2 mb-4"></div>
+      <div class="flex items-baseline justify-between mb-3">
+        <div id="resultCount" class="text-sm text-stone-600"></div>
+        <select id="sortBy" class="text-sm border border-stone-300 rounded-lg px-2 py-1.5">
+          <option value="availability">Sort: Availability</option>
+          <option value="drive">Sort: Drive time</option>
+          <option value="name">Sort: Name</option>
+        </select>
+      </div>
+      <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <div id="emptyState" class="hidden text-center py-16 text-stone-500">
+        <div class="text-4xl mb-2">🌲</div>
+        <p>No campgrounds match those filters.</p>
+        <button onclick="document.getElementById('clearFilters').click()" class="mt-3 text-sm text-emerald-700 hover:underline">Clear filters</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+// ============================================================================
+// PARK DATA
+// One array. This is the "database." Edit here to add/fix campgrounds.
+// ============================================================================
+
+const SYSTEMS = {
+  reserve_ca:   { label: "CA State Parks",    color: "bg-amber-100 text-amber-800" },
+  rec_gov:      { label: "Recreation.gov",    color: "bg-blue-100 text-blue-800" },
+  ebparks:      { label: "East Bay Parks",    color: "bg-emerald-100 text-emerald-800" },
+  scc_parks:    { label: "Santa Clara Co.",   color: "bg-purple-100 text-purple-800" },
+  smc_parks:    { label: "San Mateo Co.",     color: "bg-rose-100 text-rose-800" },
+};
+
+const ENV_LABELS = {
+  redwoods: "🌲 Redwoods", coast: "🌊 Coast", lake: "🛶 Lake",
+  oak_woodland: "🌳 Oak", grassland: "🌾 Grassland", chaparral: "🌵 Chaparral",
+};
+
+// Availability for v1 is mocked. Three states:
+//   available   — confirmed open (green)
+//   check_site  — no API; click through to check (gray)  ← default
+//   likely_full — competitive / holiday flag (red)
+const PARKS = [
+  // --- Marin ---
+  { id: "samuel-p-taylor", name: "Samuel P. Taylor SP", system: "reserve_ca",
+    drive: 50, env: ["redwoods"], dogs: true, rv: true, access: "drive_in", sites: 59,
+    desc: "Redwood canyon along Lagunitas Creek. Closest redwoods to SF.",
+    url: "https://www.reservecalifornia.com/park/705",
+    mock: "available" },
+
+  { id: "china-camp", name: "China Camp SP", system: "reserve_ca",
+    drive: 40, env: ["oak_woodland", "coast"], dogs: false, rv: false, access: "walk_in", sites: 30,
+    desc: "Walk-in sites under oaks on the bay. Easy, flat, warm.",
+    url: "https://www.reservecalifornia.com/park/626",
+    mock: "available" },
+
+  { id: "pantoll", name: "Mt. Tamalpais — Pantoll", system: "reserve_ca",
+    drive: 50, env: ["chaparral", "coast"], dogs: false, rv: false, access: "walk_in", sites: 16,
+    desc: "First-come ridgeline sites; trailhead for Steep Ravine & Dipsea.",
+    url: "https://www.reservecalifornia.com/park/682",
+    mock: "check_site" },
+
+  { id: "steep-ravine", name: "Mt. Tamalpais — Steep Ravine", system: "reserve_ca",
+    drive: 55, env: ["coast"], dogs: false, rv: false, access: "drive_in", sites: 7,
+    desc: "Cliffside cabins + tent sites over the Pacific. Books out instantly.",
+    url: "https://www.reservecalifornia.com/park/682",
+    mock: "likely_full" },
+
+  { id: "point-reyes", name: "Point Reyes — Backcountry", system: "rec_gov",
+    drive: 75, env: ["coast", "grassland"], dogs: false, rv: false, access: "hike_in", sites: 50,
+    desc: "Hike-in coastal camps (Wildcat, Coast, Sky, Glen). Permit required.",
+    url: "https://www.recreation.gov/camping/campgrounds/233359",
+    mock: "available" },
+
+  // --- East Bay ---
+  { id: "mt-diablo", name: "Mt. Diablo SP", system: "reserve_ca",
+    drive: 60, env: ["oak_woodland", "chaparral", "grassland"], dogs: false, rv: true, access: "drive_in", sites: 56,
+    desc: "Three campgrounds on the slopes; huge views, hot summers.",
+    url: "https://www.reservecalifornia.com/park/683",
+    mock: "check_site" },
+
+  { id: "anthony-chabot", name: "Anthony Chabot", system: "ebparks",
+    drive: 35, env: ["oak_woodland", "lake"], dogs: true, rv: true, access: "drive_in", sites: 75,
+    desc: "Closest drive-in camp to SF/Oakland. Eucalyptus + Lake Chabot.",
+    url: "https://www.ebparks.org/parks/anthony-chabot/camping",
+    mock: "available" },
+
+  { id: "del-valle", name: "Del Valle", system: "ebparks",
+    drive: 70, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 150,
+    desc: "Big reservoir camp near Livermore. Swimming, boating, hot.",
+    url: "https://www.ebparks.org/parks/del-valle/camping",
+    mock: "check_site" },
+
+  // --- Peninsula / Santa Cruz Mtns ---
+  { id: "half-moon-bay", name: "Half Moon Bay SB", system: "reserve_ca",
+    drive: 45, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 52,
+    desc: "Beachfront sites behind the dunes at Francis Beach.",
+    url: "https://www.reservecalifornia.com/park/652",
+    mock: "likely_full" },
+
+  { id: "memorial-park", name: "Memorial Park", system: "smc_parks",
+    drive: 75, env: ["redwoods"], dogs: false, rv: true, access: "drive_in", sites: 154,
+    desc: "San Mateo County's redwood camp on Pescadero Creek. Swimming hole.",
+    url: "https://www.smcgov.org/parks/memorial-park",
+    mock: "check_site" },
+
+  { id: "pescadero-creek", name: "Pescadero Creek — Hike-in", system: "smc_parks",
+    drive: 75, env: ["redwoods"], dogs: false, rv: false, access: "hike_in", sites: 15,
+    desc: "Backcountry sites in old-growth adjacent to Memorial & Portola.",
+    url: "https://www.smcgov.org/parks/pescadero-creek-park",
+    mock: "check_site" },
+
+  { id: "portola-redwoods", name: "Portola Redwoods SP", system: "reserve_ca",
+    drive: 70, env: ["redwoods"], dogs: false, rv: false, access: "drive_in", sites: 53,
+    desc: "Quiet, deep redwood canyon. Often has space when Big Basin doesn't.",
+    url: "https://www.reservecalifornia.com/park/695",
+    mock: "available" },
+
+  { id: "butano", name: "Butano SP", system: "reserve_ca",
+    drive: 75, env: ["redwoods"], dogs: false, rv: false, access: "drive_in", sites: 38,
+    desc: "Small, foggy redwood park near Pescadero. First-come, first-served.",
+    url: "https://www.parks.ca.gov/?page_id=536",
+    mock: "check_site" },
+
+  { id: "big-basin", name: "Big Basin Redwoods SP", system: "reserve_ca",
+    drive: 80, env: ["redwoods"], dogs: false, rv: false, access: "drive_in", sites: 47,
+    desc: "Oldest CA state park. Limited reopened sites post-CZU fire.",
+    url: "https://www.reservecalifornia.com/park/3",
+    mock: "likely_full" },
+
+  { id: "castle-rock", name: "Castle Rock — Trail Camp", system: "reserve_ca",
+    drive: 60, env: ["chaparral", "oak_woodland"], dogs: false, rv: false, access: "hike_in", sites: 25,
+    desc: "2.5 mi hike-in. Sandstone formations, Skyline-to-the-Sea start.",
+    url: "https://www.reservecalifornia.com/park/1111",
+    mock: "check_site" },
+
+  { id: "sanborn", name: "Sanborn County Park", system: "scc_parks",
+    drive: 60, env: ["redwoods"], dogs: false, rv: true, access: "walk_in", sites: 33,
+    desc: "Walk-in redwood sites + RV area above Saratoga.",
+    url: "https://parks.santaclaracounty.gov/locations/sanborn-county-park",
+    mock: "check_site" },
+
+  { id: "henry-cowell", name: "Henry Cowell Redwoods SP", system: "reserve_ca",
+    drive: 75, env: ["redwoods"], dogs: true, rv: true, access: "drive_in", sites: 107,
+    desc: "Sandy ponderosa/redwood camp near Felton. Dog-friendly.",
+    url: "https://www.reservecalifornia.com/park/655",
+    mock: "available" },
+
+  { id: "new-brighton", name: "New Brighton SB", system: "reserve_ca",
+    drive: 80, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 100,
+    desc: "Blufftop camp over Monterey Bay near Capitola.",
+    url: "https://www.reservecalifornia.com/park/685",
+    mock: "check_site" },
+
+  // --- South Bay ---
+  { id: "joseph-d-grant", name: "Joseph D. Grant", system: "scc_parks",
+    drive: 70, env: ["oak_woodland", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 40,
+    desc: "Rolling oak savanna on Mt. Hamilton's flank. Quiet.",
+    url: "https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park",
+    mock: "available" },
+
+  { id: "henry-coe", name: "Henry W. Coe SP", system: "reserve_ca",
+    drive: 90, env: ["oak_woodland", "grassland", "chaparral"], dogs: false, rv: false, access: "drive_in", sites: 20,
+    desc: "Vast wilderness park; HQ drive-in + endless backcountry.",
+    url: "https://www.reservecalifornia.com/park/656",
+    mock: "check_site" },
+
+  { id: "mount-madonna", name: "Mount Madonna", system: "scc_parks",
+    drive: 90, env: ["redwoods", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 118,
+    desc: "Redwood ridgetop between Gilroy and the coast. Yurts available.",
+    url: "https://parks.santaclaracounty.gov/locations/mt-madonna-county-park",
+    mock: "check_site" },
+
+  // --- North Bay / Wine Country ---
+  { id: "sugarloaf", name: "Sugarloaf Ridge SP", system: "reserve_ca",
+    drive: 75, env: ["oak_woodland", "chaparral", "grassland"], dogs: false, rv: true, access: "drive_in", sites: 47,
+    desc: "Sonoma valley camp; observatory, waterfall, Bald Mtn hike.",
+    url: "https://www.reservecalifornia.com/park/725",
+    mock: "check_site" },
+
+  { id: "bothe-napa", name: "Bothe-Napa Valley SP", system: "reserve_ca",
+    drive: 80, env: ["redwoods", "oak_woodland"], dogs: false, rv: true, access: "drive_in", sites: 47,
+    desc: "Surprising redwood pocket in Napa Valley. Pool in summer.",
+    url: "https://www.reservecalifornia.com/park/620",
+    mock: "check_site" },
+
+  // --- Sonoma Coast ---
+  { id: "bodega-dunes", name: "Bodega Dunes (Sonoma Coast SP)", system: "reserve_ca",
+    drive: 90, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 99,
+    desc: "Sheltered dune camp near Bodega Bay. Big, easy to get.",
+    url: "https://www.reservecalifornia.com/park/718",
+    mock: "available" },
+
+  { id: "salt-point", name: "Salt Point SP", system: "reserve_ca",
+    drive: 130, env: ["coast", "chaparral"], dogs: false, rv: true, access: "drive_in", sites: 109,
+    desc: "Dramatic tafoni sandstone coast. Two campgrounds; Gerstle is quieter.",
+    url: "https://www.reservecalifornia.com/park/703",
+    mock: "check_site" },
+];
+
+// ============================================================================
+// AVAILABILITY
+// reserve_ca → live via ReserveCalifornia's RDR API (CORS-open, no key needed)
+// everything else → "check_site" link-out
+// ============================================================================
+
+const RC_API = 'https://california-rdr.prod.cali.rd12.recreation-management.tylerapp.com/rdr';
+
+const STATUS_META = {
+  loading:    { label: "Checking…",  dot: "bg-stone-300 animate-pulse", text: "text-stone-500",   ring: "ring-stone-200",   sortRank: 1 },
+  available:  { label: "Available",  dot: "bg-emerald-500",             text: "text-emerald-700", ring: "ring-emerald-200", sortRank: 0 },
+  full:       { label: "Full",       dot: "bg-rose-500",                text: "text-rose-700",    ring: "ring-rose-200",    sortRank: 3 },
+  check_site: { label: "Check site", dot: "bg-stone-400",               text: "text-stone-600",   ring: "ring-stone-200",   sortRank: 2 },
+  error:      { label: "—",          dot: "bg-stone-300",               text: "text-stone-400",   ring: "ring-stone-200",   sortRank: 2 },
+};
+
+// Per-park live status, keyed by park.id. Populated async; render() reads from here.
+let liveStatus = {};
+
+function rcPlaceId(park) {
+  const m = park.url.match(/reservecalifornia\.com\/park\/(\d+)/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function initialStatus(park) {
+  return rcPlaceId(park) ? 'loading' : 'check_site';
+}
+
+async function fetchRC(placeId, startISO, endISO) {
+  const [y,m,d] = startISO.split('-');
+  const nights = Math.max(1, Math.round((new Date(endISO) - new Date(startISO)) / 86400000));
+  const res = await fetch(RC_API + '/search/place', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      PlaceId: placeId, Latitude: 0, Longitude: 0,
+      StartDate: `${m}-${d}-${y}`, Nights: nights,
+      CustomerId: 0, UnitCategoryId: 1, SleepingUnitId: 0, MinVehicleLength: 0,
+      UnitTypesGroupIds: null, AmenityIds: null, Sort: "name",
+      IsADA: false, RestrictADA: false, NearbyLimit: 100,
+      isSearchAllParks: false, customerClassificationId: 0,
+      InSeasonOnly: true, WebOnly: true, NearbyCountLimit: 0,
+      NearbyOnlyAvailable: false, CountNearby: false, CountUnits: true, HighlightedPlaceId: 0,
+    })
+  });
+  const data = await res.json();
+  let count = 0;
+  for (const f of Object.values(data.SelectedPlace?.Facilities || {})) {
+    for (const ut of Object.values(f.UnitTypes || {})) count += ut.AvailableCount || 0;
+  }
+  return count > 0 ? { status: 'available', sitesAvailable: count } : { status: 'full' };
+}
+
+let fetchSeq = 0;
+async function refreshAvailability(startISO, endISO) {
+  const seq = ++fetchSeq;
+  liveStatus = {};
+  const rcParks = PARKS.filter(p => rcPlaceId(p));
+  await Promise.all(rcParks.map(async p => {
+    try {
+      const r = await fetchRC(rcPlaceId(p), startISO, endISO);
+      if (seq !== fetchSeq) return; // stale
+      liveStatus[p.id] = r;
+    } catch (e) {
+      if (seq !== fetchSeq) return;
+      liveStatus[p.id] = { status: 'error' };
+    }
+    updateCardStatus(p.id);
+  }));
+  if (seq === fetchSeq) render(); // re-sort + refresh status bar once all results are in
+}
+
+function getStatus(park) {
+  return liveStatus[park.id] || { status: initialStatus(park) };
+}
+
+// ============================================================================
+// RENDERING
+// ============================================================================
+
+function buildBookingUrl(park, start, end) {
+  // Most systems don't accept date params reliably; just link to the park page for v1.
+  // ReserveCalifornia & Recreation.gov deep-link formats can be added per-system here.
+  return park.url;
+}
+
+function fmtDrive(min) {
+  return min < 60 ? `${min} min` : `${Math.floor(min/60)}h ${min%60 ? (min%60)+'m' : ''}`.trim();
+}
+
+function statusBadge(avail) {
+  const sm = STATUS_META[avail.status];
+  return `<span class="w-2 h-2 rounded-full ${sm.dot}"></span>
+          <span class="text-xs font-medium ${sm.text}">${sm.label}${avail.sitesAvailable ? ` (${avail.sitesAvailable})` : ''}</span>`;
+}
+
+function updateCardStatus(parkId) {
+  const el = document.querySelector(`[data-status="${parkId}"]`);
+  if (el) el.innerHTML = statusBadge(getStatus(PARKS.find(p => p.id === parkId)));
+}
+
+function parkCard(park, start, end) {
+  const sys = SYSTEMS[park.system];
+  const avail = getStatus(park);
+  const accessLabel = { drive_in: "Drive-in", walk_in: "Walk-in", hike_in: "Hike-in" }[park.access];
+
+  return `
+    <div class="bg-white border border-stone-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-start justify-between gap-3 mb-2">
+        <div>
+          <h3 class="font-semibold text-lg leading-tight">${park.name}</h3>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs px-2 py-0.5 rounded-full ${sys.color}">${sys.label}</span>
+            <span class="text-xs text-stone-500">🚗 ${fmtDrive(park.drive)}</span>
+            <span class="text-xs text-stone-500">· ${accessLabel}</span>
+          </div>
+        </div>
+        <div data-status="${park.id}" class="flex items-center gap-1.5 shrink-0">${statusBadge(avail)}</div>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-3">${park.desc}</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          ${park.env.map(e => `<span class="text-xs bg-stone-100 px-2 py-0.5 rounded">${ENV_LABELS[e]}</span>`).join('')}
+          ${park.dogs ? `<span class="text-xs bg-stone-100 px-2 py-0.5 rounded">🐕 Dogs</span>` : ''}
+          ${park.rv   ? `<span class="text-xs bg-stone-100 px-2 py-0.5 rounded">🚐 RV</span>` : ''}
+        </div>
+        <a href="${buildBookingUrl(park, start, end)}" target="_blank" rel="noopener"
+           class="shrink-0 ml-3 text-sm font-medium bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">
+          ${rcPlaceId(park) ? 'Book' : 'Check'} →
+        </a>
+      </div>
+    </div>`;
+}
+
+function render() {
+  const start = document.getElementById('startDate').value;
+  const end = document.getElementById('endDate').value;
+  const maxDrive = parseInt(document.getElementById('maxDrive').value, 10);
+  const envs = [...document.querySelectorAll('#envFilters input:checked')].map(i => i.value);
+  const dogsOnly = document.getElementById('dogsOnly').checked;
+  const rvOnly = document.getElementById('rvOnly').checked;
+  const driveInOnly = document.getElementById('driveInOnly').checked;
+  const sortBy = document.getElementById('sortBy').value;
+
+  const availOnly = document.getElementById('availOnly').checked;
+
+  let filtered = PARKS.filter(p => {
+    if (p.drive > maxDrive) return false;
+    if (envs.length && !envs.some(e => p.env.includes(e))) return false;
+    if (dogsOnly && !p.dogs) return false;
+    if (rvOnly && !p.rv) return false;
+    if (driveInOnly && p.access !== 'drive_in') return false;
+    if (availOnly && getStatus(p).status !== 'available') return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    if (sortBy === 'name') return a.name.localeCompare(b.name);
+    if (sortBy === 'availability') {
+      const ra = STATUS_META[getStatus(a).status].sortRank, rb = STATUS_META[getStatus(b).status].sortRank;
+      return ra !== rb ? ra - rb : a.drive - b.drive;
+    }
+    return a.drive - b.drive;
+  });
+
+  // Status summary bar (counts across ALL parks, not filtered — so you see the full picture)
+  const counts = { available: 0, full: 0, check_site: 0, loading: 0, error: 0 };
+  PARKS.forEach(p => counts[getStatus(p).status]++);
+  const totalSites = PARKS.reduce((n,p) => n + (getStatus(p).sitesAvailable || 0), 0);
+  document.getElementById('statusBar').innerHTML = `
+    <button onclick="document.getElementById('availOnly').checked=true; render()"
+            class="px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 hover:bg-emerald-200 ${counts.available?'':'opacity-50'}">
+      🟢 ${counts.available} available${totalSites ? ` · ${totalSites} sites` : ''}
+    </button>
+    <span class="px-3 py-1.5 rounded-full text-sm bg-rose-100 text-rose-800">🔴 ${counts.full} full</span>
+    <span class="px-3 py-1.5 rounded-full text-sm bg-stone-100 text-stone-700">⚪ ${counts.check_site + counts.error} check manually</span>
+    ${counts.loading ? `<span class="px-3 py-1.5 rounded-full text-sm bg-stone-100 text-stone-500 animate-pulse">⏳ ${counts.loading} checking…</span>` : ''}
+    ${availOnly ? `<button onclick="document.getElementById('availOnly').checked=false; render()" class="text-xs text-stone-500 hover:text-stone-900 underline">show all</button>` : ''}
+  `;
+
+  document.getElementById('resultCount').textContent =
+    `${filtered.length} of ${PARKS.length} campgrounds`;
+  document.getElementById('results').innerHTML = filtered.map(p => parkCard(p, start, end)).join('');
+  document.getElementById('emptyState').classList.toggle('hidden', filtered.length > 0);
+  document.getElementById('results').classList.toggle('hidden', filtered.length === 0);
+}
+
+// ============================================================================
+// WIRING
+// ============================================================================
+
+function nextWeekend(offsetWeeks = 0) {
+  const d = new Date();
+  const day = d.getDay();
+  const daysUntilFri = ((5 - day) + 7) % 7 || 7; // next Friday (not today even if today is Fri)
+  const fri = new Date(d); fri.setDate(d.getDate() + daysUntilFri + offsetWeeks*7);
+  const sun = new Date(fri); sun.setDate(fri.getDate() + 2);
+  const fmt = x => `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
+  return [fmt(fri), fmt(sun)];
+}
+
+function setDates([s, e]) {
+  document.getElementById('startDate').value = s;
+  document.getElementById('endDate').value = e;
+}
+
+function onDatesChanged() {
+  const s = document.getElementById('startDate').value;
+  const e = document.getElementById('endDate').value;
+  render();
+  if (s && e) refreshAvailability(s, e);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setDates(nextWeekend(0));
+
+  document.querySelectorAll('.quick-date').forEach(b =>
+    b.addEventListener('click', () => {
+      setDates(nextWeekend(b.dataset.quick === 'next-weekend' ? 1 : 0));
+      onDatesChanged();
+    }));
+
+  document.getElementById('clearFilters').addEventListener('click', () => {
+    document.getElementById('maxDrive').value = '999';
+    document.querySelectorAll('#envFilters input, #dogsOnly, #rvOnly, #driveInOnly, #availOnly').forEach(i => i.checked = false);
+    render();
+  });
+
+  ['startDate','endDate'].forEach(id => document.getElementById(id).addEventListener('change', onDatesChanged));
+  ['maxDrive','dogsOnly','rvOnly','driveInOnly','availOnly','sortBy']
+    .forEach(id => document.getElementById(id).addEventListener('change', render));
+  document.querySelectorAll('#envFilters input').forEach(i => i.addEventListener('change', render));
+
+  onDatesChanged();
+});
+</script>
+</body>
+</html>
