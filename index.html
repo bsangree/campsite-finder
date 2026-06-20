@@ -392,8 +392,16 @@ function getStatus(park) {
 // RENDERING
 // ============================================================================
 
-function buildBookingUrl(park, start) {
-  // Most systems don't accept date params reliably; just link to the park page for v1.
+function buildBookingUrl(park, startISO, nights) {
+  if (!startISO) return park.url;
+  if (rcPlaceId(park)) {
+    // ReserveCalifornia: /park/{id}?date=YYYY-MM-DD&night=N (singular)
+    return `${park.url}?date=${startISO}&night=${nights}`;
+  }
+  if (park.system === 'rec_gov') {
+    // Recreation.gov campground availability tab anchored on the month
+    return `${park.url}/availability?date=${startISO}`;
+  }
   return park.url;
 }
 
@@ -416,7 +424,7 @@ function updateCardStatus(parkId) {
   if (card) card.style.setProperty('--stripe', STATUS_META[avail.status].stripe);
 }
 
-function parkCard(park, start) {
+function parkCard(park, start, nights) {
   const sys = SYSTEMS[park.system];
   const avail = getStatus(park);
   const sm = STATUS_META[avail.status];
@@ -444,7 +452,7 @@ function parkCard(park, start) {
           ${park.dogs ? `<span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>` : ''}
           ${park.rv   ? `<span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>` : ''}
         </div>
-        <a href="${buildBookingUrl(park, start)}" target="_blank" rel="noopener"
+        <a href="${buildBookingUrl(park, start, nights)}" target="_blank" rel="noopener"
            class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
           ${rcPlaceId(park) ? 'Book' : 'Check'} →
         </a>
@@ -454,6 +462,7 @@ function parkCard(park, start) {
 
 function render() {
   const start = document.getElementById('startDate').value;
+  const nights = parseInt(document.getElementById('nights').value, 10);
   const maxDrive = parseInt(document.getElementById('maxDrive').value, 10);
   const envs = [...document.querySelectorAll('#envFilters input:checked')].map(i => i.value);
   const dogsOnly = document.getElementById('dogsOnly').checked;
@@ -506,7 +515,7 @@ function render() {
 
   document.getElementById('resultCount').textContent =
     `${filtered.length} of ${PARKS.length} campgrounds`;
-  document.getElementById('results').innerHTML = filtered.map(p => parkCard(p, start)).join('');
+  document.getElementById('results').innerHTML = filtered.map(p => parkCard(p, start, nights)).join('');
   document.getElementById('emptyState').classList.toggle('hidden', filtered.length > 0);
   document.getElementById('results').classList.toggle('hidden', filtered.length === 0);
 }
