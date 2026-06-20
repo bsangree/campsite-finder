@@ -91,6 +91,7 @@
             <option value="60">≤ 1 hr</option>
             <option value="90">≤ 1.5 hr</option>
             <option value="120">≤ 2 hr</option>
+            <option value="200">≤ 3.5 hr (Big Sur)</option>
           </select>
         </div>
 
@@ -324,6 +325,37 @@ const PARKS = [
     drive: 90, env: ["redwoods", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 118,
     desc: "Redwood ridgetop between Gilroy and the coast. Yurts available.",
     url: "https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" },
+
+  // --- Big Sur ---
+  { id: "pfeiffer-big-sur", name: "Pfeiffer Big Sur SP", system: "reserve_ca",
+    drive: 155, env: ["redwoods", "coast"], dogs: false, rv: true, access: "drive_in", sites: 189,
+    desc: "The main Big Sur camp — redwoods along the Big Sur River, walk to the gorge.",
+    url: "https://www.reservecalifornia.com/park/690" },
+
+  { id: "andrew-molera", name: "Andrew Molera SP", system: "reserve_ca",
+    drive: 150, env: ["coast", "grassland"], dogs: false, rv: false, access: "walk_in", sites: 24,
+    desc: "Walk-in meadow camp 0.3 mi from parking; trail to a long wild beach.",
+    url: "https://www.reservecalifornia.com/park/1077" },
+
+  { id: "julia-pfeiffer", name: "Julia Pfeiffer Burns SP", system: "reserve_ca",
+    drive: 165, env: ["coast", "redwoods"], dogs: false, rv: false, access: "walk_in", sites: 2,
+    desc: "Two clifftop environmental sites overlooking McWay Falls. Among the hardest in CA to get.",
+    url: "https://www.reservecalifornia.com/park/661" },
+
+  { id: "limekiln", name: "Limekiln SP", system: "reserve_ca",
+    drive: 185, env: ["redwoods", "coast"], dogs: false, rv: true, access: "drive_in", sites: 28,
+    desc: "Compact redwood canyon meeting the ocean; waterfall hike + historic kilns.",
+    url: "https://www.reservecalifornia.com/park/666" },
+
+  { id: "kirk-creek", name: "Kirk Creek", system: "rec_gov",
+    drive: 190, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 33,
+    desc: "Blufftop Forest Service camp on Highway 1 — every site has an ocean view.",
+    url: "https://www.recreation.gov/camping/campgrounds/233116" },
+
+  { id: "plaskett-creek", name: "Plaskett Creek", system: "rec_gov",
+    drive: 195, env: ["coast", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 44,
+    desc: "Grassy Forest Service camp across Hwy 1 from Sand Dollar Beach.",
+    url: "https://www.recreation.gov/camping/campgrounds/231959" },
 
   // --- Delta ---
   { id: "brannan-island", name: "Brannan Island SRA", system: "reserve_ca",
