@@ -115,15 +115,22 @@
     <!-- ========== RESULTS ========== -->
     <main>
       <div id="statusBar" class="mb-5"></div>
-      <div class="flex items-baseline justify-between mb-3">
+      <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
         <div id="resultCount" class="text-sm text-stone-500"></div>
-        <select id="sortBy" class="text-sm bg-white border border-sand-200 rounded-lg px-3 py-1.5">
-          <option value="availability">Sort: Availability</option>
-          <option value="drive">Sort: Drive time</option>
-          <option value="name">Sort: Name</option>
-        </select>
+        <div class="flex items-center gap-2">
+          <div class="flex bg-white border border-sand-200 rounded-lg p-0.5 text-sm">
+            <button id="viewList" class="view-tab px-3 py-1 rounded-md">List</button>
+            <button id="viewGrid" class="view-tab px-3 py-1 rounded-md">Scan 8 weekends</button>
+          </div>
+          <select id="sortBy" class="text-sm bg-white border border-sand-200 rounded-lg px-3 py-1.5">
+            <option value="availability">Sort: Availability</option>
+            <option value="drive">Sort: Drive time</option>
+            <option value="name">Sort: Name</option>
+          </select>
+        </div>
       </div>
       <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <div id="gridView" class="hidden bg-white shadow-sm rounded-2xl overflow-x-auto"></div>
       <div id="emptyState" class="hidden text-center py-20 text-stone-500">
         <div class="text-5xl mb-3">🌲</div>
         <p class="font-medium">Nothing matches those filters.</p>
@@ -482,6 +489,115 @@ function getStatus(park) {
 }
 
 // ============================================================================
+// SCAN-AHEAD GRID — parks × next 8 weekends
+// ============================================================================
+
+let viewMode = 'list';
+const gridStatus = {};   // gridStatus[parkId][dateISO] = {status, sitesAvailable}
+const GRID_WEEKS = 8;
+
+function pLimit(n) {
+  let active = 0; const queue = [];
+  const next = () => { if (queue.length && active < n) { active++; const {fn,res,rej}=queue.shift(); fn().then(res,rej).finally(()=>{active--;next()}); } };
+  return fn => new Promise((res,rej) => { queue.push({fn,res,rej}); next(); });
+}
+
+function gridDates() {
+  const fri0 = upcomingFriday(0);
+  return Array.from({length: GRID_WEEKS}, (_,i) => fmtISO(addDays(fri0, i*7)));
+}
+
+const CELL_CLS = {
+  available:  'bg-emerald-500 text-white hover:bg-emerald-600',
+  full:       'bg-rose-100 text-rose-400',
+  loading:    'bg-stone-100 text-stone-400 animate-pulse',
+  check_site: 'bg-stone-100 text-stone-400',
+  error:      'bg-stone-100 text-stone-300',
+};
+
+function gridCell(park, dateISO, nights) {
+  const st = gridStatus[park.id]?.[dateISO] || { status: initialStatus(park) };
+  const txt = st.status==='available' ? st.sitesAvailable : st.status==='full' ? '·' : st.status==='loading' ? '…' : '?';
+  return `<a href="${buildBookingUrl(park, dateISO, nights)}" target="_blank" rel="noopener"
+             class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded ${CELL_CLS[st.status]}"
+             title="${park.name} — ${dateISO}">${txt}</a>`;
+}
+
+function renderGrid() {
+  const dates = gridDates();
+  const nights = parseInt(document.getElementById('nights').value, 10);
+  const filtered = applyFilters(PARKS).sort((a,b) => a.drive - b.drive);
+  const fmtCol = iso => { const d=parseISO(iso); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+
+  const head = `<tr>
+    <th class="sticky left-0 bg-white text-left text-xs font-semibold text-stone-500 px-4 py-3 min-w-[200px]">Campground</th>
+    ${dates.map(d => `<th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">${fmtCol(d)}</th>`).join('')}
+  </tr>`;
+
+  const rows = filtered.map(p => `<tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">${p.name}</div>
+      <div class="text-[10px] text-stone-500">${fmtDrive(p.drive)} · ${SYSTEMS[p.system].label}</div>
+    </td>
+    ${dates.map(d => `<td class="px-1.5 py-2" data-grid="${p.id}|${d}">${gridCell(p, d, nights)}</td>`).join('')}
+  </tr>`).join('');
+
+  document.getElementById('gridView').innerHTML = `<table class="w-full border-collapse"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+  document.getElementById('resultCount').textContent = `${filtered.length} campgrounds × ${GRID_WEEKS} weekends`;
+}
+
+async function loadGrid() {
+  const dates = gridDates();
+  const nights = parseInt(document.getElementById('nights').value, 10);
+  const limit = pLimit(12);
+  const tasks = [];
+  for (const p of PARKS) {
+    const fetcher = rcPlaceId(p) ? d => fetchRC(rcPlaceId(p), d, nights)
+                  : recGovId(p)  ? d => fetchRecGov(recGovId(p), d, nights)
+                  : null;
+    if (!fetcher) continue;
+    gridStatus[p.id] ||= {};
+    for (const d of dates) {
+      if (gridStatus[p.id][d]) continue; // cached
+      tasks.push(limit(async () => {
+        try { gridStatus[p.id][d] = await fetcher(d); }
+        catch { gridStatus[p.id][d] = { status: 'error' }; }
+        const cell = document.querySelector(`[data-grid="${p.id}|${d}"]`);
+        if (cell && viewMode==='grid') cell.innerHTML = gridCell(p, d, nights);
+      }));
+    }
+  }
+  await Promise.all(tasks);
+}
+
+function applyFilters(parks) {
+  const maxDrive = parseInt(document.getElementById('maxDrive').value, 10);
+  const envs = [...document.querySelectorAll('#envFilters input:checked')].map(i => i.value);
+  const dogsOnly = document.getElementById('dogsOnly').checked;
+  const rvOnly = document.getElementById('rvOnly').checked;
+  const driveInOnly = document.getElementById('driveInOnly').checked;
+  return parks.filter(p => {
+    if (p.drive > maxDrive) return false;
+    if (envs.length && !envs.some(e => p.env.includes(e))) return false;
+    if (dogsOnly && !p.dogs) return false;
+    if (rvOnly && !p.rv) return false;
+    if (driveInOnly && p.access !== 'drive_in') return false;
+    return true;
+  });
+}
+
+function setView(mode) {
+  viewMode = mode;
+  document.getElementById('results').classList.toggle('hidden', mode !== 'list');
+  document.getElementById('statusBar').classList.toggle('hidden', mode !== 'list');
+  document.getElementById('gridView').classList.toggle('hidden', mode !== 'grid');
+  document.getElementById('sortBy').classList.toggle('hidden', mode !== 'list');
+  document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('bg-forest-700','text-white'));
+  document.getElementById(mode==='list'?'viewList':'viewGrid').classList.add('bg-forest-700','text-white');
+  if (mode === 'grid') { renderGrid(); loadGrid(); } else { render(); }
+}
+
+// ============================================================================
 // RENDERING
 // ============================================================================
 
@@ -674,10 +790,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   ['startDate','nights'].forEach(id => document.getElementById(id).addEventListener('change', onDatesChanged));
+  const rerender = () => viewMode==='grid' ? renderGrid() : render();
   ['maxDrive','dogsOnly','rvOnly','driveInOnly','availOnly','sortBy']
-    .forEach(id => document.getElementById(id).addEventListener('change', render));
-  document.querySelectorAll('#envFilters input').forEach(i => i.addEventListener('change', render));
+    .forEach(id => document.getElementById(id).addEventListener('change', rerender));
+  document.querySelectorAll('#envFilters input').forEach(i => i.addEventListener('change', rerender));
 
+  document.getElementById('viewList').addEventListener('click', () => setView('list'));
+  document.getElementById('viewGrid').addEventListener('click', () => setView('grid'));
+  setView('list');
   onDatesChanged();
 });
 </script>
