@@ -7,78 +7,86 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: { extend: { colors: {
-        forest: { 50:'#f3f6f3', 100:'#e3ebe2', 200:'#c6d6c4', 300:'#9db89a', 500:'#5a8055', 600:'#3d5e39', 700:'#2f4a2c', 800:'#243a22', 900:'#1c2e1a' },
-        sand:   { 50:'#fdfbf7', 100:'#f7f2e8', 200:'#ede3d0', 300:'#ddccac' },
-      }}}
+      theme: { extend: {
+        colors: {
+          forest: { 50:'#f3f6f3', 100:'#e3ebe2', 200:'#c6d6c4', 300:'#9db89a', 500:'#5a8055', 600:'#3d5e39', 700:'#2f4a2c', 800:'#243a22', 900:'#1c2e1a' },
+          sand:   { 50:'#fdfbf7', 100:'#f7f2e8', 200:'#ede3d0', 300:'#ddccac' },
+          rust:   { DEFAULT:'#A14D3B', 600:'#A14D3B' },
+        },
+        fontFamily: { sans: ['ui-sans-serif','-apple-system','BlinkMacSystemFont','"Segoe UI"','Roboto','sans-serif'] },
+      }}
     }
   </script>
   <style>
-    body {
-      background-color: #fdfbf7;
-      background-image: radial-gradient(circle at 1px 1px, rgba(61,94,57,.06) 1px, transparent 0);
-      background-size: 24px 24px;
-    }
-    .card-stripe { position: relative; }
-    .card-stripe::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:4px 0 0 4px; background:var(--stripe); }
+    body { background-color:#fdfbf7; }
+    .hscroll-fade { position:relative; }
+    .hscroll-fade::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px;
+      background:linear-gradient(to right, rgba(255,255,255,0), #fff); pointer-events:none; }
   </style>
 </head>
 <body class="text-stone-900 antialiased">
 
-<!-- Header -->
+<!-- ===================== HEADER ===================== -->
 <header class="bg-forest-800 text-white">
-  <div class="max-w-7xl mx-auto px-4 pt-8 pb-10">
-    <div class="flex items-end justify-between flex-wrap gap-4">
+  <div class="max-w-7xl mx-auto px-4 pt-5 pb-5 sm:pt-7 sm:pb-8">
+    <div class="flex items-end justify-between gap-4">
       <div>
-        <div class="text-forest-200 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Bay Area</div>
-        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Campsite Finder</h1>
-        <p class="text-forest-100 mt-2 max-w-xl">Live availability across 30+ campgrounds — state parks, national parks, GGNRA. Pick a weekend, see what's open, book it.</p>
+        <div class="text-forest-200 text-[13px] mb-0.5">Bay Area</div>
+        <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight">Campsite Finder</h1>
+        <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across 30+ campgrounds — state parks, national parks, GGNRA. Pick a weekend, see what's open, book it.</p>
       </div>
-      <div id="headerStats" class="text-right text-forest-200 text-sm"></div>
+      <div id="headerStats" class="text-right shrink-0"></div>
     </div>
   </div>
-  <div class="h-2 bg-gradient-to-r from-forest-600 via-forest-500 to-sand-300"></div>
 </header>
 
-<div class="max-w-7xl mx-auto px-4 py-8">
-
-  <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
-
-    <!-- ========== FILTER SIDEBAR ========== -->
-    <aside class="bg-white shadow-sm rounded-2xl h-fit lg:sticky lg:top-4 overflow-hidden">
-
-      <!-- Dates -->
-      <div class="p-5 bg-forest-50/60 border-b border-sand-200">
-        <label class="block text-[11px] font-bold uppercase tracking-wider text-forest-700 mb-3">When</label>
-        <div class="flex gap-1.5">
-          <button id="prevWeek" title="−1 week" class="px-2.5 bg-white border border-sand-200 rounded-lg hover:bg-sand-100 text-stone-600 transition">◀</button>
-          <input id="startDate" type="date" class="flex-1 min-w-0 bg-white border border-sand-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none" />
-          <button id="nextWeek" title="+1 week" class="px-2.5 bg-white border border-sand-200 rounded-lg hover:bg-sand-100 text-stone-600 transition">▶</button>
-        </div>
-        <select id="nights" class="w-full mt-2 bg-white border border-sand-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-forest-500 outline-none">
-          <option value="1">1 night</option>
-          <option value="2" selected>2 nights</option>
-          <option value="3">3 nights</option>
-          <option value="4">4 nights</option>
-          <option value="5">5 nights</option>
-          <option value="7">1 week</option>
-        </select>
-        <div id="dateSummary" class="text-xs text-forest-700 font-medium mt-2.5 text-center"></div>
-        <div class="grid grid-cols-3 gap-1.5 mt-2.5">
-          <button data-quick="tonight" class="quick-date text-xs px-2 py-1.5 bg-white border border-sand-200 hover:border-forest-500 hover:text-forest-700 rounded-md transition">Tonight</button>
-          <button data-quick="weekend" class="quick-date text-xs px-2 py-1.5 bg-white border border-sand-200 hover:border-forest-500 hover:text-forest-700 rounded-md transition">This wknd</button>
-          <button data-quick="next-weekend" class="quick-date text-xs px-2 py-1.5 bg-white border border-sand-200 hover:border-forest-500 hover:text-forest-700 rounded-md transition">Next wknd</button>
-        </div>
+<!-- ===================== STICKY DATE BAR ===================== -->
+<div id="dateBar" class="sticky top-0 z-30 bg-sand-50 border-b border-stone-900/10">
+  <div class="max-w-7xl mx-auto px-4 py-3 space-y-2.5">
+    <div class="flex gap-2">
+      <button id="prevWeek" title="−1 week" class="w-11 shrink-0 bg-white border border-stone-900/10 rounded-lg hover:bg-stone-50 text-stone-600">◀</button>
+      <input id="startDate" type="date" class="flex-1 min-w-0 h-11 bg-white border border-stone-900/10 rounded-lg px-3 text-sm focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none" />
+      <select id="nights" class="h-11 bg-white border border-stone-900/10 rounded-lg px-3 text-sm focus:ring-2 focus:ring-forest-500 outline-none">
+        <option value="1">1 night</option>
+        <option value="2" selected>2 nights</option>
+        <option value="3">3 nights</option>
+        <option value="4">4 nights</option>
+        <option value="5">5 nights</option>
+        <option value="7">1 week</option>
+      </select>
+      <button id="nextWeek" title="+1 week" class="w-11 shrink-0 bg-white border border-stone-900/10 rounded-lg hover:bg-stone-50 text-stone-600">▶</button>
+    </div>
+    <div class="flex items-center justify-between gap-3 flex-wrap">
+      <div id="dateSummary" class="text-sm font-medium text-stone-800"></div>
+      <div class="flex gap-1.5">
+        <button data-quick="tonight" class="quick-date h-9 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Tonight</button>
+        <button data-quick="weekend" class="quick-date h-9 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">This wknd</button>
+        <button data-quick="next-weekend" class="quick-date h-9 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Next wknd</button>
       </div>
+    </div>
+  </div>
+</div>
 
-      <div class="p-5 space-y-5">
-        <label class="flex items-center gap-2.5 text-sm font-semibold text-forest-700 cursor-pointer">
-          <input id="availOnly" type="checkbox" class="w-4 h-4 rounded accent-forest-600"> Available only
-        </label>
+<div class="max-w-7xl mx-auto px-4 py-5">
+  <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5">
+
+    <!-- ===================== FILTERS ===================== -->
+    <aside class="lg:sticky lg:top-[140px] h-fit">
+
+      <label class="flex items-center gap-3 min-h-[44px] px-4 bg-white border border-stone-900/10 rounded-xl text-sm font-medium text-forest-700 cursor-pointer">
+        <input id="availOnly" type="checkbox" class="w-5 h-5 rounded accent-forest-600"> Available only
+      </label>
+
+      <button id="filtersToggle" class="sm:hidden w-full mt-2.5 h-11 px-4 bg-white border border-stone-900/10 rounded-xl flex items-center justify-between text-sm font-medium">
+        <span>Filters<span id="filterCount" class="ml-1.5 text-stone-500"></span></span>
+        <span id="filtersChevron" class="text-stone-400">▾</span>
+      </button>
+
+      <div id="filtersBody" class="hidden sm:block mt-2.5 bg-white border border-stone-900/10 rounded-xl p-4 space-y-5">
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Drive from SF</label>
-          <select id="maxDrive" class="w-full bg-white border border-sand-200 rounded-lg px-3 py-2 text-sm">
+          <div class="text-[13px] font-medium text-stone-500 mb-2">Drive from SF</div>
+          <select id="maxDrive" class="w-full h-11 bg-white border border-stone-900/10 rounded-lg px-3 text-sm">
             <option value="999">Any distance</option>
             <option value="45">≤ 45 min</option>
             <option value="60">≤ 1 hr</option>
@@ -88,53 +96,52 @@
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Environment</label>
-          <div id="envFilters" class="space-y-1.5 text-sm">
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="redwoods" class="rounded accent-forest-600"> 🌲 Redwoods</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="coast" class="rounded accent-forest-600"> 🌊 Coast</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="lake" class="rounded accent-forest-600"> 🛶 Lake</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="oak_woodland" class="rounded accent-forest-600"> 🌳 Oak woodland</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="grassland" class="rounded accent-forest-600"> 🌾 Grassland</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="chaparral" class="rounded accent-forest-600"> 🌵 Chaparral</label>
+          <div class="text-[13px] font-medium text-stone-500 mb-1">Environment</div>
+          <div id="envFilters">
+            <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input type="checkbox" value="redwoods" class="w-5 h-5 rounded accent-forest-600"> Redwoods</label>
+            <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input type="checkbox" value="coast" class="w-5 h-5 rounded accent-forest-600"> Coast</label>
+            <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input type="checkbox" value="lake" class="w-5 h-5 rounded accent-forest-600"> Lake</label>
+            <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input type="checkbox" value="oak_woodland" class="w-5 h-5 rounded accent-forest-600"> Oak woodland</label>
+            <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input type="checkbox" value="grassland" class="w-5 h-5 rounded accent-forest-600"> Grassland</label>
+            <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input type="checkbox" value="chaparral" class="w-5 h-5 rounded accent-forest-600"> Chaparral</label>
           </div>
         </div>
 
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Site</label>
-          <div class="space-y-1.5 text-sm">
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input id="dogsOnly" type="checkbox" class="rounded accent-forest-600"> 🐕 Dogs allowed</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input id="rvOnly" type="checkbox" class="rounded accent-forest-600"> 🚐 RV sites</label>
-            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input id="driveInOnly" type="checkbox" class="rounded accent-forest-600"> 🚗 Drive-in only</label>
-          </div>
+          <div class="text-[13px] font-medium text-stone-500 mb-1">Site</div>
+          <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input id="dogsOnly" type="checkbox" class="w-5 h-5 rounded accent-forest-600"> Dogs allowed</label>
+          <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input id="rvOnly" type="checkbox" class="w-5 h-5 rounded accent-forest-600"> RV sites</label>
+          <label class="flex items-center gap-3 min-h-[44px] py-1 cursor-pointer text-sm hover:bg-stone-50 rounded"><input id="driveInOnly" type="checkbox" class="w-5 h-5 rounded accent-forest-600"> Drive-in only</label>
         </div>
 
-        <button id="clearFilters" class="w-full text-xs text-stone-400 hover:text-stone-700 pt-3 border-t border-sand-200 transition">Clear all filters</button>
+        <button id="clearFilters" class="w-full text-[13px] text-stone-500 hover:text-stone-800 pt-3 border-t border-stone-900/10">Clear filters</button>
       </div>
     </aside>
 
-    <!-- ========== RESULTS ========== -->
+    <!-- ===================== RESULTS ===================== -->
     <main>
-      <div id="statusBar" class="mb-5"></div>
-      <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
-        <div id="resultCount" class="text-sm text-stone-500"></div>
+      <div class="flex items-center justify-between gap-3 mb-3 flex-wrap">
+        <div id="resultCount" class="text-sm text-stone-600"></div>
         <div class="flex items-center gap-2">
-          <div class="flex bg-white border border-sand-200 rounded-lg p-0.5 text-sm">
-            <button id="viewList" class="view-tab px-3 py-1 rounded-md">List</button>
-            <button id="viewGrid" class="view-tab px-3 py-1 rounded-md">Scan 8 weekends</button>
+          <div class="flex bg-white border border-stone-900/10 rounded-lg p-0.5 text-sm h-10">
+            <button id="viewList" class="view-tab px-3 rounded-md">List</button>
+            <button id="viewGrid" class="view-tab px-3 rounded-md">Scan 8 weekends</button>
           </div>
-          <select id="sortBy" class="text-sm bg-white border border-sand-200 rounded-lg px-3 py-1.5">
-            <option value="availability">Sort: Availability</option>
-            <option value="drive">Sort: Drive time</option>
-            <option value="name">Sort: Name</option>
+          <select id="sortBy" class="h-10 text-sm bg-white border border-stone-900/10 rounded-lg px-3">
+            <option value="availability">Availability</option>
+            <option value="drive">Drive time</option>
+            <option value="name">Name</option>
           </select>
         </div>
       </div>
-      <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-      <div id="gridView" class="hidden bg-white shadow-sm rounded-2xl overflow-x-auto"></div>
+
+      <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+
+      <div id="gridView" class="hidden hscroll-fade bg-white border border-stone-900/10 rounded-xl overflow-x-auto" style="scroll-snap-type:x proximity"></div>
+
       <div id="emptyState" class="hidden text-center py-20 text-stone-500">
-        <div class="text-5xl mb-3">🌲</div>
         <p class="font-medium">Nothing matches those filters.</p>
-        <button onclick="document.getElementById('clearFilters').click()" class="mt-3 text-sm text-forest-600 hover:text-forest-700 underline">Clear filters</button>
+        <button onclick="document.getElementById('clearFilters').click()" class="mt-3 text-sm text-forest-700 hover:underline">Clear filters</button>
       </div>
     </main>
   </div>
@@ -148,27 +155,22 @@
 
 <script>
 // ============================================================================
-// PARK DATA
-// One array. This is the "database." Edit here to add/fix campgrounds.
+// PARK DATA — the "database." Edit here to add/fix campgrounds.
 // ============================================================================
 
 const SYSTEMS = {
-  reserve_ca:   { label: "CA State Parks",    color: "bg-amber-100 text-amber-800" },
-  rec_gov:      { label: "Recreation.gov",    color: "bg-blue-100 text-blue-800" },
-  ebparks:      { label: "East Bay Parks",    color: "bg-emerald-100 text-emerald-800" },
-  scc_parks:    { label: "Santa Clara Co.",   color: "bg-purple-100 text-purple-800" },
-  smc_parks:    { label: "San Mateo Co.",     color: "bg-rose-100 text-rose-800" },
+  reserve_ca: { label: "ReserveCalifornia" },
+  rec_gov:    { label: "Recreation.gov" },
+  ebparks:    { label: "East Bay Parks" },
+  scc_parks:  { label: "Santa Clara County Parks" },
+  smc_parks:  { label: "San Mateo County Parks" },
 };
 
 const ENV_LABELS = {
-  redwoods: "🌲 Redwoods", coast: "🌊 Coast", lake: "🛶 Lake",
-  oak_woodland: "🌳 Oak", grassland: "🌾 Grassland", chaparral: "🌵 Chaparral",
+  redwoods: "Redwoods", coast: "Coast", lake: "Lake",
+  oak_woodland: "Oak woodland", grassland: "Grassland", chaparral: "Chaparral",
 };
 
-// Availability for v1 is mocked. Three states:
-//   available   — confirmed open (green)
-//   check_site  — no API; click through to check (gray)  ← default
-//   likely_full — competitive / holiday flag (red)
 const PARKS = [
   // --- Marin ---
   { id: "samuel-p-taylor", name: "Samuel P. Taylor SP", system: "reserve_ca",
@@ -221,7 +223,6 @@ const PARKS = [
     desc: "Hike-in coastal camps (Wildcat, Coast, Sky, Glen). Permit required.",
     url: "https://www.recreation.gov/camping/campgrounds/233359" },
 
-  // --- South Bay extension ---
   { id: "pinnacles", name: "Pinnacles NP", system: "rec_gov",
     drive: 130, env: ["chaparral", "oak_woodland"], dogs: false, rv: true, access: "drive_in", sites: 134,
     desc: "Volcanic spires, talus caves, condors. Hot in summer; spring/fall are prime.",
@@ -360,37 +361,31 @@ const PARKS = [
 ];
 
 // ============================================================================
-// AVAILABILITY
-// reserve_ca → live via ReserveCalifornia's RDR API (CORS-open, no key needed)
-// everything else → "check_site" link-out
+// AVAILABILITY — live via ReserveCalifornia + Recreation.gov (both CORS-open)
 // ============================================================================
 
 const RC_API = 'https://california-rdr.prod.cali.rd12.recreation-management.tylerapp.com/rdr';
 
 const STATUS_META = {
-  loading:    { label: "Checking…",  pill: "bg-stone-100 text-stone-500",     stripe: "#d6d3d1", sortRank: 1 },
-  available:  { label: "Available",  pill: "bg-emerald-100 text-emerald-800", stripe: "#10b981", sortRank: 0 },
-  full:       { label: "Full",       pill: "bg-rose-100 text-rose-800",       stripe: "#f43f5e", sortRank: 3 },
-  check_site: { label: "Check site", pill: "bg-stone-100 text-stone-600",     stripe: "#a8a29e", sortRank: 2 },
-  error:      { label: "—",          pill: "bg-stone-100 text-stone-400",     stripe: "#d6d3d1", sortRank: 2 },
+  loading:    { sortRank: 1 },
+  available:  { sortRank: 0 },
+  full:       { sortRank: 3 },
+  check_site: { sortRank: 2 },
+  error:      { sortRank: 2 },
 };
 
-// Per-park live status, keyed by park.id. Populated async; render() reads from here.
 let liveStatus = {};
 
 function rcPlaceId(park) {
   const m = park.url.match(/reservecalifornia\.com\/park\/(\d+)/);
   return m ? parseInt(m[1], 10) : null;
 }
-
 function recGovId(park) {
   const m = park.url.match(/recreation\.gov\/camping\/campgrounds\/(\d+)/);
   return m ? m[1] : null;
 }
-
-function initialStatus(park) {
-  return (rcPlaceId(park) || recGovId(park)) ? 'loading' : 'check_site';
-}
+function hasLiveApi(park) { return !!(rcPlaceId(park) || recGovId(park)); }
+function initialStatus(park) { return hasLiveApi(park) ? 'loading' : 'check_site'; }
 
 async function fetchRC(placeId, startISO, nights) {
   const [y,m,d] = startISO.split('-');
@@ -429,7 +424,6 @@ async function fetchRecGovMonth(facilityId, monthStartISO) {
 async function fetchRecGov(facilityId, startISO, nights) {
   const start = parseISO(startISO);
   const dates = Array.from({length: nights}, (_, i) => addDays(start, i));
-  // Fetch each distinct month the stay touches
   const months = [...new Set(dates.map(d => fmtISO(new Date(d.getFullYear(), d.getMonth(), 1))))];
   const monthData = await Promise.all(months.map(m => fetchRecGovMonth(facilityId, m)));
   const sites = Object.assign({}, ...monthData.map(d => d.campsites || {}));
@@ -471,11 +465,11 @@ function getStatus(park) {
 }
 
 // ============================================================================
-// SCAN-AHEAD GRID — parks × next 8 weekends
+// SCAN-AHEAD GRID — parks × next 8 weekends from selected date
 // ============================================================================
 
 let viewMode = 'list';
-const gridStatus = {};   // gridStatus[parkId][dateISO] = {status, sitesAvailable}
+const gridStatus = {};
 const GRID_WEEKS = 8;
 
 function pLimit(n) {
@@ -489,19 +483,18 @@ function gridDates() {
   return Array.from({length: GRID_WEEKS}, (_,i) => fmtISO(addDays(anchor, i*7)));
 }
 
-const CELL_CLS = {
-  available:  'bg-emerald-500 text-white hover:bg-emerald-600',
-  full:       'bg-rose-100 text-rose-400',
-  loading:    'bg-stone-100 text-stone-400 animate-pulse',
-  check_site: 'bg-stone-100 text-stone-400',
-  error:      'bg-stone-100 text-stone-300',
-};
-
 function gridCell(park, dateISO, nights) {
   const st = gridStatus[park.id]?.[dateISO] || { status: initialStatus(park) };
-  const txt = st.status==='available' ? st.sitesAvailable : st.status==='full' ? '·' : st.status==='loading' ? '…' : '?';
+  let cls, txt;
+  if (st.status === 'available') {
+    const n = st.sitesAvailable;
+    cls = n >= 10 ? 'bg-forest-600 text-white hover:bg-forest-700' : 'bg-forest-200 text-forest-900 hover:bg-forest-300';
+    txt = n;
+  } else if (st.status === 'full') { cls = 'bg-sand-100 text-stone-300'; txt = '—'; }
+  else if (st.status === 'loading') { cls = 'bg-stone-100 text-stone-400 animate-pulse'; txt = '…'; }
+  else { cls = 'bg-stone-100 text-stone-400'; txt = '?'; }
   return `<a href="${buildBookingUrl(park, dateISO, nights)}" target="_blank" rel="noopener"
-             class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded ${CELL_CLS[st.status]}"
+             class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded ${cls}"
              title="${park.name} — ${dateISO}">${txt}</a>`;
 }
 
@@ -509,17 +502,19 @@ function renderGrid() {
   const dates = gridDates();
   const nights = parseInt(document.getElementById('nights').value, 10);
   const filtered = applyFilters(PARKS).sort((a,b) => a.drive - b.drive);
-  const fmtCol = iso => { const d=parseISO(iso); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
 
   const head = `<tr>
-    <th class="sticky left-0 bg-white text-left text-xs font-semibold text-stone-500 px-4 py-3 min-w-[200px]">Campground</th>
-    ${dates.map(d => `<th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">${fmtCol(d)}</th>`).join('')}
+    <th class="sticky left-0 top-0 z-10 bg-white text-left text-[13px] font-medium text-stone-500 px-3 py-2.5 min-w-[140px] sm:min-w-[200px]">Campground</th>
+    ${dates.map(iso => { const d=parseISO(iso); return `<th class="sticky top-0 z-10 bg-white text-[13px] font-medium text-stone-500 px-1.5 py-2.5 min-w-[56px]" style="scroll-snap-align:start">
+        ${d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+        <div class="text-[10px] text-stone-400 font-normal">${d.toLocaleDateString('en-US',{weekday:'short'})}</div>
+      </th>`}).join('')}
   </tr>`;
 
-  const rows = filtered.map(p => `<tr class="border-t border-sand-100">
-    <td class="sticky left-0 bg-white px-4 py-2">
-      <div class="font-medium text-sm leading-tight">${p.name}</div>
-      <div class="text-[10px] text-stone-500">${fmtDrive(p.drive)} · ${SYSTEMS[p.system].label}</div>
+  const rows = filtered.map(p => `<tr class="border-t border-stone-900/5">
+    <td class="sticky left-0 bg-white px-3 py-2 max-w-[150px] sm:max-w-none">
+      <div class="font-medium text-sm leading-tight truncate">${p.name}</div>
+      <div class="hidden sm:block text-[11px] text-stone-500">${fmtDrive(p.drive)} · ${SYSTEMS[p.system].label}</div>
     </td>
     ${dates.map(d => `<td class="px-1.5 py-2" data-grid="${p.id}|${d}">${gridCell(p, d, nights)}</td>`).join('')}
   </tr>`).join('');
@@ -540,7 +535,7 @@ async function loadGrid() {
     if (!fetcher) continue;
     gridStatus[p.id] ||= {};
     for (const d of dates) {
-      if (gridStatus[p.id][d]) continue; // cached
+      if (gridStatus[p.id][d]) continue;
       tasks.push(limit(async () => {
         try { gridStatus[p.id][d] = await fetcher(d); }
         catch { gridStatus[p.id][d] = { status: 'error' }; }
@@ -551,6 +546,10 @@ async function loadGrid() {
   }
   await Promise.all(tasks);
 }
+
+// ============================================================================
+// FILTERING (shared between list and grid)
+// ============================================================================
 
 function applyFilters(parks) {
   const maxDrive = parseInt(document.getElementById('maxDrive').value, 10);
@@ -568,10 +567,19 @@ function applyFilters(parks) {
   });
 }
 
+function activeFilterCount() {
+  let n = 0;
+  if (document.getElementById('maxDrive').value !== '999') n++;
+  n += document.querySelectorAll('#envFilters input:checked').length;
+  if (document.getElementById('dogsOnly').checked) n++;
+  if (document.getElementById('rvOnly').checked) n++;
+  if (document.getElementById('driveInOnly').checked) n++;
+  return n;
+}
+
 function setView(mode) {
   viewMode = mode;
   document.getElementById('results').classList.toggle('hidden', mode !== 'list');
-  document.getElementById('statusBar').classList.toggle('hidden', mode !== 'list');
   document.getElementById('gridView').classList.toggle('hidden', mode !== 'grid');
   document.getElementById('sortBy').classList.toggle('hidden', mode !== 'list');
   document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('bg-forest-700','text-white'));
@@ -581,19 +589,13 @@ function setView(mode) {
 }
 
 // ============================================================================
-// RENDERING
+// RENDERING (list view)
 // ============================================================================
 
 function buildBookingUrl(park, startISO, nights) {
   if (!startISO) return park.url;
-  if (rcPlaceId(park)) {
-    // ReserveCalifornia: /park/{id}?date=YYYY-MM-DD&night=N (singular)
-    return `${park.url}?date=${startISO}&night=${nights}`;
-  }
-  if (park.system === 'rec_gov') {
-    // Recreation.gov campground availability tab anchored on the month
-    return `${park.url}/availability?date=${startISO}`;
-  }
+  if (rcPlaceId(park))  return `${park.url}?date=${startISO}&night=${nights}`;
+  if (park.system === 'rec_gov') return `${park.url}/availability?date=${startISO}`;
   return park.url;
 }
 
@@ -601,78 +603,69 @@ function fmtDrive(min) {
   return min < 60 ? `${min} min` : `${Math.floor(min/60)}h ${min%60 ? (min%60)+'m' : ''}`.trim();
 }
 
-function statusBadge(avail) {
-  const sm = STATUS_META[avail.status];
-  const n = avail.sitesAvailable;
-  return `<span class="text-xs font-semibold px-2.5 py-1 rounded-full ${sm.pill} ${avail.status==='loading'?'animate-pulse':''}">${n ? n+' open' : sm.label}</span>`;
+function availBlock(avail) {
+  switch (avail.status) {
+    case 'available': {
+      const n = avail.sitesAvailable;
+      return `<div class="text-[21px] font-semibold text-forest-700 leading-none">${n}</div>
+              <div class="text-[11px] text-stone-500 mt-0.5">site${n===1?'':'s'} open</div>`;
+    }
+    case 'full':       return `<div class="text-[15px] font-semibold text-rust">Full</div>`;
+    case 'loading':    return `<div class="text-[13px] font-medium text-stone-400 animate-pulse">Checking…</div>`;
+    case 'check_site': return `<div class="text-[13px] font-medium text-stone-500">Check site</div>`;
+    default:           return `<div class="text-[13px] text-stone-400">—</div>`;
+  }
 }
 
 function updateCardStatus(parkId) {
   const park = PARKS.find(p => p.id === parkId);
-  const avail = getStatus(park);
-  const badge = document.querySelector(`[data-status="${parkId}"]`);
-  const card = document.querySelector(`[data-card="${parkId}"]`);
-  if (badge) badge.innerHTML = statusBadge(avail);
-  if (card) card.style.setProperty('--stripe', STATUS_META[avail.status].stripe);
+  const el = document.querySelector(`[data-status="${parkId}"]`);
+  if (el) el.innerHTML = availBlock(getStatus(park));
+  const link = document.querySelector(`[data-link="${parkId}"]`);
+  if (link) link.className = sourceLinkCls(park);
 }
 
-function parkCard(park, start, nights) {
-  const sys = SYSTEMS[park.system];
-  const avail = getStatus(park);
-  const sm = STATUS_META[avail.status];
-  const accessLabel = { drive_in: "Drive-in", walk_in: "Walk-in", hike_in: "Hike-in" }[park.access];
+function sourceLinkCls(park) {
+  const st = getStatus(park).status;
+  return `text-[13px] font-medium ${st==='available' ? 'text-forest-700 hover:text-forest-800' : 'text-stone-500 hover:text-stone-700'}`;
+}
+
+function parkCard(park, startISO, nights) {
+  const access = { drive_in: "Drive-in", walk_in: "Walk-in", hike_in: "Hike-in" }[park.access];
+  const meta = [
+    fmtDrive(park.drive),
+    access,
+    ENV_LABELS[park.env[0]],
+    `${park.sites} sites`,
+    park.dogs ? 'Dogs OK' : null,
+    park.rv ? 'RV' : null,
+  ].filter(Boolean).join(' · ');
+  const sysLabel = SYSTEMS[park.system].label;
+  const linkText = hasLiveApi(park) ? `${sysLabel} ↗` : `Check on ${sysLabel} ↗`;
 
   return `
-    <div data-card="${park.id}" style="--stripe:${sm.stripe}"
-         class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
-      <div class="flex items-start justify-between gap-3 mb-1">
-        <h3 class="font-semibold text-lg leading-tight text-stone-900">${park.name}</h3>
-        <div data-status="${park.id}" class="shrink-0">${statusBadge(avail)}</div>
+    <article data-card="${park.id}" class="bg-white border border-stone-900/10 rounded-xl p-4">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="text-[17px] font-semibold text-stone-900 leading-tight">${park.name}</h3>
+        <div data-status="${park.id}" class="shrink-0 text-right">${availBlock(getStatus(park))}</div>
       </div>
-      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
-        <span class="px-1.5 py-0.5 rounded ${sys.color} font-medium">${sys.label}</span>
-        <span>·</span><span>${fmtDrive(park.drive)} drive</span>
-        <span>·</span><span>${accessLabel}</span>
-        <span>·</span><span>${park.sites} sites</span>
+      <div class="text-[13px] text-stone-500 mt-1">${meta}</div>
+      <p class="text-sm text-stone-700 leading-relaxed mt-2.5">${park.desc}</p>
+      <div class="mt-3">
+        <a href="${buildBookingUrl(park, startISO, nights)}" target="_blank" rel="noopener"
+           data-link="${park.id}" class="${sourceLinkCls(park)}">${linkText}</a>
       </div>
-
-      <p class="text-sm text-stone-600 mb-4">${park.desc}</p>
-
-      <div class="flex items-center justify-between">
-        <div class="flex flex-wrap gap-1">
-          ${park.env.map(e => `<span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">${ENV_LABELS[e]}</span>`).join('')}
-          ${park.dogs ? `<span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>` : ''}
-          ${park.rv   ? `<span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>` : ''}
-        </div>
-        <a href="${buildBookingUrl(park, start, nights)}" target="_blank" rel="noopener"
-           class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
-          ${(rcPlaceId(park) || recGovId(park)) ? 'Book' : 'Check'} →
-        </a>
-      </div>
-    </div>`;
+    </article>`;
 }
 
 function render() {
   const start = document.getElementById('startDate').value;
   const nights = parseInt(document.getElementById('nights').value, 10);
-  const maxDrive = parseInt(document.getElementById('maxDrive').value, 10);
-  const envs = [...document.querySelectorAll('#envFilters input:checked')].map(i => i.value);
-  const dogsOnly = document.getElementById('dogsOnly').checked;
-  const rvOnly = document.getElementById('rvOnly').checked;
-  const driveInOnly = document.getElementById('driveInOnly').checked;
   const sortBy = document.getElementById('sortBy').value;
-
   const availOnly = document.getElementById('availOnly').checked;
 
-  let filtered = PARKS.filter(p => {
-    if (p.drive > maxDrive) return false;
-    if (envs.length && !envs.some(e => p.env.includes(e))) return false;
-    if (dogsOnly && !p.dogs) return false;
-    if (rvOnly && !p.rv) return false;
-    if (driveInOnly && p.access !== 'drive_in') return false;
-    if (availOnly && getStatus(p).status !== 'available') return false;
-    return true;
-  });
+  let filtered = applyFilters(PARKS);
+  if (availOnly) filtered = filtered.filter(p => getStatus(p).status === 'available');
 
   filtered.sort((a, b) => {
     if (sortBy === 'name') return a.name.localeCompare(b.name);
@@ -683,33 +676,27 @@ function render() {
     return a.drive - b.drive;
   });
 
-  // Status summary strip
   const counts = { available: 0, full: 0, check_site: 0, loading: 0, error: 0 };
   PARKS.forEach(p => counts[getStatus(p).status]++);
   const totalSites = PARKS.reduce((n,p) => n + (getStatus(p).sitesAvailable || 0), 0);
-  const stat = (n, label, cls, click) => `
-    <div ${click||''} class="flex-1 min-w-[110px] ${click?'cursor-pointer hover:opacity-80':''}">
-      <div class="text-3xl font-bold ${cls} leading-none">${n}</div>
-      <div class="text-[11px] uppercase tracking-wider text-stone-500 mt-1.5">${label}</div>
-    </div>`;
-  document.getElementById('statusBar').innerHTML = `
-    <div class="bg-white shadow-sm rounded-2xl px-6 py-5 flex items-center gap-6 flex-wrap">
-      ${stat(counts.loading ? '…' : counts.available, 'Parks open', 'text-emerald-600',
-             `onclick="document.getElementById('availOnly').checked=true; render()"`)}
-      ${stat(counts.loading ? '…' : totalSites, 'Sites total', 'text-forest-700')}
-      ${stat(counts.full, 'Full', 'text-rose-600')}
-      ${stat(counts.check_site + counts.error, 'Check manually', 'text-stone-400')}
-      ${availOnly ? `<button onclick="document.getElementById('availOnly').checked=false; render()" class="text-xs text-stone-500 hover:text-stone-900 underline ml-auto">Show all</button>` : ''}
-    </div>`;
-  document.getElementById('headerStats').innerHTML = counts.loading
-    ? `<span class="opacity-60">checking ${counts.loading}…</span>`
-    : `<span class="text-2xl font-bold text-white">${counts.available}</span><br><span class="text-xs uppercase tracking-wider">open right now</span>`;
 
-  document.getElementById('resultCount').textContent =
-    `${filtered.length} of ${PARKS.length} campgrounds`;
+  document.getElementById('resultCount').innerHTML = counts.loading
+    ? `<span class="text-stone-400">Checking ${counts.loading} parks…</span>`
+    : `<span class="text-forest-700 font-semibold">${counts.available}</span> of ${PARKS.length} open` +
+      (totalSites ? ` · ${totalSites} sites` : '') +
+      (availOnly ? ` · <button onclick="document.getElementById('availOnly').checked=false; render(); writeUrl()" class="underline">show all</button>` : '');
+
+  document.getElementById('headerStats').innerHTML = counts.loading
+    ? `<span class="text-forest-200 text-sm">checking…</span>`
+    : `<div class="text-3xl sm:text-4xl font-semibold text-white leading-none">${counts.available}</div>
+       <div class="text-[12px] text-forest-200 mt-1">open right now</div>`;
+
+  const fc = activeFilterCount();
+  document.getElementById('filterCount').textContent = fc ? `· ${fc}` : '';
+
   document.getElementById('results').innerHTML = filtered.map(p => parkCard(p, start, nights)).join('');
   document.getElementById('emptyState').classList.toggle('hidden', filtered.length > 0);
-  document.getElementById('results').classList.toggle('hidden', filtered.length === 0);
+  document.getElementById('results').classList.toggle('hidden', filtered.length === 0 || viewMode !== 'list');
 }
 
 // ============================================================================
@@ -723,9 +710,7 @@ const addDays = (d, n) => { const x=new Date(d); x.setDate(x.getDate()+n); retur
 function upcomingFriday(offsetWeeks = 0) {
   const today = new Date(); today.setHours(0,0,0,0);
   const dow = today.getDay();
-  // If it's already Fri/Sat, "this weekend" = today; if Sun, weekend's over → next Fri.
-  let daysToFri = dow === 5 ? 0 : dow === 6 ? -1 : ((5 - dow) + 7) % 7;
-  if (dow === 6) daysToFri = 0; // Sat: start tonight, not yesterday
+  let daysToFri = dow === 5 ? 0 : dow === 6 ? 0 : ((5 - dow) + 7) % 7;
   return addDays(today, daysToFri + offsetWeeks*7);
 }
 
@@ -733,13 +718,8 @@ function setArrival(date, nights) {
   document.getElementById('startDate').value = fmtISO(date);
   if (nights != null) document.getElementById('nights').value = String(nights);
 }
+function shiftArrival(days) { setArrival(addDays(parseISO(document.getElementById('startDate').value), days)); }
 
-function shiftArrival(days) {
-  const cur = parseISO(document.getElementById('startDate').value);
-  setArrival(addDays(cur, days));
-}
-
-// ---- URL state: every filter combo is a shareable link ----
 function writeUrl() {
   const p = new URLSearchParams();
   p.set('d', document.getElementById('startDate').value);
@@ -795,10 +775,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('prevWeek').addEventListener('click', () => { shiftArrival(-7); onDatesChanged(); });
   document.getElementById('nextWeek').addEventListener('click', () => { shiftArrival(+7); onDatesChanged(); });
 
+  document.getElementById('filtersToggle').addEventListener('click', () => {
+    const body = document.getElementById('filtersBody');
+    const open = body.classList.toggle('hidden');
+    document.getElementById('filtersChevron').textContent = open ? '▾' : '▴';
+  });
+
   document.getElementById('clearFilters').addEventListener('click', () => {
     document.getElementById('maxDrive').value = '999';
     document.querySelectorAll('#envFilters input, #dogsOnly, #rvOnly, #driveInOnly, #availOnly').forEach(i => i.checked = false);
-    render();
+    writeUrl(); viewMode==='grid' ? renderGrid() : render();
   });
 
   ['startDate','nights'].forEach(id => document.getElementById(id).addEventListener('change', onDatesChanged));
