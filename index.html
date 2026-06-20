@@ -26,14 +26,27 @@
 
       <!-- Dates -->
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Dates</label>
-        <div class="space-y-2">
-          <input id="startDate" type="date" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm" />
-          <input id="endDate" type="date" class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm" />
+        <label class="block text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Arrive</label>
+        <div class="flex gap-1.5">
+          <button id="prevWeek" title="Back one week" class="px-2.5 border border-stone-300 rounded-lg hover:bg-stone-100 text-stone-600">◀</button>
+          <input id="startDate" type="date" class="flex-1 min-w-0 border border-stone-300 rounded-lg px-3 py-2 text-sm" />
+          <button id="nextWeek" title="Forward one week" class="px-2.5 border border-stone-300 rounded-lg hover:bg-stone-100 text-stone-600">▶</button>
         </div>
-        <div class="flex gap-2 mt-2">
-          <button data-quick="weekend" class="quick-date flex-1 text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">This wknd</button>
-          <button data-quick="next-weekend" class="quick-date flex-1 text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">Next wknd</button>
+        <div class="flex gap-1.5 mt-2">
+          <select id="nights" class="flex-1 border border-stone-300 rounded-lg px-3 py-2 text-sm">
+            <option value="1">1 night</option>
+            <option value="2" selected>2 nights</option>
+            <option value="3">3 nights</option>
+            <option value="4">4 nights</option>
+            <option value="5">5 nights</option>
+            <option value="7">1 week</option>
+          </select>
+        </div>
+        <div id="dateSummary" class="text-xs text-stone-500 mt-2 text-center"></div>
+        <div class="grid grid-cols-3 gap-1.5 mt-2">
+          <button data-quick="tonight" class="quick-date text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">Tonight</button>
+          <button data-quick="weekend" class="quick-date text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">This wknd</button>
+          <button data-quick="next-weekend" class="quick-date text-xs px-2 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md">Next wknd</button>
         </div>
       </div>
 
@@ -310,9 +323,8 @@ function initialStatus(park) {
   return rcPlaceId(park) ? 'loading' : 'check_site';
 }
 
-async function fetchRC(placeId, startISO, endISO) {
+async function fetchRC(placeId, startISO, nights) {
   const [y,m,d] = startISO.split('-');
-  const nights = Math.max(1, Math.round((new Date(endISO) - new Date(startISO)) / 86400000));
   const res = await fetch(RC_API + '/search/place', {
     method: 'POST', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -335,13 +347,13 @@ async function fetchRC(placeId, startISO, endISO) {
 }
 
 let fetchSeq = 0;
-async function refreshAvailability(startISO, endISO) {
+async function refreshAvailability(startISO, nights) {
   const seq = ++fetchSeq;
   liveStatus = {};
   const rcParks = PARKS.filter(p => rcPlaceId(p));
   await Promise.all(rcParks.map(async p => {
     try {
-      const r = await fetchRC(rcPlaceId(p), startISO, endISO);
+      const r = await fetchRC(rcPlaceId(p), startISO, nights);
       if (seq !== fetchSeq) return; // stale
       liveStatus[p.id] = r;
     } catch (e) {
@@ -361,9 +373,8 @@ function getStatus(park) {
 // RENDERING
 // ============================================================================
 
-function buildBookingUrl(park, start, end) {
+function buildBookingUrl(park, start) {
   // Most systems don't accept date params reliably; just link to the park page for v1.
-  // ReserveCalifornia & Recreation.gov deep-link formats can be added per-system here.
   return park.url;
 }
 
@@ -382,7 +393,7 @@ function updateCardStatus(parkId) {
   if (el) el.innerHTML = statusBadge(getStatus(PARKS.find(p => p.id === parkId)));
 }
 
-function parkCard(park, start, end) {
+function parkCard(park, start) {
   const sys = SYSTEMS[park.system];
   const avail = getStatus(park);
   const accessLabel = { drive_in: "Drive-in", walk_in: "Walk-in", hike_in: "Hike-in" }[park.access];
@@ -409,7 +420,7 @@ function parkCard(park, start, end) {
           ${park.dogs ? `<span class="text-xs bg-stone-100 px-2 py-0.5 rounded">🐕 Dogs</span>` : ''}
           ${park.rv   ? `<span class="text-xs bg-stone-100 px-2 py-0.5 rounded">🚐 RV</span>` : ''}
         </div>
-        <a href="${buildBookingUrl(park, start, end)}" target="_blank" rel="noopener"
+        <a href="${buildBookingUrl(park, start)}" target="_blank" rel="noopener"
            class="shrink-0 ml-3 text-sm font-medium bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg">
           ${rcPlaceId(park) ? 'Book' : 'Check'} →
         </a>
@@ -419,7 +430,6 @@ function parkCard(park, start, end) {
 
 function render() {
   const start = document.getElementById('startDate').value;
-  const end = document.getElementById('endDate').value;
   const maxDrive = parseInt(document.getElementById('maxDrive').value, 10);
   const envs = [...document.querySelectorAll('#envFilters input:checked')].map(i => i.value);
   const dogsOnly = document.getElementById('dogsOnly').checked;
@@ -465,7 +475,7 @@ function render() {
 
   document.getElementById('resultCount').textContent =
     `${filtered.length} of ${PARKS.length} campgrounds`;
-  document.getElementById('results').innerHTML = filtered.map(p => parkCard(p, start, end)).join('');
+  document.getElementById('results').innerHTML = filtered.map(p => parkCard(p, start)).join('');
   document.getElementById('emptyState').classList.toggle('hidden', filtered.length > 0);
   document.getElementById('results').classList.toggle('hidden', filtered.length === 0);
 }
@@ -474,36 +484,55 @@ function render() {
 // WIRING
 // ============================================================================
 
-function nextWeekend(offsetWeeks = 0) {
-  const d = new Date();
-  const day = d.getDay();
-  const daysUntilFri = ((5 - day) + 7) % 7 || 7; // next Friday (not today even if today is Fri)
-  const fri = new Date(d); fri.setDate(d.getDate() + daysUntilFri + offsetWeeks*7);
-  const sun = new Date(fri); sun.setDate(fri.getDate() + 2);
-  const fmt = x => `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
-  return [fmt(fri), fmt(sun)];
+const fmtISO = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const parseISO = s => { const [y,m,d]=s.split('-').map(Number); return new Date(y, m-1, d); };
+const addDays = (d, n) => { const x=new Date(d); x.setDate(x.getDate()+n); return x; };
+
+function upcomingFriday(offsetWeeks = 0) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dow = today.getDay();
+  // If it's already Fri/Sat, "this weekend" = today; if Sun, weekend's over → next Fri.
+  let daysToFri = dow === 5 ? 0 : dow === 6 ? -1 : ((5 - dow) + 7) % 7;
+  if (dow === 6) daysToFri = 0; // Sat: start tonight, not yesterday
+  return addDays(today, daysToFri + offsetWeeks*7);
 }
 
-function setDates([s, e]) {
-  document.getElementById('startDate').value = s;
-  document.getElementById('endDate').value = e;
+function setArrival(date, nights) {
+  document.getElementById('startDate').value = fmtISO(date);
+  if (nights != null) document.getElementById('nights').value = String(nights);
+}
+
+function shiftArrival(days) {
+  const cur = parseISO(document.getElementById('startDate').value);
+  setArrival(addDays(cur, days));
 }
 
 function onDatesChanged() {
   const s = document.getElementById('startDate').value;
-  const e = document.getElementById('endDate').value;
+  const n = parseInt(document.getElementById('nights').value, 10);
+  if (!s) return;
+  const arr = parseISO(s), dep = addDays(arr, n);
+  const fmt = d => d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
+  document.getElementById('dateSummary').textContent = `${fmt(arr)} → ${fmt(dep)}`;
+  document.getElementById('startDate').min = fmtISO(new Date());
   render();
-  if (s && e) refreshAvailability(s, e);
+  refreshAvailability(s, n);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setDates(nextWeekend(0));
+  setArrival(upcomingFriday(0), 2);
 
   document.querySelectorAll('.quick-date').forEach(b =>
     b.addEventListener('click', () => {
-      setDates(nextWeekend(b.dataset.quick === 'next-weekend' ? 1 : 0));
+      const q = b.dataset.quick;
+      if (q === 'tonight')      setArrival(new Date(), 1);
+      if (q === 'weekend')      setArrival(upcomingFriday(0), 2);
+      if (q === 'next-weekend') setArrival(upcomingFriday(1), 2);
       onDatesChanged();
     }));
+
+  document.getElementById('prevWeek').addEventListener('click', () => { shiftArrival(-7); onDatesChanged(); });
+  document.getElementById('nextWeek').addEventListener('click', () => { shiftArrival(+7); onDatesChanged(); });
 
   document.getElementById('clearFilters').addEventListener('click', () => {
     document.getElementById('maxDrive').value = '999';
@@ -511,7 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
   });
 
-  ['startDate','endDate'].forEach(id => document.getElementById(id).addEventListener('change', onDatesChanged));
+  ['startDate','nights'].forEach(id => document.getElementById(id).addEventListener('change', onDatesChanged));
   ['maxDrive','dogsOnly','rvOnly','driveInOnly','availOnly','sortBy']
     .forEach(id => document.getElementById(id).addEventListener('change', render));
   document.querySelectorAll('#envFilters input').forEach(i => i.addEventListener('change', render));
