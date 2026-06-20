@@ -292,6 +292,16 @@ const PARKS = [
     url: "https://www.reservecalifornia.com/park/655",
     mock: "available" },
 
+  { id: "sunset-sb", name: "Sunset SB", system: "reserve_ca",
+    drive: 85, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 90,
+    desc: "Long quiet beach south of Santa Cruz; bigger and easier to book than New Brighton.",
+    url: "https://www.reservecalifornia.com/park/726" },
+
+  { id: "manresa-sb", name: "Manresa SB", system: "reserve_ca",
+    drive: 85, env: ["coast"], dogs: false, rv: false, access: "walk_in", sites: 64,
+    desc: "Walk-in tent sites on a bluff over a wide sandy beach.",
+    url: "https://www.reservecalifornia.com/park/672" },
+
   { id: "new-brighton", name: "New Brighton SB", system: "reserve_ca",
     drive: 80, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 100,
     desc: "Blufftop camp over Monterey Bay near Capitola.",
@@ -299,6 +309,11 @@ const PARKS = [
     mock: "check_site" },
 
   // --- South Bay ---
+  { id: "fremont-peak", name: "Fremont Peak SP", system: "reserve_ca",
+    drive: 100, env: ["oak_woodland", "grassland"], dogs: false, rv: false, access: "drive_in", sites: 25,
+    desc: "Small camp on a 3,000' ridge above San Juan Bautista. Observatory + huge views.",
+    url: "https://www.reservecalifornia.com/park/645" },
+
   { id: "joseph-d-grant", name: "Joseph D. Grant", system: "scc_parks",
     drive: 70, env: ["oak_woodland", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 40,
     desc: "Rolling oak savanna on Mt. Hamilton's flank. Quiet.",
@@ -317,7 +332,18 @@ const PARKS = [
     url: "https://parks.santaclaracounty.gov/locations/mt-madonna-county-park",
     mock: "check_site" },
 
+  // --- Delta ---
+  { id: "brannan-island", name: "Brannan Island SRA", system: "reserve_ca",
+    drive: 85, env: ["lake"], dogs: true, rv: true, access: "drive_in", sites: 100,
+    desc: "Delta waterfront camp — boating, windsurfing, fishing. Hot summers, flat.",
+    url: "https://www.reservecalifornia.com/park/621" },
+
   // --- North Bay / Wine Country ---
+  { id: "austin-creek", name: "Austin Creek SRA", system: "reserve_ca",
+    drive: 95, env: ["oak_woodland", "grassland"], dogs: false, rv: false, access: "drive_in", sites: 23,
+    desc: "Bullfrog Pond camp above Armstrong Redwoods near Guerneville. Steep road in.",
+    url: "https://www.reservecalifornia.com/park/1085" },
+
   { id: "sugarloaf", name: "Sugarloaf Ridge SP", system: "reserve_ca",
     drive: 75, env: ["oak_woodland", "chaparral", "grassland"], dogs: false, rv: true, access: "drive_in", sites: 47,
     desc: "Sonoma valley camp; observatory, waterfall, Bald Mtn hike.",
