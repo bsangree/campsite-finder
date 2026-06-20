@@ -1,0 +1,1285 @@
+<!doctype html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bay Area Campsite Finder</title>
+  
+  
+  <style>
+    body {
+      background-color: #fdfbf7;
+      background-image: radial-gradient(circle at 1px 1px, rgba(61,94,57,.06) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .card-stripe { position: relative; }
+    .card-stripe::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:4px 0 0 4px; background:var(--stripe); }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.left-0{left:0px}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-5{margin-bottom:1.25rem}.mt-2{margin-top:0.5rem}.mt-2\.5{margin-top:0.625rem}.mt-3{margin-top:0.75rem}.mb-1{margin-bottom:0.25rem}.mb-4{margin-bottom:1rem}.ml-3{margin-left:0.75rem}.mt-1\.5{margin-top:0.375rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-2{height:0.5rem}.h-4{height:1rem}.h-fit{height:-moz-fit-content;height:fit-content}.h-9{height:2.25rem}.w-4{width:1rem}.w-full{width:100%}.min-w-0{min-width:0px}.min-w-\[110px\]{min-width:110px}.min-w-\[200px\]{min-width:200px}.min-w-\[58px\]{min-width:58px}.max-w-7xl{max-width:80rem}.max-w-xl{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.border-collapse{border-collapse:collapse}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-2\.5{gap:0.625rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-1{gap:0.25rem}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-sand-200{--tw-border-opacity:1;border-color:rgb(237 227 208 / var(--tw-border-opacity, 1))}.border-sand-100{--tw-border-opacity:1;border-color:rgb(247 242 232 / var(--tw-border-opacity, 1))}.bg-forest-50\/60{background-color:rgb(243 246 243 / 0.6)}.bg-forest-800{--tw-bg-opacity:1;background-color:rgb(36 58 34 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199 / var(--tw-bg-opacity, 1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1))}.bg-emerald-100{--tw-bg-opacity:1;background-color:rgb(209 250 229 / var(--tw-bg-opacity, 1))}.bg-forest-700{--tw-bg-opacity:1;background-color:rgb(47 74 44 / var(--tw-bg-opacity, 1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255 / var(--tw-bg-opacity, 1))}.bg-rose-100{--tw-bg-opacity:1;background-color:rgb(255 228 230 / var(--tw-bg-opacity, 1))}.bg-sand-100{--tw-bg-opacity:1;background-color:rgb(247 242 232 / var(--tw-bg-opacity, 1))}.bg-stone-100{--tw-bg-opacity:1;background-color:rgb(245 245 244 / var(--tw-bg-opacity, 1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-forest-600{--tw-gradient-from:#3d5e39 var(--tw-gradient-from-position);--tw-gradient-to:rgb(61 94 57 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-forest-500{--tw-gradient-to:rgb(90 128 85 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #5a8055 var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-sand-300{--tw-gradient-to:#ddccac var(--tw-gradient-to-position)}.p-0\.5{padding:0.125rem}.p-5{padding:1.25rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-10{padding-bottom:2.5rem}.pb-8{padding-bottom:2rem}.pt-3{padding-top:0.75rem}.pt-4{padding-top:1rem}.pt-8{padding-top:2rem}.pl-6{padding-left:1.5rem}.pr-5{padding-right:1.25rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-\[11px\]{font-size:11px}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-none{line-height:1}.leading-tight{line-height:1.25}.leading-9{line-height:2.25rem}.tracking-\[0\.2em\]{letter-spacing:0.2em}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.text-forest-100{--tw-text-opacity:1;color:rgb(227 235 226 / var(--tw-text-opacity, 1))}.text-forest-200{--tw-text-opacity:1;color:rgb(198 214 196 / var(--tw-text-opacity, 1))}.text-forest-600{--tw-text-opacity:1;color:rgb(61 94 57 / var(--tw-text-opacity, 1))}.text-forest-700{--tw-text-opacity:1;color:rgb(47 74 44 / var(--tw-text-opacity, 1))}.text-stone-400{--tw-text-opacity:1;color:rgb(168 162 158 / var(--tw-text-opacity, 1))}.text-stone-500{--tw-text-opacity:1;color:rgb(120 113 108 / var(--tw-text-opacity, 1))}.text-stone-600{--tw-text-opacity:1;color:rgb(87 83 78 / var(--tw-text-opacity, 1))}.text-stone-900{--tw-text-opacity:1;color:rgb(28 25 23 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14 / var(--tw-text-opacity, 1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175 / var(--tw-text-opacity, 1))}.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105 / var(--tw-text-opacity, 1))}.text-emerald-800{--tw-text-opacity:1;color:rgb(6 95 70 / var(--tw-text-opacity, 1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168 / var(--tw-text-opacity, 1))}.text-rose-600{--tw-text-opacity:1;color:rgb(225 29 72 / var(--tw-text-opacity, 1))}.text-rose-800{--tw-text-opacity:1;color:rgb(159 18 57 / var(--tw-text-opacity, 1))}.text-stone-700{--tw-text-opacity:1;color:rgb(68 64 60 / var(--tw-text-opacity, 1))}.text-rose-400{--tw-text-opacity:1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.accent-forest-600{accent-color:#3d5e39}.opacity-60{opacity:0.6}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:-translate-y-0\.5:hover{--tw-translate-y:-0.125rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-forest-500:hover{--tw-border-opacity:1;border-color:rgb(90 128 85 / var(--tw-border-opacity, 1))}.hover\:bg-sand-100:hover{--tw-bg-opacity:1;background-color:rgb(247 242 232 / var(--tw-bg-opacity, 1))}.hover\:bg-forest-800:hover{--tw-bg-opacity:1;background-color:rgb(36 58 34 / var(--tw-bg-opacity, 1))}.hover\:bg-emerald-600:hover{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity, 1))}.hover\:text-forest-700:hover{--tw-text-opacity:1;color:rgb(47 74 44 / var(--tw-text-opacity, 1))}.hover\:text-stone-700:hover{--tw-text-opacity:1;color:rgb(68 64 60 / var(--tw-text-opacity, 1))}.hover\:opacity-80:hover{opacity:0.8}.hover\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.focus\:border-forest-500:focus{--tw-border-opacity:1;border-color:rgb(90 128 85 / var(--tw-border-opacity, 1))}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-forest-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(90 128 85 / var(--tw-ring-opacity, 1))}@media (min-width: 640px){.sm\:text-5xl{font-size:3rem;line-height:1}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:sticky{position:sticky}.lg\:top-4{top:1rem}.lg\:grid-cols-\[280px_1fr\]{grid-template-columns:280px 1fr}}</style></head>
+<body class="text-stone-900 antialiased">
+
+<!-- Header -->
+<header class="bg-forest-800 text-white">
+  <div class="max-w-7xl mx-auto px-4 pt-8 pb-10">
+    <div class="flex items-end justify-between flex-wrap gap-4">
+      <div>
+        <div class="text-forest-200 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Bay Area</div>
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Campsite Finder</h1>
+        <p class="text-forest-100 mt-2 max-w-xl">Live availability across 30+ campgrounds — state parks, national parks, GGNRA. Pick a weekend, see what's open, book it.</p>
+      </div>
+      <div id="headerStats" class="text-right text-forest-200 text-sm"><span class="text-2xl font-bold text-white">20</span><br><span class="text-xs uppercase tracking-wider">open right now</span></div>
+    </div>
+  </div>
+  <div class="h-2 bg-gradient-to-r from-forest-600 via-forest-500 to-sand-300"></div>
+</header>
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+  <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+
+    <!-- ========== FILTER SIDEBAR ========== -->
+    <aside class="bg-white shadow-sm rounded-2xl h-fit lg:sticky lg:top-4 overflow-hidden">
+
+      <!-- Dates -->
+      <div class="p-5 bg-forest-50/60 border-b border-sand-200">
+        <label class="block text-[11px] font-bold uppercase tracking-wider text-forest-700 mb-3">When</label>
+        <div class="flex gap-1.5">
+          <button id="prevWeek" title="−1 week" class="px-2.5 bg-white border border-sand-200 rounded-lg hover:bg-sand-100 text-stone-600 transition">◀</button>
+          <input id="startDate" type="date" class="flex-1 min-w-0 bg-white border border-sand-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none" min="2026-06-19">
+          <button id="nextWeek" title="+1 week" class="px-2.5 bg-white border border-sand-200 rounded-lg hover:bg-sand-100 text-stone-600 transition">▶</button>
+        </div>
+        <select id="nights" class="w-full mt-2 bg-white border border-sand-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-forest-500 outline-none">
+          <option value="1">1 night</option>
+          <option value="2" selected="">2 nights</option>
+          <option value="3">3 nights</option>
+          <option value="4">4 nights</option>
+          <option value="5">5 nights</option>
+          <option value="7">1 week</option>
+        </select>
+        <div id="dateSummary" class="text-xs text-forest-700 font-medium mt-2.5 text-center">Tue, Sep 15 → Thu, Sep 17</div>
+        <div class="grid grid-cols-3 gap-1.5 mt-2.5">
+          <button data-quick="tonight" class="quick-date text-xs px-2 py-1.5 bg-white border border-sand-200 hover:border-forest-500 hover:text-forest-700 rounded-md transition">Tonight</button>
+          <button data-quick="weekend" class="quick-date text-xs px-2 py-1.5 bg-white border border-sand-200 hover:border-forest-500 hover:text-forest-700 rounded-md transition">This wknd</button>
+          <button data-quick="next-weekend" class="quick-date text-xs px-2 py-1.5 bg-white border border-sand-200 hover:border-forest-500 hover:text-forest-700 rounded-md transition">Next wknd</button>
+        </div>
+      </div>
+
+      <div class="p-5 space-y-5">
+        <label class="flex items-center gap-2.5 text-sm font-semibold text-forest-700 cursor-pointer">
+          <input id="availOnly" type="checkbox" class="w-4 h-4 rounded accent-forest-600"> Available only
+        </label>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Drive from SF</label>
+          <select id="maxDrive" class="w-full bg-white border border-sand-200 rounded-lg px-3 py-2 text-sm">
+            <option value="999">Any distance</option>
+            <option value="45">≤ 45 min</option>
+            <option value="60">≤ 1 hr</option>
+            <option value="90">≤ 1.5 hr</option>
+            <option value="120">≤ 2 hr</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Environment</label>
+          <div id="envFilters" class="space-y-1.5 text-sm">
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="redwoods" class="rounded accent-forest-600"> 🌲 Redwoods</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="coast" class="rounded accent-forest-600"> 🌊 Coast</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="lake" class="rounded accent-forest-600"> 🛶 Lake</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="oak_woodland" class="rounded accent-forest-600"> 🌳 Oak woodland</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="grassland" class="rounded accent-forest-600"> 🌾 Grassland</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input type="checkbox" value="chaparral" class="rounded accent-forest-600"> 🌵 Chaparral</label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Site</label>
+          <div class="space-y-1.5 text-sm">
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input id="dogsOnly" type="checkbox" class="rounded accent-forest-600"> 🐕 Dogs allowed</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input id="rvOnly" type="checkbox" class="rounded accent-forest-600"> 🚐 RV sites</label>
+            <label class="flex items-center gap-2.5 cursor-pointer hover:text-forest-700"><input id="driveInOnly" type="checkbox" class="rounded accent-forest-600"> 🚗 Drive-in only</label>
+          </div>
+        </div>
+
+        <button id="clearFilters" class="w-full text-xs text-stone-400 hover:text-stone-700 pt-3 border-t border-sand-200 transition">Clear all filters</button>
+      </div>
+    </aside>
+
+    <!-- ========== RESULTS ========== -->
+    <main>
+      <div id="statusBar" class="mb-5 hidden">
+    <div class="bg-white shadow-sm rounded-2xl px-6 py-5 flex items-center gap-6 flex-wrap">
+      
+    <div onclick="document.getElementById('availOnly').checked=true; render()" class="flex-1 min-w-[110px] cursor-pointer hover:opacity-80">
+      <div class="text-3xl font-bold text-emerald-600 leading-none">20</div>
+      <div class="text-[11px] uppercase tracking-wider text-stone-500 mt-1.5">Parks open</div>
+    </div>
+      
+    <div class="flex-1 min-w-[110px] ">
+      <div class="text-3xl font-bold text-forest-700 leading-none">701</div>
+      <div class="text-[11px] uppercase tracking-wider text-stone-500 mt-1.5">Sites total</div>
+    </div>
+      
+    <div class="flex-1 min-w-[110px] ">
+      <div class="text-3xl font-bold text-rose-600 leading-none">8</div>
+      <div class="text-[11px] uppercase tracking-wider text-stone-500 mt-1.5">Full</div>
+    </div>
+      
+    <div class="flex-1 min-w-[110px] ">
+      <div class="text-3xl font-bold text-stone-400 leading-none">8</div>
+      <div class="text-[11px] uppercase tracking-wider text-stone-500 mt-1.5">Check manually</div>
+    </div>
+      
+    </div></div>
+      <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
+        <div id="resultCount" class="text-sm text-stone-500">36 campgrounds × 8 weekends</div>
+        <div class="flex items-center gap-2">
+          <div class="flex bg-white border border-sand-200 rounded-lg p-0.5 text-sm">
+            <button id="viewList" class="view-tab px-3 py-1 rounded-md">List</button>
+            <button id="viewGrid" class="view-tab px-3 py-1 rounded-md bg-forest-700 text-white">Scan 8 weekends</button>
+          </div>
+          <select id="sortBy" class="text-sm bg-white border border-sand-200 rounded-lg px-3 py-1.5 hidden">
+            <option value="availability">Sort: Availability</option>
+            <option value="drive">Sort: Drive time</option>
+            <option value="name">Sort: Name</option>
+          </select>
+        </div>
+      </div>
+      <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
+    <div data-card="bicentennial" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Bicentennial Campground</h3>
+        <div data-status="bicentennial" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">2 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">Recreation.gov</span>
+        <span>·</span><span>20 min drive</span>
+        <span>·</span><span>Walk-in</span>
+        <span>·</span><span>3 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Three walk-in sites in the Marin Headlands, 100 yds from parking.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span>
+          
+          
+        </div>
+        <a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-09-15" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="hawk-camp" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Hawk Camp (Marin Headlands)</h3>
+        <div data-status="hawk-camp" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">3 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">Recreation.gov</span>
+        <span>·</span><span>25 min drive</span>
+        <span>·</span><span>Hike-in</span>
+        <span>·</span><span>3 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Hike-in ridgetop sites above Tennessee Valley. ~2 mi trail.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span>
+          
+          
+        </div>
+        <a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-09-15" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="haypress" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Haypress (Marin Headlands)</h3>
+        <div data-status="haypress" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">6 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">Recreation.gov</span>
+        <span>·</span><span>25 min drive</span>
+        <span>·</span><span>Hike-in</span>
+        <span>·</span><span>5 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Easy 0.75 mi hike-in from Tennessee Valley trailhead. Great with kids.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          
+          
+        </div>
+        <a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-09-15" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="angel-island" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Angel Island SP</h3>
+        <div data-status="angel-island" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">1 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>30 min drive</span>
+        <span>·</span><span>Hike-in</span>
+        <span>·</span><span>11 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Ferry from Tiburon/SF, then hike to ridgetop sites with 360° bay views.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/614?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="china-camp" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">China Camp SP</h3>
+        <div data-status="china-camp" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">29 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>40 min drive</span>
+        <span>·</span><span>Walk-in</span>
+        <span>·</span><span>30 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Walk-in sites under oaks on the bay. Easy, flat, warm.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/626?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="samuel-p-taylor" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Samuel P. Taylor SP</h3>
+        <div data-status="samuel-p-taylor" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">18 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>50 min drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>59 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Redwood canyon along Lagunitas Creek. Closest redwoods to SF.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/705?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="mt-diablo" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Mt. Diablo SP</h3>
+        <div data-status="mt-diablo" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">45 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>56 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Three campgrounds on the slopes; huge views, hot summers.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/683?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="portola-redwoods" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Portola Redwoods SP</h3>
+        <div data-status="portola-redwoods" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">42 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 10m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>53 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Quiet, deep redwood canyon. Often has space when Big Basin doesn't.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/695?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="point-reyes" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Point Reyes — Backcountry</h3>
+        <div data-status="point-reyes" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">20 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">Recreation.gov</span>
+        <span>·</span><span>1h 15m drive</span>
+        <span>·</span><span>Hike-in</span>
+        <span>·</span><span>50 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Hike-in coastal camps (Wildcat, Coast, Sky, Glen). Permit required.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span>
+          
+          
+        </div>
+        <a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-09-15" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="henry-cowell" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Henry Cowell Redwoods SP</h3>
+        <div data-status="henry-cowell" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">65 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 15m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>107 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Sandy ponderosa/redwood camp near Felton. Dog-friendly.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/655?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="sugarloaf" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Sugarloaf Ridge SP</h3>
+        <div data-status="sugarloaf" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">29 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 15m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>47 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Sonoma valley camp; observatory, waterfall, Bald Mtn hike.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/725?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="new-brighton" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">New Brighton SB</h3>
+        <div data-status="new-brighton" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">10 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 20m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>100 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Blufftop camp over Monterey Bay near Capitola.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/685?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="bothe-napa" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Bothe-Napa Valley SP</h3>
+        <div data-status="bothe-napa" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">26 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 20m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>47 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Surprising redwood pocket in Napa Valley. Pool in summer.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/620?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="sunset-sb" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Sunset SB</h3>
+        <div data-status="sunset-sb" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">48 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 25m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>90 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Long quiet beach south of Santa Cruz; bigger and easier to book than New Brighton.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/726?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="brannan-island" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Brannan Island SRA</h3>
+        <div data-status="brannan-island" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">104 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 25m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>100 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Delta waterfront camp — boating, windsurfing, fishing. Hot summers, flat.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🛶 Lake</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/621?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="henry-coe" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Henry W. Coe SP</h3>
+        <div data-status="henry-coe" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">15 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 30m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>20 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Vast wilderness park; HQ drive-in + endless backcountry.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/656?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="bodega-dunes" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Bodega Dunes (Sonoma Coast SP)</h3>
+        <div data-status="bodega-dunes" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">36 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 30m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>99 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Sheltered dune camp near Bodega Bay. Big, easy to get.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/718?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="fremont-peak" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Fremont Peak SP</h3>
+        <div data-status="fremont-peak" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">17 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 40m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>25 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Small camp on a 3,000' ridge above San Juan Bautista. Observatory + huge views.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/645?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="pinnacles" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Pinnacles NP</h3>
+        <div data-status="pinnacles" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">105 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">Recreation.gov</span>
+        <span>·</span><span>2h 10m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>134 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Volcanic spires, talus caves, condors. Hot in summer; spring/fall are prime.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-09-15" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="salt-point" style="--stripe:#10b981" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Salt Point SP</h3>
+        <div data-status="salt-point" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 ">80 open</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>2h 10m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>109 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Dramatic tafoni sandstone coast. Two campgrounds; Gerstle is quieter.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/703?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="anthony-chabot" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Anthony Chabot</h3>
+        <div data-status="anthony-chabot" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-medium">East Bay Parks</span>
+        <span>·</span><span>35 min drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>75 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Closest drive-in camp to SF/Oakland. Eucalyptus + Lake Chabot.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🛶 Lake</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="sanborn" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Sanborn County Park</h3>
+        <div data-status="sanborn" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 font-medium">Santa Clara Co.</span>
+        <span>·</span><span>1h drive</span>
+        <span>·</span><span>Walk-in</span>
+        <span>·</span><span>33 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Walk-in redwood sites + RV area above Saratoga.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="del-valle" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Del Valle</h3>
+        <div data-status="del-valle" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-medium">East Bay Parks</span>
+        <span>·</span><span>1h 10m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>150 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Big reservoir camp near Livermore. Swimming, boating, hot.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🛶 Lake</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="joseph-d-grant" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Joseph D. Grant</h3>
+        <div data-status="joseph-d-grant" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 font-medium">Santa Clara Co.</span>
+        <span>·</span><span>1h 10m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>40 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Rolling oak savanna on Mt. Hamilton's flank. Quiet.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="memorial-park" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Memorial Park</h3>
+        <div data-status="memorial-park" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-medium">San Mateo Co.</span>
+        <span>·</span><span>1h 15m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>154 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">San Mateo County's redwood camp on Pescadero Creek. Swimming hole.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="pescadero-creek" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Pescadero Creek — Hike-in</h3>
+        <div data-status="pescadero-creek" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 font-medium">San Mateo Co.</span>
+        <span>·</span><span>1h 15m drive</span>
+        <span>·</span><span>Hike-in</span>
+        <span>·</span><span>15 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Backcountry sites in old-growth adjacent to Memorial &amp; Portola.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          
+          
+        </div>
+        <a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="butano" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Butano SP</h3>
+        <div data-status="butano" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 15m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>38 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Small, foggy redwood park near Pescadero. First-come, first-served.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          
+          
+        </div>
+        <a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="mount-madonna" style="--stripe:#a8a29e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Mount Madonna</h3>
+        <div data-status="mount-madonna" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 ">Check site</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 font-medium">Santa Clara Co.</span>
+        <span>·</span><span>1h 30m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>118 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Redwood ridgetop between Gilroy and the coast. Yurts available.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Check →
+        </a>
+      </div>
+    </div>
+    <div data-card="kirby-cove" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Kirby Cove</h3>
+        <div data-status="kirby-cove" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-medium">Recreation.gov</span>
+        <span>·</span><span>20 min drive</span>
+        <span>·</span><span>Walk-in</span>
+        <span>·</span><span>5 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Beach camp directly under the Golden Gate Bridge. The most coveted site in the Bay.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          
+          
+        </div>
+        <a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-09-15" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="half-moon-bay" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Half Moon Bay SB</h3>
+        <div data-status="half-moon-bay" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>45 min drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>52 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Beachfront sites behind the dunes at Francis Beach.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🐕</span>
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🚐</span>
+        </div>
+        <a href="https://www.reservecalifornia.com/park/652?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="pantoll" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Mt. Tamalpais — Pantoll</h3>
+        <div data-status="pantoll" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>50 min drive</span>
+        <span>·</span><span>Walk-in</span>
+        <span>·</span><span>16 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">First-come ridgeline sites; trailhead for Steep Ravine &amp; Dipsea.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/682?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="steep-ravine" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Mt. Tamalpais — Steep Ravine</h3>
+        <div data-status="steep-ravine" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>55 min drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>7 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Cliffside cabins + tent sites over the Pacific. Books out instantly.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/682?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="castle-rock" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Castle Rock — Trail Camp</h3>
+        <div data-status="castle-rock" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h drive</span>
+        <span>·</span><span>Hike-in</span>
+        <span>·</span><span>25 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">2.5 mi hike-in. Sandstone formations, Skyline-to-the-Sea start.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌵 Chaparral</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/1111?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="big-basin" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Big Basin Redwoods SP</h3>
+        <div data-status="big-basin" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 20m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>47 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Oldest CA state park. Limited reopened sites post-CZU fire.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌲 Redwoods</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/3?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="manresa-sb" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Manresa SB</h3>
+        <div data-status="manresa-sb" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 25m drive</span>
+        <span>·</span><span>Walk-in</span>
+        <span>·</span><span>64 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Walk-in tent sites on a bluff over a wide sandy beach.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌊 Coast</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/672?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div>
+    <div data-card="austin-creek" style="--stripe:#f43f5e" class="card-stripe bg-white shadow-sm hover:shadow-md rounded-xl pl-6 pr-5 py-5 transition-all hover:-translate-y-0.5">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="font-semibold text-lg leading-tight text-stone-900">Austin Creek SRA</h3>
+        <div data-status="austin-creek" class="shrink-0"><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 ">Full</span></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-3">
+        <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">CA State Parks</span>
+        <span>·</span><span>1h 35m drive</span>
+        <span>·</span><span>Drive-in</span>
+        <span>·</span><span>23 sites</span>
+      </div>
+
+      <p class="text-sm text-stone-600 mb-4">Bullfrog Pond camp above Armstrong Redwoods near Guerneville. Steep road in.</p>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-1">
+          <span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌳 Oak</span><span class="text-[11px] bg-sand-100 text-stone-700 px-2 py-0.5 rounded-md">🌾 Grassland</span>
+          
+          
+        </div>
+        <a href="https://www.reservecalifornia.com/park/1085?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
+          Book →
+        </a>
+      </div>
+    </div></div>
+      <div id="gridView" class="bg-white shadow-sm rounded-2xl overflow-x-auto"><table class="w-full border-collapse"><thead><tr>
+    <th class="sticky left-0 bg-white text-left text-xs font-semibold text-stone-500 px-4 py-3 min-w-[200px]">Campground</th>
+    <th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Sep 15</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Sep 22</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Sep 29</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Oct 6</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Oct 13</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Oct 20</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Oct 27</th><th class="text-xs font-semibold text-stone-500 px-1.5 py-3 min-w-[58px]">Nov 3</th>
+  </tr></thead><tbody><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Kirby Cove</div>
+      <div class="text-[10px] text-stone-500">20 min · Recreation.gov</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="kirby-cove|2026-09-15"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-09-15" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-09-22"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-09-22" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-09-29"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-09-29" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-10-06"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-10-06" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-10-13"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-10-13" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-10-20"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-10-20" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-10-27"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-10-27" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="kirby-cove|2026-11-03"><a href="https://www.recreation.gov/camping/campgrounds/232491/availability?date=2026-11-03" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Kirby Cove — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Bicentennial Campground</div>
+      <div class="text-[10px] text-stone-500">20 min · Recreation.gov</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="bicentennial|2026-09-15"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-09-15" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-09-15">2</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-09-22"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-09-22" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-09-22">2</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-09-29"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-09-29" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-09-29">3</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-10-06"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-10-06" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-10-06">2</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-10-13"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-10-13" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-10-13">3</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-10-20"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-10-20" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-10-20">3</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-10-27"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-10-27" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-10-27">3</a></td><td class="px-1.5 py-2" data-grid="bicentennial|2026-11-03"><a href="https://www.recreation.gov/camping/campgrounds/272229/availability?date=2026-11-03" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bicentennial Campground — 2026-11-03">3</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Hawk Camp (Marin Headlands)</div>
+      <div class="text-[10px] text-stone-500">25 min · Recreation.gov</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="hawk-camp|2026-09-15"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-09-15" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-09-15">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-09-22"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-09-22" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-09-22">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-09-29"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-09-29" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-09-29">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-10-06"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-10-06" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-10-06">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-10-13"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-10-13" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-10-13">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-10-20"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-10-20" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-10-20">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-10-27"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-10-27" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-10-27">3</a></td><td class="px-1.5 py-2" data-grid="hawk-camp|2026-11-03"><a href="https://www.recreation.gov/camping/campgrounds/258815/availability?date=2026-11-03" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Hawk Camp (Marin Headlands) — 2026-11-03">3</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Haypress (Marin Headlands)</div>
+      <div class="text-[10px] text-stone-500">25 min · Recreation.gov</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="haypress|2026-09-15"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-09-15" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-09-15">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-09-22"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-09-22" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-09-22">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-09-29"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-09-29" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-09-29">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-10-06"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-10-06" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-10-06">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-10-13"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-10-13" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-10-13">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-10-20"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-10-20" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-10-20">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-10-27"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-10-27" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-10-27">6</a></td><td class="px-1.5 py-2" data-grid="haypress|2026-11-03"><a href="https://www.recreation.gov/camping/campgrounds/10067346/availability?date=2026-11-03" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Haypress (Marin Headlands) — 2026-11-03">6</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Angel Island SP</div>
+      <div class="text-[10px] text-stone-500">30 min · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="angel-island|2026-09-15"><a href="https://www.reservecalifornia.com/park/614?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Angel Island SP — 2026-09-15">1</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-09-22"><a href="https://www.reservecalifornia.com/park/614?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Angel Island SP — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-09-29"><a href="https://www.reservecalifornia.com/park/614?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Angel Island SP — 2026-09-29">1</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-10-06"><a href="https://www.reservecalifornia.com/park/614?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Angel Island SP — 2026-10-06">1</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-10-13"><a href="https://www.reservecalifornia.com/park/614?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Angel Island SP — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-10-20"><a href="https://www.reservecalifornia.com/park/614?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Angel Island SP — 2026-10-20">1</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-10-27"><a href="https://www.reservecalifornia.com/park/614?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Angel Island SP — 2026-10-27">3</a></td><td class="px-1.5 py-2" data-grid="angel-island|2026-11-03"><a href="https://www.reservecalifornia.com/park/614?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Angel Island SP — 2026-11-03">2</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Anthony Chabot</div>
+      <div class="text-[10px] text-stone-500">35 min · East Bay Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="anthony-chabot|2026-09-15"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-09-22"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-09-29"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-10-06"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-10-13"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-10-20"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-10-27"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="anthony-chabot|2026-11-03"><a href="https://www.ebparks.org/parks/anthony-chabot/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Anthony Chabot — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">China Camp SP</div>
+      <div class="text-[10px] text-stone-500">40 min · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="china-camp|2026-09-15"><a href="https://www.reservecalifornia.com/park/626?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-09-15">29</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-09-22"><a href="https://www.reservecalifornia.com/park/626?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-09-22">29</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-09-29"><a href="https://www.reservecalifornia.com/park/626?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-09-29">24</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-10-06"><a href="https://www.reservecalifornia.com/park/626?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-10-06">27</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-10-13"><a href="https://www.reservecalifornia.com/park/626?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-10-13">29</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-10-20"><a href="https://www.reservecalifornia.com/park/626?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-10-20">29</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-10-27"><a href="https://www.reservecalifornia.com/park/626?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-10-27">29</a></td><td class="px-1.5 py-2" data-grid="china-camp|2026-11-03"><a href="https://www.reservecalifornia.com/park/626?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="China Camp SP — 2026-11-03">29</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Half Moon Bay SB</div>
+      <div class="text-[10px] text-stone-500">45 min · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="half-moon-bay|2026-09-15"><a href="https://www.reservecalifornia.com/park/652?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Half Moon Bay SB — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-09-22"><a href="https://www.reservecalifornia.com/park/652?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Half Moon Bay SB — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-09-29"><a href="https://www.reservecalifornia.com/park/652?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Half Moon Bay SB — 2026-09-29">1</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-10-06"><a href="https://www.reservecalifornia.com/park/652?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Half Moon Bay SB — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-10-13"><a href="https://www.reservecalifornia.com/park/652?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Half Moon Bay SB — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-10-20"><a href="https://www.reservecalifornia.com/park/652?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Half Moon Bay SB — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-10-27"><a href="https://www.reservecalifornia.com/park/652?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Half Moon Bay SB — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="half-moon-bay|2026-11-03"><a href="https://www.reservecalifornia.com/park/652?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Half Moon Bay SB — 2026-11-03">2</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Samuel P. Taylor SP</div>
+      <div class="text-[10px] text-stone-500">50 min · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-09-15"><a href="https://www.reservecalifornia.com/park/705?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-09-15">18</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-09-22"><a href="https://www.reservecalifornia.com/park/705?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-09-22">23</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-09-29"><a href="https://www.reservecalifornia.com/park/705?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-09-29">29</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-10-06"><a href="https://www.reservecalifornia.com/park/705?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-10-06">27</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-10-13"><a href="https://www.reservecalifornia.com/park/705?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-10-13">36</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-10-20"><a href="https://www.reservecalifornia.com/park/705?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-10-20">36</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-10-27"><a href="https://www.reservecalifornia.com/park/705?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-10-27">44</a></td><td class="px-1.5 py-2" data-grid="samuel-p-taylor|2026-11-03"><a href="https://www.reservecalifornia.com/park/705?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Samuel P. Taylor SP — 2026-11-03">46</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Mt. Tamalpais — Pantoll</div>
+      <div class="text-[10px] text-stone-500">50 min · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="pantoll|2026-09-15"><a href="https://www.reservecalifornia.com/park/682?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-09-22"><a href="https://www.reservecalifornia.com/park/682?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-09-29"><a href="https://www.reservecalifornia.com/park/682?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-10-06"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-10-13"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-10-20"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-10-27"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="pantoll|2026-11-03"><a href="https://www.reservecalifornia.com/park/682?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Pantoll — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Mt. Tamalpais — Steep Ravine</div>
+      <div class="text-[10px] text-stone-500">55 min · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="steep-ravine|2026-09-15"><a href="https://www.reservecalifornia.com/park/682?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-09-22"><a href="https://www.reservecalifornia.com/park/682?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-09-29"><a href="https://www.reservecalifornia.com/park/682?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-10-06"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-10-13"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-10-20"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-10-27"><a href="https://www.reservecalifornia.com/park/682?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="steep-ravine|2026-11-03"><a href="https://www.reservecalifornia.com/park/682?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Mt. Tamalpais — Steep Ravine — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Mt. Diablo SP</div>
+      <div class="text-[10px] text-stone-500">1h · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="mt-diablo|2026-09-15"><a href="https://www.reservecalifornia.com/park/683?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-09-15">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-09-22"><a href="https://www.reservecalifornia.com/park/683?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-09-22">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-09-29"><a href="https://www.reservecalifornia.com/park/683?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-09-29">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-10-06"><a href="https://www.reservecalifornia.com/park/683?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-10-06">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-10-13"><a href="https://www.reservecalifornia.com/park/683?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-10-13">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-10-20"><a href="https://www.reservecalifornia.com/park/683?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-10-20">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-10-27"><a href="https://www.reservecalifornia.com/park/683?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-10-27">45</a></td><td class="px-1.5 py-2" data-grid="mt-diablo|2026-11-03"><a href="https://www.reservecalifornia.com/park/683?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Mt. Diablo SP — 2026-11-03">45</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Castle Rock — Trail Camp</div>
+      <div class="text-[10px] text-stone-500">1h · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="castle-rock|2026-09-15"><a href="https://www.reservecalifornia.com/park/1111?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-09-22"><a href="https://www.reservecalifornia.com/park/1111?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-09-29"><a href="https://www.reservecalifornia.com/park/1111?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-10-06"><a href="https://www.reservecalifornia.com/park/1111?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-10-13"><a href="https://www.reservecalifornia.com/park/1111?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-10-20"><a href="https://www.reservecalifornia.com/park/1111?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-10-27"><a href="https://www.reservecalifornia.com/park/1111?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="castle-rock|2026-11-03"><a href="https://www.reservecalifornia.com/park/1111?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Castle Rock — Trail Camp — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Sanborn County Park</div>
+      <div class="text-[10px] text-stone-500">1h · Santa Clara Co.</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="sanborn|2026-09-15"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-09-22"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-09-29"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-10-06"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-10-13"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-10-20"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-10-27"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="sanborn|2026-11-03"><a href="https://parks.santaclaracounty.gov/locations/sanborn-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Sanborn County Park — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Del Valle</div>
+      <div class="text-[10px] text-stone-500">1h 10m · East Bay Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="del-valle|2026-09-15"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-09-22"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-09-29"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-10-06"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-10-13"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-10-20"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-10-27"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="del-valle|2026-11-03"><a href="https://www.ebparks.org/parks/del-valle/camping" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Del Valle — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Portola Redwoods SP</div>
+      <div class="text-[10px] text-stone-500">1h 10m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="portola-redwoods|2026-09-15"><a href="https://www.reservecalifornia.com/park/695?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-09-15">42</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-09-22"><a href="https://www.reservecalifornia.com/park/695?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-09-22">45</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-09-29"><a href="https://www.reservecalifornia.com/park/695?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-09-29">43</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-10-06"><a href="https://www.reservecalifornia.com/park/695?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-10-06">32</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-10-13"><a href="https://www.reservecalifornia.com/park/695?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-10-13">29</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-10-20"><a href="https://www.reservecalifornia.com/park/695?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-10-20">35</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-10-27"><a href="https://www.reservecalifornia.com/park/695?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Portola Redwoods SP — 2026-10-27">37</a></td><td class="px-1.5 py-2" data-grid="portola-redwoods|2026-11-03"><a href="https://www.reservecalifornia.com/park/695?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Portola Redwoods SP — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Joseph D. Grant</div>
+      <div class="text-[10px] text-stone-500">1h 10m · Santa Clara Co.</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-09-15"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-09-22"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-09-29"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-10-06"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-10-13"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-10-20"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-10-27"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="joseph-d-grant|2026-11-03"><a href="https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Joseph D. Grant — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Point Reyes — Backcountry</div>
+      <div class="text-[10px] text-stone-500">1h 15m · Recreation.gov</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="point-reyes|2026-09-15"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-09-15" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Point Reyes — Backcountry — 2026-09-15">20</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-09-22"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-09-22" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-09-29"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-09-29" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-10-06"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-10-06" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-10-13"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-10-13" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-10-20"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-10-20" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-10-27"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-10-27" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="point-reyes|2026-11-03"><a href="https://www.recreation.gov/camping/campgrounds/233359/availability?date=2026-11-03" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Point Reyes — Backcountry — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Memorial Park</div>
+      <div class="text-[10px] text-stone-500">1h 15m · San Mateo Co.</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="memorial-park|2026-09-15"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-09-22"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-09-29"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-10-06"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-10-13"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-10-20"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-10-27"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="memorial-park|2026-11-03"><a href="https://www.smcgov.org/parks/memorial-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Memorial Park — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Pescadero Creek — Hike-in</div>
+      <div class="text-[10px] text-stone-500">1h 15m · San Mateo Co.</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="pescadero-creek|2026-09-15"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-09-22"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-09-29"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-10-06"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-10-13"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-10-20"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-10-27"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="pescadero-creek|2026-11-03"><a href="https://www.smcgov.org/parks/pescadero-creek-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Pescadero Creek — Hike-in — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Butano SP</div>
+      <div class="text-[10px] text-stone-500">1h 15m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="butano|2026-09-15"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-09-22"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-09-29"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-10-06"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-10-13"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-10-20"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-10-27"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="butano|2026-11-03"><a href="https://www.parks.ca.gov/?page_id=536" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Butano SP — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Henry Cowell Redwoods SP</div>
+      <div class="text-[10px] text-stone-500">1h 15m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="henry-cowell|2026-09-15"><a href="https://www.reservecalifornia.com/park/655?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-09-15">65</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-09-22"><a href="https://www.reservecalifornia.com/park/655?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-09-22">82</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-09-29"><a href="https://www.reservecalifornia.com/park/655?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-09-29">84</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-10-06"><a href="https://www.reservecalifornia.com/park/655?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-10-06">79</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-10-13"><a href="https://www.reservecalifornia.com/park/655?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-10-13">89</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-10-20"><a href="https://www.reservecalifornia.com/park/655?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-10-20">93</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-10-27"><a href="https://www.reservecalifornia.com/park/655?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-10-27">96</a></td><td class="px-1.5 py-2" data-grid="henry-cowell|2026-11-03"><a href="https://www.reservecalifornia.com/park/655?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry Cowell Redwoods SP — 2026-11-03">54</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Sugarloaf Ridge SP</div>
+      <div class="text-[10px] text-stone-500">1h 15m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="sugarloaf|2026-09-15"><a href="https://www.reservecalifornia.com/park/725?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-09-15">29</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-09-22"><a href="https://www.reservecalifornia.com/park/725?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-09-22">33</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-09-29"><a href="https://www.reservecalifornia.com/park/725?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-09-29">27</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-10-06"><a href="https://www.reservecalifornia.com/park/725?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-10-06">22</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-10-13"><a href="https://www.reservecalifornia.com/park/725?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-10-13">23</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-10-20"><a href="https://www.reservecalifornia.com/park/725?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-10-20">32</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-10-27"><a href="https://www.reservecalifornia.com/park/725?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-10-27">34</a></td><td class="px-1.5 py-2" data-grid="sugarloaf|2026-11-03"><a href="https://www.reservecalifornia.com/park/725?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sugarloaf Ridge SP — 2026-11-03">33</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Big Basin Redwoods SP</div>
+      <div class="text-[10px] text-stone-500">1h 20m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="big-basin|2026-09-15"><a href="https://www.reservecalifornia.com/park/3?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-09-22"><a href="https://www.reservecalifornia.com/park/3?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-09-29"><a href="https://www.reservecalifornia.com/park/3?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-10-06"><a href="https://www.reservecalifornia.com/park/3?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-10-13"><a href="https://www.reservecalifornia.com/park/3?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-10-20"><a href="https://www.reservecalifornia.com/park/3?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-10-27"><a href="https://www.reservecalifornia.com/park/3?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="big-basin|2026-11-03"><a href="https://www.reservecalifornia.com/park/3?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Big Basin Redwoods SP — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">New Brighton SB</div>
+      <div class="text-[10px] text-stone-500">1h 20m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="new-brighton|2026-09-15"><a href="https://www.reservecalifornia.com/park/685?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-09-15">10</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-09-22"><a href="https://www.reservecalifornia.com/park/685?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-09-22">6</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-09-29"><a href="https://www.reservecalifornia.com/park/685?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-09-29">12</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-10-06"><a href="https://www.reservecalifornia.com/park/685?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-10-06">3</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-10-13"><a href="https://www.reservecalifornia.com/park/685?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-10-13">7</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-10-20"><a href="https://www.reservecalifornia.com/park/685?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-10-20">13</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-10-27"><a href="https://www.reservecalifornia.com/park/685?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-10-27">29</a></td><td class="px-1.5 py-2" data-grid="new-brighton|2026-11-03"><a href="https://www.reservecalifornia.com/park/685?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="New Brighton SB — 2026-11-03">14</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Bothe-Napa Valley SP</div>
+      <div class="text-[10px] text-stone-500">1h 20m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="bothe-napa|2026-09-15"><a href="https://www.reservecalifornia.com/park/620?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-09-15">26</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-09-22"><a href="https://www.reservecalifornia.com/park/620?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-09-22">25</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-09-29"><a href="https://www.reservecalifornia.com/park/620?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-09-29">26</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-10-06"><a href="https://www.reservecalifornia.com/park/620?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-10-06">23</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-10-13"><a href="https://www.reservecalifornia.com/park/620?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-10-13">22</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-10-20"><a href="https://www.reservecalifornia.com/park/620?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-10-20">27</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-10-27"><a href="https://www.reservecalifornia.com/park/620?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-10-27">28</a></td><td class="px-1.5 py-2" data-grid="bothe-napa|2026-11-03"><a href="https://www.reservecalifornia.com/park/620?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bothe-Napa Valley SP — 2026-11-03">30</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Sunset SB</div>
+      <div class="text-[10px] text-stone-500">1h 25m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="sunset-sb|2026-09-15"><a href="https://www.reservecalifornia.com/park/726?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-09-15">48</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-09-22"><a href="https://www.reservecalifornia.com/park/726?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-09-22">54</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-09-29"><a href="https://www.reservecalifornia.com/park/726?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-09-29">48</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-10-06"><a href="https://www.reservecalifornia.com/park/726?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-10-06">17</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-10-13"><a href="https://www.reservecalifornia.com/park/726?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-10-13">53</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-10-20"><a href="https://www.reservecalifornia.com/park/726?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-10-20">73</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-10-27"><a href="https://www.reservecalifornia.com/park/726?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-10-27">76</a></td><td class="px-1.5 py-2" data-grid="sunset-sb|2026-11-03"><a href="https://www.reservecalifornia.com/park/726?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Sunset SB — 2026-11-03">30</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Manresa SB</div>
+      <div class="text-[10px] text-stone-500">1h 25m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="manresa-sb|2026-09-15"><a href="https://www.reservecalifornia.com/park/672?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-09-22"><a href="https://www.reservecalifornia.com/park/672?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-09-29"><a href="https://www.reservecalifornia.com/park/672?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-10-06"><a href="https://www.reservecalifornia.com/park/672?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-10-13"><a href="https://www.reservecalifornia.com/park/672?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-10-20"><a href="https://www.reservecalifornia.com/park/672?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-10-27"><a href="https://www.reservecalifornia.com/park/672?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="manresa-sb|2026-11-03"><a href="https://www.reservecalifornia.com/park/672?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Manresa SB — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Brannan Island SRA</div>
+      <div class="text-[10px] text-stone-500">1h 25m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="brannan-island|2026-09-15"><a href="https://www.reservecalifornia.com/park/621?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-09-15">104</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-09-22"><a href="https://www.reservecalifornia.com/park/621?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-09-22">103</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-09-29"><a href="https://www.reservecalifornia.com/park/621?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-09-29">101</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-10-06"><a href="https://www.reservecalifornia.com/park/621?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-10-06">58</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-10-13"><a href="https://www.reservecalifornia.com/park/621?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-10-13">58</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-10-20"><a href="https://www.reservecalifornia.com/park/621?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-10-20">58</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-10-27"><a href="https://www.reservecalifornia.com/park/621?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-10-27">58</a></td><td class="px-1.5 py-2" data-grid="brannan-island|2026-11-03"><a href="https://www.reservecalifornia.com/park/621?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Brannan Island SRA — 2026-11-03">58</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Henry W. Coe SP</div>
+      <div class="text-[10px] text-stone-500">1h 30m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="henry-coe|2026-09-15"><a href="https://www.reservecalifornia.com/park/656?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-09-15">15</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-09-22"><a href="https://www.reservecalifornia.com/park/656?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-09-22">15</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-09-29"><a href="https://www.reservecalifornia.com/park/656?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-09-29">15</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-10-06"><a href="https://www.reservecalifornia.com/park/656?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-10-06">13</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-10-13"><a href="https://www.reservecalifornia.com/park/656?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-10-13">15</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-10-20"><a href="https://www.reservecalifornia.com/park/656?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-10-20">15</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-10-27"><a href="https://www.reservecalifornia.com/park/656?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-10-27">15</a></td><td class="px-1.5 py-2" data-grid="henry-coe|2026-11-03"><a href="https://www.reservecalifornia.com/park/656?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Henry W. Coe SP — 2026-11-03">15</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Mount Madonna</div>
+      <div class="text-[10px] text-stone-500">1h 30m · Santa Clara Co.</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="mount-madonna|2026-09-15"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-09-15">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-09-22"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-09-22">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-09-29"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-09-29">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-10-06"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-10-06">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-10-13"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-10-13">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-10-20"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-10-20">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-10-27"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-10-27">?</a></td><td class="px-1.5 py-2" data-grid="mount-madonna|2026-11-03"><a href="https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-stone-100 text-stone-400" title="Mount Madonna — 2026-11-03">?</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Bodega Dunes (Sonoma Coast SP)</div>
+      <div class="text-[10px] text-stone-500">1h 30m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="bodega-dunes|2026-09-15"><a href="https://www.reservecalifornia.com/park/718?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-09-15">36</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-09-22"><a href="https://www.reservecalifornia.com/park/718?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-09-22">36</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-09-29"><a href="https://www.reservecalifornia.com/park/718?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-09-29">45</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-10-06"><a href="https://www.reservecalifornia.com/park/718?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-10-06">49</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-10-13"><a href="https://www.reservecalifornia.com/park/718?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-10-13">60</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-10-20"><a href="https://www.reservecalifornia.com/park/718?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-10-20">67</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-10-27"><a href="https://www.reservecalifornia.com/park/718?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-10-27">73</a></td><td class="px-1.5 py-2" data-grid="bodega-dunes|2026-11-03"><a href="https://www.reservecalifornia.com/park/718?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Bodega Dunes (Sonoma Coast SP) — 2026-11-03">43</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Austin Creek SRA</div>
+      <div class="text-[10px] text-stone-500">1h 35m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="austin-creek|2026-09-15"><a href="https://www.reservecalifornia.com/park/1085?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-09-15">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-09-22"><a href="https://www.reservecalifornia.com/park/1085?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-09-22">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-09-29"><a href="https://www.reservecalifornia.com/park/1085?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-09-29">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-10-06"><a href="https://www.reservecalifornia.com/park/1085?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-10-06">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-10-13"><a href="https://www.reservecalifornia.com/park/1085?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-10-13">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-10-20"><a href="https://www.reservecalifornia.com/park/1085?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-10-20">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-10-27"><a href="https://www.reservecalifornia.com/park/1085?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-10-27">·</a></td><td class="px-1.5 py-2" data-grid="austin-creek|2026-11-03"><a href="https://www.reservecalifornia.com/park/1085?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-rose-100 text-rose-400" title="Austin Creek SRA — 2026-11-03">·</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Fremont Peak SP</div>
+      <div class="text-[10px] text-stone-500">1h 40m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="fremont-peak|2026-09-15"><a href="https://www.reservecalifornia.com/park/645?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-09-15">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-09-22"><a href="https://www.reservecalifornia.com/park/645?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-09-22">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-09-29"><a href="https://www.reservecalifornia.com/park/645?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-09-29">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-10-06"><a href="https://www.reservecalifornia.com/park/645?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-10-06">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-10-13"><a href="https://www.reservecalifornia.com/park/645?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-10-13">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-10-20"><a href="https://www.reservecalifornia.com/park/645?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-10-20">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-10-27"><a href="https://www.reservecalifornia.com/park/645?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-10-27">17</a></td><td class="px-1.5 py-2" data-grid="fremont-peak|2026-11-03"><a href="https://www.reservecalifornia.com/park/645?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Fremont Peak SP — 2026-11-03">17</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Pinnacles NP</div>
+      <div class="text-[10px] text-stone-500">2h 10m · Recreation.gov</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="pinnacles|2026-09-15"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-09-15" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-09-15">105</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-09-22"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-09-22" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-09-22">109</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-09-29"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-09-29" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-09-29">110</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-10-06"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-10-06" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-10-06">88</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-10-13"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-10-13" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-10-13">101</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-10-20"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-10-20" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-10-20">103</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-10-27"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-10-27" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-10-27">122</a></td><td class="px-1.5 py-2" data-grid="pinnacles|2026-11-03"><a href="https://www.recreation.gov/camping/campgrounds/234015/availability?date=2026-11-03" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Pinnacles NP — 2026-11-03">122</a></td>
+  </tr><tr class="border-t border-sand-100">
+    <td class="sticky left-0 bg-white px-4 py-2">
+      <div class="font-medium text-sm leading-tight">Salt Point SP</div>
+      <div class="text-[10px] text-stone-500">2h 10m · CA State Parks</div>
+    </td>
+    <td class="px-1.5 py-2" data-grid="salt-point|2026-09-15"><a href="https://www.reservecalifornia.com/park/703?date=2026-09-15&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-09-15">80</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-09-22"><a href="https://www.reservecalifornia.com/park/703?date=2026-09-22&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-09-22">81</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-09-29"><a href="https://www.reservecalifornia.com/park/703?date=2026-09-29&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-09-29">86</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-10-06"><a href="https://www.reservecalifornia.com/park/703?date=2026-10-06&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-10-06">88</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-10-13"><a href="https://www.reservecalifornia.com/park/703?date=2026-10-13&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-10-13">89</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-10-20"><a href="https://www.reservecalifornia.com/park/703?date=2026-10-20&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-10-20">88</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-10-27"><a href="https://www.reservecalifornia.com/park/703?date=2026-10-27&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-10-27">91</a></td><td class="px-1.5 py-2" data-grid="salt-point|2026-11-03"><a href="https://www.reservecalifornia.com/park/703?date=2026-11-03&amp;night=2" target="_blank" rel="noopener" class="block w-full h-9 leading-9 text-center text-xs font-semibold rounded bg-emerald-500 text-white hover:bg-emerald-600" title="Salt Point SP — 2026-11-03">24</a></td>
+  </tr></tbody></table></div>
+      <div id="emptyState" class="hidden text-center py-20 text-stone-500">
+        <div class="text-5xl mb-3">🌲</div>
+        <p class="font-medium">Nothing matches those filters.</p>
+        <button onclick="document.getElementById('clearFilters').click()" class="mt-3 text-sm text-forest-600 hover:text-forest-700 underline">Clear filters</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="max-w-7xl mx-auto px-4 pb-8 pt-4 text-xs text-stone-500 text-center">
+  Live data from ReserveCalifornia &amp; Recreation.gov public endpoints — unofficial, may break without notice.
+  Not affiliated with CA State Parks, NPS, or any park system.
+  <a href="https://github.com/bsangree/campsite-finder" class="underline hover:text-forest-700">Source</a>
+</footer>
+
+
+
+
+</body></html>
