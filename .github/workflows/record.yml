@@ -1,0 +1,33 @@
+name: record-availability
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # every 15 min (GitHub may delay under load)
+  workflow_dispatch:          # allow manual run
+
+permissions:
+  contents: write
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          ref: data
+          path: data-branch
+
+      - name: Poll parks
+        run: python3 scripts/poll.py >> data-branch/log.jsonl
+
+      - name: Commit
+        run: |
+          cd data-branch
+          git config user.name  "availability-bot"
+          git config user.email "actions@github.com"
+          LINES=$(wc -l < log.jsonl)
+          git add log.jsonl
+          git commit -m "poll $(date -u +%Y-%m-%dT%H:%MZ) — ${LINES} obs" || echo "no changes"
+          git push
