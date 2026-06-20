@@ -32,7 +32,7 @@
       <div>
         <div class="text-forest-200 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Bay Area</div>
         <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Campsite Finder</h1>
-        <p class="text-forest-100 mt-2 max-w-xl">Live availability across 25 campgrounds. State parks update in real time — pick a weekend, see what's open, book it.</p>
+        <p class="text-forest-100 mt-2 max-w-xl">Live availability across 30+ campgrounds — state parks, national parks, GGNRA. Pick a weekend, see what's open, book it.</p>
       </div>
       <div id="headerStats" class="text-right text-forest-200 text-sm"></div>
     </div>
@@ -182,11 +182,41 @@ const PARKS = [
     url: "https://www.reservecalifornia.com/park/682",
     mock: "likely_full" },
 
+  { id: "kirby-cove", name: "Kirby Cove", system: "rec_gov",
+    drive: 20, env: ["coast"], dogs: false, rv: false, access: "walk_in", sites: 5,
+    desc: "Beach camp directly under the Golden Gate Bridge. The most coveted site in the Bay.",
+    url: "https://www.recreation.gov/camping/campgrounds/232491" },
+
+  { id: "bicentennial", name: "Bicentennial Campground", system: "rec_gov",
+    drive: 20, env: ["coast", "chaparral"], dogs: false, rv: false, access: "walk_in", sites: 3,
+    desc: "Three walk-in sites in the Marin Headlands, 100 yds from parking.",
+    url: "https://www.recreation.gov/camping/campgrounds/272229" },
+
+  { id: "hawk-camp", name: "Hawk Camp (Marin Headlands)", system: "rec_gov",
+    drive: 25, env: ["grassland", "chaparral"], dogs: false, rv: false, access: "hike_in", sites: 3,
+    desc: "Hike-in ridgetop sites above Tennessee Valley. ~2 mi trail.",
+    url: "https://www.recreation.gov/camping/campgrounds/258815" },
+
+  { id: "haypress", name: "Haypress (Marin Headlands)", system: "rec_gov",
+    drive: 25, env: ["grassland", "coast"], dogs: false, rv: false, access: "hike_in", sites: 5,
+    desc: "Easy 0.75 mi hike-in from Tennessee Valley trailhead. Great with kids.",
+    url: "https://www.recreation.gov/camping/campgrounds/10067346" },
+
+  { id: "angel-island", name: "Angel Island SP", system: "reserve_ca",
+    drive: 30, env: ["coast", "oak_woodland"], dogs: false, rv: false, access: "hike_in", sites: 11,
+    desc: "Ferry from Tiburon/SF, then hike to ridgetop sites with 360° bay views.",
+    url: "https://www.reservecalifornia.com/park/614" },
+
   { id: "point-reyes", name: "Point Reyes — Backcountry", system: "rec_gov",
     drive: 75, env: ["coast", "grassland"], dogs: false, rv: false, access: "hike_in", sites: 50,
     desc: "Hike-in coastal camps (Wildcat, Coast, Sky, Glen). Permit required.",
-    url: "https://www.recreation.gov/camping/campgrounds/233359",
-    mock: "available" },
+    url: "https://www.recreation.gov/camping/campgrounds/233359" },
+
+  // --- South Bay extension ---
+  { id: "pinnacles", name: "Pinnacles NP", system: "rec_gov",
+    drive: 130, env: ["chaparral", "oak_woodland"], dogs: false, rv: true, access: "drive_in", sites: 134,
+    desc: "Volcanic spires, talus caves, condors. Hot in summer; spring/fall are prime.",
+    url: "https://www.recreation.gov/camping/campgrounds/234015" },
 
   // --- East Bay ---
   { id: "mt-diablo", name: "Mt. Diablo SP", system: "reserve_ca",
@@ -338,8 +368,13 @@ function rcPlaceId(park) {
   return m ? parseInt(m[1], 10) : null;
 }
 
+function recGovId(park) {
+  const m = park.url.match(/recreation\.gov\/camping\/campgrounds\/(\d+)/);
+  return m ? m[1] : null;
+}
+
 function initialStatus(park) {
-  return rcPlaceId(park) ? 'loading' : 'check_site';
+  return (rcPlaceId(park) || recGovId(park)) ? 'loading' : 'check_site';
 }
 
 async function fetchRC(placeId, startISO, nights) {
@@ -365,15 +400,47 @@ async function fetchRC(placeId, startISO, nights) {
   return count > 0 ? { status: 'available', sitesAvailable: count } : { status: 'full' };
 }
 
+const recGovMonthCache = {};
+async function fetchRecGovMonth(facilityId, monthStartISO) {
+  const key = facilityId + '|' + monthStartISO;
+  if (!recGovMonthCache[key]) {
+    recGovMonthCache[key] = fetch(
+      `https://www.recreation.gov/api/camps/availability/campground/${facilityId}/month?start_date=${monthStartISO}T00%3A00%3A00.000Z`
+    ).then(r => r.json());
+  }
+  return recGovMonthCache[key];
+}
+
+async function fetchRecGov(facilityId, startISO, nights) {
+  const start = parseISO(startISO);
+  const dates = Array.from({length: nights}, (_, i) => addDays(start, i));
+  // Fetch each distinct month the stay touches
+  const months = [...new Set(dates.map(d => fmtISO(new Date(d.getFullYear(), d.getMonth(), 1))))];
+  const monthData = await Promise.all(months.map(m => fetchRecGovMonth(facilityId, m)));
+  const sites = Object.assign({}, ...monthData.map(d => d.campsites || {}));
+  let count = 0;
+  for (const s of Object.values(sites)) {
+    if (/day.?use|group/i.test(s.loop || '') || /day.?use/i.test(s.site || '')) continue;
+    const ok = dates.every(d => s.availabilities?.[fmtISO(d) + 'T00:00:00Z'] === 'Available');
+    if (ok) count++;
+  }
+  return count > 0 ? { status: 'available', sitesAvailable: count } : { status: 'full' };
+}
+
 let fetchSeq = 0;
 async function refreshAvailability(startISO, nights) {
   const seq = ++fetchSeq;
   liveStatus = {};
-  const rcParks = PARKS.filter(p => rcPlaceId(p));
-  await Promise.all(rcParks.map(async p => {
+  for (const k of Object.keys(recGovMonthCache)) delete recGovMonthCache[k];
+  const checkable = PARKS.map(p => {
+    if (rcPlaceId(p)) return [p, () => fetchRC(rcPlaceId(p), startISO, nights)];
+    if (recGovId(p)) return [p, () => fetchRecGov(recGovId(p), startISO, nights)];
+    return null;
+  }).filter(Boolean);
+  await Promise.all(checkable.map(async ([p, fn]) => {
     try {
-      const r = await fetchRC(rcPlaceId(p), startISO, nights);
-      if (seq !== fetchSeq) return; // stale
+      const r = await fn();
+      if (seq !== fetchSeq) return;
       liveStatus[p.id] = r;
     } catch (e) {
       if (seq !== fetchSeq) return;
@@ -381,7 +448,7 @@ async function refreshAvailability(startISO, nights) {
     }
     updateCardStatus(p.id);
   }));
-  if (seq === fetchSeq) render(); // re-sort + refresh status bar once all results are in
+  if (seq === fetchSeq) render();
 }
 
 function getStatus(park) {
@@ -454,7 +521,7 @@ function parkCard(park, start, nights) {
         </div>
         <a href="${buildBookingUrl(park, start, nights)}" target="_blank" rel="noopener"
            class="shrink-0 ml-3 text-sm font-semibold bg-forest-700 hover:bg-forest-800 text-white px-4 py-2 rounded-lg transition">
-          ${rcPlaceId(park) ? 'Book' : 'Check'} →
+          ${(rcPlaceId(park) || recGovId(park)) ? 'Book' : 'Check'} →
         </a>
       </div>
     </div>`;
