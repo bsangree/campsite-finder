@@ -17,11 +17,20 @@
       }}
     }
   </script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     body { background-color:#fdfbf7; }
     .hscroll-fade { position:relative; }
     .hscroll-fade::after { content:''; position:absolute; top:0; right:0; bottom:0; width:32px;
       background:linear-gradient(to right, rgba(255,255,255,0), #fff); pointer-events:none; }
+    .mk { display:flex; align-items:center; justify-content:center; border-radius:9999px;
+      border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); font-weight:600; }
+    .mk-av   { background:#3d5e39; color:#fff; font-size:12px; }
+    .mk-full { background:#A14D3B; }
+    .mk-gray { background:#a8a29e; }
+    .leaflet-popup-content { font-family:inherit; margin:10px 12px; line-height:1.4; }
+    .leaflet-container { font:inherit; }
   </style>
 </head>
 <body class="text-stone-900 antialiased">
@@ -125,6 +134,7 @@
         <div class="flex items-center gap-2">
           <div class="flex bg-white border border-stone-900/10 rounded-lg p-0.5 text-sm h-10">
             <button id="viewList" class="view-tab px-3 rounded-md">List</button>
+            <button id="viewMap" class="view-tab px-3 rounded-md">Map</button>
             <button id="viewGrid" class="view-tab px-3 rounded-md">Scan 8 weekends</button>
           </div>
           <select id="sortBy" class="h-10 text-sm bg-white border border-stone-900/10 rounded-lg px-3">
@@ -138,6 +148,10 @@
       <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
 
       <div id="gridView" class="hidden hscroll-fade bg-white border border-stone-900/10 rounded-xl overflow-x-auto" style="scroll-snap-type:x proximity"></div>
+
+      <div id="mapView" class="hidden bg-white border border-stone-900/10 rounded-xl overflow-hidden">
+        <div id="map" class="w-full" style="height:72vh; min-height:420px"></div>
+      </div>
 
       <div id="emptyState" class="hidden text-center py-20 text-stone-500">
         <p class="font-medium">Nothing matches those filters.</p>
@@ -176,219 +190,261 @@ const PARKS = [
   { id: "samuel-p-taylor", name: "Samuel P. Taylor SP", system: "reserve_ca",
     drive: 50, env: ["redwoods"], dogs: true, rv: true, access: "drive_in", sites: 59,
     desc: "Redwood canyon along Lagunitas Creek. Closest redwoods to SF.",
-    url: "https://www.reservecalifornia.com/park/705" },
+    url: "https://www.reservecalifornia.com/park/705",
+    lat: 38.0196, lng: -122.7296 },
 
   { id: "china-camp", name: "China Camp SP", system: "reserve_ca",
     drive: 40, env: ["oak_woodland", "coast"], dogs: false, rv: false, access: "walk_in", sites: 30,
     desc: "Walk-in sites under oaks on the bay. Easy, flat, warm.",
-    url: "https://www.reservecalifornia.com/park/626" },
+    url: "https://www.reservecalifornia.com/park/626",
+    lat: 38.0017, lng: -122.4626 },
 
   { id: "pantoll", name: "Mt. Tamalpais — Pantoll", system: "reserve_ca",
     drive: 50, env: ["chaparral", "coast"], dogs: false, rv: false, access: "walk_in", sites: 16,
     desc: "First-come ridgeline sites; trailhead for Steep Ravine & Dipsea.",
-    url: "https://www.reservecalifornia.com/park/682" },
+    url: "https://www.reservecalifornia.com/park/682",
+    lat: 37.9042, lng: -122.6047 },
 
   { id: "steep-ravine", name: "Mt. Tamalpais — Steep Ravine", system: "reserve_ca",
     drive: 55, env: ["coast"], dogs: false, rv: false, access: "drive_in", sites: 7,
     desc: "Cliffside cabins + tent sites over the Pacific. Books out instantly.",
-    url: "https://www.reservecalifornia.com/park/682" },
+    url: "https://www.reservecalifornia.com/park/682",
+    lat: 37.8592, lng: -122.6395 },
 
   { id: "kirby-cove", name: "Kirby Cove", system: "rec_gov",
     drive: 20, env: ["coast"], dogs: false, rv: false, access: "walk_in", sites: 5,
     desc: "Beach camp directly under the Golden Gate Bridge. The most coveted site in the Bay.",
-    url: "https://www.recreation.gov/camping/campgrounds/232491" },
+    url: "https://www.recreation.gov/camping/campgrounds/232491",
+    lat: 37.8404, lng: -122.4889 },
 
   { id: "bicentennial", name: "Bicentennial Campground", system: "rec_gov",
     drive: 20, env: ["coast", "chaparral"], dogs: false, rv: false, access: "walk_in", sites: 3,
     desc: "Three walk-in sites in the Marin Headlands, 100 yds from parking.",
-    url: "https://www.recreation.gov/camping/campgrounds/272229" },
+    url: "https://www.recreation.gov/camping/campgrounds/272229",
+    lat: 37.8309, lng: -122.5247 },
 
   { id: "hawk-camp", name: "Hawk Camp (Marin Headlands)", system: "rec_gov",
     drive: 25, env: ["grassland", "chaparral"], dogs: false, rv: false, access: "hike_in", sites: 3,
     desc: "Hike-in ridgetop sites above Tennessee Valley. ~2 mi trail.",
-    url: "https://www.recreation.gov/camping/campgrounds/258815" },
+    url: "https://www.recreation.gov/camping/campgrounds/258815",
+    lat: 37.8539, lng: -122.5203 },
 
   { id: "haypress", name: "Haypress (Marin Headlands)", system: "rec_gov",
     drive: 25, env: ["grassland", "coast"], dogs: false, rv: false, access: "hike_in", sites: 5,
     desc: "Easy 0.75 mi hike-in from Tennessee Valley trailhead. Great with kids.",
-    url: "https://www.recreation.gov/camping/campgrounds/10067346" },
+    url: "https://www.recreation.gov/camping/campgrounds/10067346",
+    lat: 37.8608, lng: -122.5458 },
 
   { id: "angel-island", name: "Angel Island SP", system: "reserve_ca",
     drive: 30, env: ["coast", "oak_woodland"], dogs: false, rv: false, access: "hike_in", sites: 11,
     desc: "Ferry from Tiburon/SF, then hike to ridgetop sites with 360° bay views.",
-    url: "https://www.reservecalifornia.com/park/614" },
+    url: "https://www.reservecalifornia.com/park/614",
+    lat: 37.8609, lng: -122.4326 },
 
   { id: "point-reyes", name: "Point Reyes — Backcountry", system: "rec_gov",
     drive: 75, env: ["coast", "grassland"], dogs: false, rv: false, access: "hike_in", sites: 50,
     desc: "Hike-in coastal camps (Wildcat, Coast, Sky, Glen). Permit required.",
-    url: "https://www.recreation.gov/camping/campgrounds/233359" },
+    url: "https://www.recreation.gov/camping/campgrounds/233359",
+    lat: 38.0412, lng: -122.8004 },
 
   { id: "pinnacles", name: "Pinnacles NP", system: "rec_gov",
     drive: 130, env: ["chaparral", "oak_woodland"], dogs: false, rv: true, access: "drive_in", sites: 134,
     desc: "Volcanic spires, talus caves, condors. Hot in summer; spring/fall are prime.",
-    url: "https://www.recreation.gov/camping/campgrounds/234015" },
+    url: "https://www.recreation.gov/camping/campgrounds/234015",
+    lat: 36.4664, lng: -121.1761 },
 
   // --- East Bay ---
   { id: "mt-diablo", name: "Mt. Diablo SP", system: "reserve_ca",
     drive: 60, env: ["oak_woodland", "chaparral", "grassland"], dogs: false, rv: true, access: "drive_in", sites: 56,
     desc: "Three campgrounds on the slopes; huge views, hot summers.",
-    url: "https://www.reservecalifornia.com/park/683" },
+    url: "https://www.reservecalifornia.com/park/683",
+    lat: 37.852, lng: -121.9255 },
 
   { id: "anthony-chabot", name: "Anthony Chabot", system: "ebparks",
     drive: 35, env: ["oak_woodland", "lake"], dogs: true, rv: true, access: "drive_in", sites: 75,
     desc: "Closest drive-in camp to SF/Oakland. Eucalyptus + Lake Chabot.",
-    url: "https://www.ebparks.org/parks/anthony-chabot/camping" },
+    url: "https://www.ebparks.org/parks/anthony-chabot/camping",
+    lat: 37.7573, lng: -122.1105 },
 
   { id: "del-valle", name: "Del Valle", system: "ebparks",
     drive: 70, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 150,
     desc: "Big reservoir camp near Livermore. Swimming, boating, hot.",
-    url: "https://www.ebparks.org/parks/del-valle/camping" },
+    url: "https://www.ebparks.org/parks/del-valle/camping",
+    lat: 37.5837, lng: -121.698 },
 
   // --- Peninsula / Santa Cruz Mtns ---
   { id: "half-moon-bay", name: "Half Moon Bay SB", system: "reserve_ca",
     drive: 45, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 52,
     desc: "Beachfront sites behind the dunes at Francis Beach.",
-    url: "https://www.reservecalifornia.com/park/652" },
+    url: "https://www.reservecalifornia.com/park/652",
+    lat: 37.4665, lng: -122.445 },
 
   { id: "memorial-park", name: "Memorial Park", system: "smc_parks",
     drive: 75, env: ["redwoods"], dogs: false, rv: true, access: "drive_in", sites: 154,
     desc: "San Mateo County's redwood camp on Pescadero Creek. Swimming hole.",
-    url: "https://www.smcgov.org/parks/memorial-park" },
+    url: "https://www.smcgov.org/parks/memorial-park",
+    lat: 37.2688, lng: -122.301 },
 
   { id: "pescadero-creek", name: "Pescadero Creek — Hike-in", system: "smc_parks",
     drive: 75, env: ["redwoods"], dogs: false, rv: false, access: "hike_in", sites: 15,
     desc: "Backcountry sites in old-growth adjacent to Memorial & Portola.",
-    url: "https://www.smcgov.org/parks/pescadero-creek-park" },
+    url: "https://www.smcgov.org/parks/pescadero-creek-park",
+    lat: 37.26, lng: -122.287 },
 
   { id: "portola-redwoods", name: "Portola Redwoods SP", system: "reserve_ca",
     drive: 70, env: ["redwoods"], dogs: false, rv: false, access: "drive_in", sites: 53,
     desc: "Quiet, deep redwood canyon. Often has space when Big Basin doesn't.",
-    url: "https://www.reservecalifornia.com/park/695" },
+    url: "https://www.reservecalifornia.com/park/695",
+    lat: 37.2624, lng: -122.2124 },
 
   { id: "butano", name: "Butano SP", system: "reserve_ca",
     drive: 75, env: ["redwoods"], dogs: false, rv: false, access: "drive_in", sites: 38,
     desc: "Small, foggy redwood park near Pescadero. First-come, first-served.",
-    url: "https://www.parks.ca.gov/?page_id=536" },
+    url: "https://www.parks.ca.gov/?page_id=536",
+    lat: 37.2113, lng: -122.319 },
 
   { id: "big-basin", name: "Big Basin Redwoods SP", system: "reserve_ca",
     drive: 80, env: ["redwoods"], dogs: false, rv: false, access: "drive_in", sites: 47,
     desc: "Oldest CA state park. Limited reopened sites post-CZU fire.",
-    url: "https://www.reservecalifornia.com/park/3" },
+    url: "https://www.reservecalifornia.com/park/3",
+    lat: 37.1729, lng: -122.2115 },
 
   { id: "castle-rock", name: "Castle Rock — Trail Camp", system: "reserve_ca",
     drive: 60, env: ["chaparral", "oak_woodland"], dogs: false, rv: false, access: "hike_in", sites: 25,
     desc: "2.5 mi hike-in. Sandstone formations, Skyline-to-the-Sea start.",
-    url: "https://www.reservecalifornia.com/park/1111" },
+    url: "https://www.reservecalifornia.com/park/1111",
+    lat: 37.2125, lng: -122.1511 },
 
   { id: "sanborn", name: "Sanborn County Park", system: "scc_parks",
     drive: 60, env: ["redwoods"], dogs: false, rv: true, access: "walk_in", sites: 33,
     desc: "Walk-in redwood sites + RV area above Saratoga.",
-    url: "https://parks.santaclaracounty.gov/locations/sanborn-county-park" },
+    url: "https://parks.santaclaracounty.gov/locations/sanborn-county-park",
+    lat: 37.2413, lng: -122.0553 },
 
   { id: "henry-cowell", name: "Henry Cowell Redwoods SP", system: "reserve_ca",
     drive: 75, env: ["redwoods"], dogs: true, rv: true, access: "drive_in", sites: 107,
     desc: "Sandy ponderosa/redwood camp near Felton. Dog-friendly.",
-    url: "https://www.reservecalifornia.com/park/655" },
+    url: "https://www.reservecalifornia.com/park/655",
+    lat: 37.0401, lng: -122.064 },
 
   { id: "sunset-sb", name: "Sunset SB", system: "reserve_ca",
     drive: 85, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 90,
     desc: "Long quiet beach south of Santa Cruz; bigger and easier to book than New Brighton.",
-    url: "https://www.reservecalifornia.com/park/726" },
+    url: "https://www.reservecalifornia.com/park/726",
+    lat: 36.897, lng: -121.8375 },
 
   { id: "manresa-sb", name: "Manresa SB", system: "reserve_ca",
     drive: 85, env: ["coast"], dogs: false, rv: false, access: "walk_in", sites: 64,
     desc: "Walk-in tent sites on a bluff over a wide sandy beach.",
-    url: "https://www.reservecalifornia.com/park/672" },
+    url: "https://www.reservecalifornia.com/park/672",
+    lat: 36.9199, lng: -121.8529 },
 
   { id: "new-brighton", name: "New Brighton SB", system: "reserve_ca",
     drive: 80, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 100,
     desc: "Blufftop camp over Monterey Bay near Capitola.",
-    url: "https://www.reservecalifornia.com/park/685" },
+    url: "https://www.reservecalifornia.com/park/685",
+    lat: 36.9799, lng: -121.9379 },
 
   // --- South Bay ---
   { id: "fremont-peak", name: "Fremont Peak SP", system: "reserve_ca",
     drive: 100, env: ["oak_woodland", "grassland"], dogs: false, rv: false, access: "drive_in", sites: 25,
     desc: "Small camp on a 3,000' ridge above San Juan Bautista. Observatory + huge views.",
-    url: "https://www.reservecalifornia.com/park/645" },
+    url: "https://www.reservecalifornia.com/park/645",
+    lat: 36.7602, lng: -121.503 },
 
   { id: "joseph-d-grant", name: "Joseph D. Grant", system: "scc_parks",
     drive: 70, env: ["oak_woodland", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 40,
     desc: "Rolling oak savanna on Mt. Hamilton's flank. Quiet.",
-    url: "https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park" },
+    url: "https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park",
+    lat: 37.341, lng: -121.716 },
 
   { id: "henry-coe", name: "Henry W. Coe SP", system: "reserve_ca",
     drive: 90, env: ["oak_woodland", "grassland", "chaparral"], dogs: false, rv: false, access: "drive_in", sites: 20,
     desc: "Vast wilderness park; HQ drive-in + endless backcountry.",
-    url: "https://www.reservecalifornia.com/park/656" },
+    url: "https://www.reservecalifornia.com/park/656",
+    lat: 37.188, lng: -121.548 },
 
   { id: "mount-madonna", name: "Mount Madonna", system: "scc_parks",
     drive: 90, env: ["redwoods", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 118,
     desc: "Redwood ridgetop between Gilroy and the coast. Yurts available.",
-    url: "https://parks.santaclaracounty.gov/locations/mt-madonna-county-park" },
+    url: "https://parks.santaclaracounty.gov/locations/mt-madonna-county-park",
+    lat: 37.0133, lng: -121.704 },
 
   // --- Big Sur ---
   { id: "pfeiffer-big-sur", name: "Pfeiffer Big Sur SP", system: "reserve_ca",
     drive: 155, env: ["redwoods", "coast"], dogs: false, rv: true, access: "drive_in", sites: 189,
     desc: "The main Big Sur camp — redwoods along the Big Sur River, walk to the gorge.",
-    url: "https://www.reservecalifornia.com/park/690" },
+    url: "https://www.reservecalifornia.com/park/690",
+    lat: 36.2531, lng: -121.7811 },
 
   { id: "andrew-molera", name: "Andrew Molera SP", system: "reserve_ca",
     drive: 150, env: ["coast", "grassland"], dogs: false, rv: false, access: "walk_in", sites: 24,
     desc: "Walk-in meadow camp 0.3 mi from parking; trail to a long wild beach.",
-    url: "https://www.reservecalifornia.com/park/1077" },
+    url: "https://www.reservecalifornia.com/park/1077",
+    lat: 36.2884, lng: -121.844 },
 
   { id: "julia-pfeiffer", name: "Julia Pfeiffer Burns SP", system: "reserve_ca",
     drive: 165, env: ["coast", "redwoods"], dogs: false, rv: false, access: "walk_in", sites: 2,
     desc: "Two clifftop environmental sites overlooking McWay Falls. Among the hardest in CA to get.",
-    url: "https://www.reservecalifornia.com/park/661" },
+    url: "https://www.reservecalifornia.com/park/661",
+    lat: 36.1589, lng: -121.6705 },
 
   { id: "limekiln", name: "Limekiln SP", system: "reserve_ca",
     drive: 185, env: ["redwoods", "coast"], dogs: false, rv: true, access: "drive_in", sites: 28,
     desc: "Compact redwood canyon meeting the ocean; waterfall hike + historic kilns.",
-    url: "https://www.reservecalifornia.com/park/666" },
+    url: "https://www.reservecalifornia.com/park/666",
+    lat: 36.0099, lng: -121.518 },
 
   { id: "kirk-creek", name: "Kirk Creek", system: "rec_gov",
     drive: 190, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 33,
     desc: "Blufftop Forest Service camp on Highway 1 — every site has an ocean view.",
-    url: "https://www.recreation.gov/camping/campgrounds/233116" },
+    url: "https://www.recreation.gov/camping/campgrounds/233116",
+    lat: 35.9917, lng: -121.4942 },
 
   { id: "plaskett-creek", name: "Plaskett Creek", system: "rec_gov",
     drive: 195, env: ["coast", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 44,
     desc: "Grassy Forest Service camp across Hwy 1 from Sand Dollar Beach.",
-    url: "https://www.recreation.gov/camping/campgrounds/231959" },
+    url: "https://www.recreation.gov/camping/campgrounds/231959",
+    lat: 35.9172, lng: -121.465 },
 
   // --- Delta ---
   { id: "brannan-island", name: "Brannan Island SRA", system: "reserve_ca",
     drive: 85, env: ["lake"], dogs: true, rv: true, access: "drive_in", sites: 100,
     desc: "Delta waterfront camp — boating, windsurfing, fishing. Hot summers, flat.",
-    url: "https://www.reservecalifornia.com/park/621" },
+    url: "https://www.reservecalifornia.com/park/621",
+    lat: 38.1106, lng: -121.6985 },
 
   // --- North Bay / Wine Country ---
   { id: "austin-creek", name: "Austin Creek SRA", system: "reserve_ca",
     drive: 95, env: ["oak_woodland", "grassland"], dogs: false, rv: false, access: "drive_in", sites: 23,
     desc: "Bullfrog Pond camp above Armstrong Redwoods near Guerneville. Steep road in.",
-    url: "https://www.reservecalifornia.com/park/1085" },
+    url: "https://www.reservecalifornia.com/park/1085",
+    lat: 38.5656, lng: -123.011 },
 
   { id: "sugarloaf", name: "Sugarloaf Ridge SP", system: "reserve_ca",
     drive: 75, env: ["oak_woodland", "chaparral", "grassland"], dogs: false, rv: true, access: "drive_in", sites: 47,
     desc: "Sonoma valley camp; observatory, waterfall, Bald Mtn hike.",
-    url: "https://www.reservecalifornia.com/park/725" },
+    url: "https://www.reservecalifornia.com/park/725",
+    lat: 38.4379, lng: -122.5143 },
 
   { id: "bothe-napa", name: "Bothe-Napa Valley SP", system: "reserve_ca",
     drive: 80, env: ["redwoods", "oak_woodland"], dogs: false, rv: true, access: "drive_in", sites: 47,
     desc: "Surprising redwood pocket in Napa Valley. Pool in summer.",
-    url: "https://www.reservecalifornia.com/park/620" },
+    url: "https://www.reservecalifornia.com/park/620",
+    lat: 38.5532, lng: -122.5257 },
 
   // --- Sonoma Coast ---
   { id: "bodega-dunes", name: "Bodega Dunes (Sonoma Coast SP)", system: "reserve_ca",
     drive: 90, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 99,
     desc: "Sheltered dune camp near Bodega Bay. Big, easy to get.",
-    url: "https://www.reservecalifornia.com/park/718" },
+    url: "https://www.reservecalifornia.com/park/718",
+    lat: 38.3216, lng: -123.048 },
 
   { id: "salt-point", name: "Salt Point SP", system: "reserve_ca",
     drive: 130, env: ["coast", "chaparral"], dogs: false, rv: true, access: "drive_in", sites: 109,
     desc: "Dramatic tafoni sandstone coast. Two campgrounds; Gerstle is quieter.",
-    url: "https://www.reservecalifornia.com/park/703" },
+    url: "https://www.reservecalifornia.com/park/703",
+    lat: 38.5671, lng: -123.3327 },
 ];
 
 // ============================================================================
@@ -488,7 +544,7 @@ async function refreshAvailability(startISO, nights) {
     }
     updateCardStatus(p.id);
   }));
-  if (seq === fetchSeq) render();
+  if (seq === fetchSeq) (viewMode === 'map' ? renderMap : render)();
 }
 
 function getStatus(park) {
@@ -579,6 +635,76 @@ async function loadGrid() {
 }
 
 // ============================================================================
+// MAP VIEW — Leaflet + Esri topo tiles, markers colored by availability
+// ============================================================================
+
+let map = null, markerById = {};
+
+function markerIcon(st) {
+  if (st.status === 'available') {
+    return L.divIcon({ className: '', html: `<div class="mk mk-av" style="width:30px;height:30px">${st.sitesAvailable}</div>`,
+      iconSize: [30,30], iconAnchor: [15,15], popupAnchor: [0,-14] });
+  }
+  const cls = st.status === 'full' ? 'mk-full' : 'mk-gray';
+  return L.divIcon({ className: '', html: `<div class="mk ${cls}" style="width:14px;height:14px"></div>`,
+    iconSize: [14,14], iconAnchor: [7,7], popupAnchor: [0,-8] });
+}
+
+function popupHtml(park, startISO, nights) {
+  const st = getStatus(park);
+  const stTxt = st.status === 'available'
+      ? `<span style="color:#2f4a2c;font-weight:600">${st.sitesAvailable} site${st.sitesAvailable===1?'':'s'} open</span>`
+    : st.status === 'full' ? `<span style="color:#A14D3B;font-weight:600">Full</span>`
+    : st.status === 'loading' ? `<span style="color:#78716c">Checking…</span>`
+    : `<span style="color:#78716c">Check site</span>`;
+  return `<div style="min-width:180px">
+    <div style="font-weight:600;font-size:15px">${park.name}</div>
+    <div style="color:#78716c;font-size:12px;margin:2px 0 6px">${fmtDrive(park.drive)} from SF · ${park.sites} sites</div>
+    <div style="font-size:13px;margin-bottom:8px">${stTxt}</div>
+    <a href="${buildBookingUrl(park, startISO, nights)}" target="_blank" rel="noopener"
+       style="color:#2f4a2c;font-weight:600;font-size:13px">${hasLiveApi(park) ? 'Book' : 'Check'} ↗</a>
+  </div>`;
+}
+
+function renderMap() {
+  const startISO = document.getElementById('startDate').value;
+  const nights = parseInt(document.getElementById('nights').value, 10);
+  if (!map) {
+    map = L.map('map', { zoomSnap: 0.5 }).setView([37.4, -122.2], 8);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 16, attribution: 'Tiles © Esri — Esri, USGS, NOAA',
+    }).addTo(map);
+  }
+  Object.values(markerById).forEach(m => m.remove());
+  markerById = {};
+  let filtered = applyFilters(PARKS).filter(p => p.lat);
+  if (document.getElementById('availOnly').checked)
+    filtered = filtered.filter(p => getStatus(p).status === 'available');
+  for (const p of filtered) {
+    const m = L.marker([p.lat, p.lng], { icon: markerIcon(getStatus(p)), title: p.name }).addTo(map);
+    m.bindPopup(popupHtml(p, startISO, nights));
+    markerById[p.id] = m;
+  }
+  document.getElementById('resultCount').textContent = `${filtered.length} campgrounds on map`;
+  map._fitPts = filtered.map(p => [p.lat, p.lng]);
+  const fit = () => {
+    map.invalidateSize();
+    if (map._fitPts.length) map.fitBounds(map._fitPts, { padding: [36, 36] });
+  };
+  setTimeout(fit, 60);
+  // If the container had no size at fit time (hidden tab, initializing pane), refit when it gets one.
+  if (!map._ro) {
+    let lastW = 0;
+    map._ro = new ResizeObserver(entries => {
+      const w = entries[0].contentRect.width;
+      if (w > 0 && lastW === 0) fit();
+      lastW = w;
+    });
+    map._ro.observe(document.getElementById('map'));
+  }
+}
+
+// ============================================================================
 // FILTERING (shared between list and grid)
 // ============================================================================
 
@@ -612,10 +738,13 @@ function setView(mode) {
   viewMode = mode;
   document.getElementById('results').classList.toggle('hidden', mode !== 'list');
   document.getElementById('gridView').classList.toggle('hidden', mode !== 'grid');
+  document.getElementById('mapView').classList.toggle('hidden', mode !== 'map');
   document.getElementById('sortBy').classList.toggle('hidden', mode !== 'list');
   document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('bg-forest-700','text-white'));
-  document.getElementById(mode==='list'?'viewList':'viewGrid').classList.add('bg-forest-700','text-white');
-  if (mode === 'grid') { renderGrid(); loadGrid(); } else { render(); }
+  document.getElementById({list:'viewList', grid:'viewGrid', map:'viewMap'}[mode]).classList.add('bg-forest-700','text-white');
+  if (mode === 'grid') { renderGrid(); loadGrid(); }
+  else if (mode === 'map') { renderMap(); }
+  else { render(); }
   writeUrl();
 }
 
@@ -654,6 +783,12 @@ function updateCardStatus(parkId) {
   if (el) el.innerHTML = availBlock(getStatus(park));
   const link = document.querySelector(`[data-link="${parkId}"]`);
   if (link) link.className = sourceLinkCls(park);
+  const mk = markerById[parkId];
+  if (mk) {
+    mk.setIcon(markerIcon(getStatus(park)));
+    mk.setPopupContent(popupHtml(park, document.getElementById('startDate').value,
+      parseInt(document.getElementById('nights').value, 10)));
+  }
 }
 
 function sourceLinkCls(park) {
@@ -762,6 +897,7 @@ function writeUrl() {
   if (document.getElementById('driveInOnly').checked) p.set('drivein','1');
   if (document.getElementById('availOnly').checked) p.set('avail','1');
   if (viewMode==='grid') p.set('v','grid');
+  if (viewMode==='map') p.set('v','map');
   history.replaceState(null, '', '?'+p.toString());
 }
 function readUrl() {
@@ -771,7 +907,7 @@ function readUrl() {
   if (p.get('drive')) document.getElementById('maxDrive').value = p.get('drive');
   if (p.get('env')) p.get('env').split(',').forEach(e => { const cb=document.querySelector(`#envFilters input[value="${e}"]`); if(cb) cb.checked=true; });
   ['dogs','rv','drivein','avail'].forEach(k => { if(p.get(k)==='1') document.getElementById({dogs:'dogsOnly',rv:'rvOnly',drivein:'driveInOnly',avail:'availOnly'}[k]).checked=true; });
-  return p.get('v')==='grid' ? 'grid' : 'list';
+  return ['grid','map'].includes(p.get('v')) ? p.get('v') : 'list';
 }
 
 function onDatesChanged() {
@@ -788,7 +924,10 @@ function onDatesChanged() {
     onDatesChanged._lastNights = n;
   }
   if (viewMode === 'grid') { renderGrid(); loadGrid(); }
-  else { render(); refreshAvailability(s, n); }
+  else {
+    viewMode === 'map' ? renderMap() : render();
+    refreshAvailability(s, n);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -819,12 +958,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   ['startDate','nights'].forEach(id => document.getElementById(id).addEventListener('change', onDatesChanged));
-  const rerender = () => { writeUrl(); viewMode==='grid' ? renderGrid() : render(); };
+  const rerender = () => { writeUrl(); viewMode==='grid' ? renderGrid() : viewMode==='map' ? renderMap() : render(); };
   ['maxDrive','dogsOnly','rvOnly','driveInOnly','availOnly','sortBy']
     .forEach(id => document.getElementById(id).addEventListener('change', rerender));
   document.querySelectorAll('#envFilters input').forEach(i => i.addEventListener('change', rerender));
 
   document.getElementById('viewList').addEventListener('click', () => setView('list'));
+  document.getElementById('viewMap').addEventListener('click', () => setView('map'));
   document.getElementById('viewGrid').addEventListener('click', () => setView('grid'));
 
   const initialView = readUrl();
