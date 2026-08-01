@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bay Area Campsite Finder</title>
-  <meta name="description" content="Live availability at nearly 100 Northern California campgrounds — coast redwoods, Tahoe, Yosemite, the Eastern Sierra, Big Sur. Pick a weekend, see what's open, book it." />
+  <meta name="description" content="Every public campground within ~4 hours of San Francisco — 120+ camps from the redwood coast to Tahoe, Yosemite, and Big Sur. Live availability, one page." />
   <meta property="og:title" content="Bay Area Campsite Finder" />
-  <meta property="og:description" content="Live availability at nearly 100 Northern California campgrounds — coast redwoods, Tahoe, Yosemite, the Eastern Sierra, Big Sur. Pick a weekend, see what's open, book it." />
+  <meta property="og:description" content="Every public campground within ~4 hours of San Francisco — 120+ camps from the redwood coast to Tahoe, Yosemite, and Big Sur. Live availability, one page." />
   <meta property="og:image" content="https://bsangree.github.io/campsite-finder/social-card.png" />
   <meta property="og:url" content="https://bsangree.github.io/campsite-finder/" />
   <meta property="og:type" content="website" />
@@ -56,7 +56,7 @@
     <div class="sm:max-w-[620px]">
       <div class="text-forest-200 text-[13px] mb-0.5">Bay Area</div>
       <h1 class="text-[28px] sm:text-5xl font-semibold tracking-tight whitespace-nowrap">Campsite Finder</h1>
-      <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across nearly 100 campgrounds — coast redwoods to the Eastern Sierra. Pick a weekend, see what's open, book it.</p>
+      <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Every public campground within ~4 hours of San Francisco — plus the far North Coast, Shasta, and the Eastern Sierra. Live availability, one page.</p>
     </div>
     <div id="headerStats" class="shrink-0 text-center sm:mr-10"></div>
   </div>
@@ -123,7 +123,7 @@
           <div class="text-[13px] font-medium text-stone-500 mb-2">Region</div>
           <select id="regionSel" class="w-full h-11 bg-white border border-stone-900/10 rounded-lg px-3 text-sm">
             <option value="all">All regions</option>
-            <option value="bay">Bay Area</option>
+            <option value="bay">Bay Area &amp; Wine Country</option>
             <option value="northcoast">North Coast</option>
             <option value="shasta">Shasta &amp; Lassen</option>
             <option value="tahoe">Tahoe</option>
@@ -221,6 +221,9 @@ const SYSTEMS = {
   ebparks:    { label: "East Bay Parks" },
   scc_parks:  { label: "Santa Clara County Parks" },
   smc_parks:  { label: "San Mateo County Parks" },
+  sonoma_co:  { label: "Sonoma County Parks" },
+  monterey_co:{ label: "Monterey County Parks" },
+  solano_co:  { label: "Solano County Parks" },
 };
 
 const ENV_LABELS = {
@@ -786,6 +789,125 @@ const PARKS = [
     desc: "The classic dune camp — monarch butterflies in winter, wide sand year-round.",
     url: "https://www.reservecalifornia.com/park/691",
     lat: 35.1064, lng: -120.6271 },
+
+
+  // --- 4-hour-radius completion sweep (2026-08-01) ---
+  { id: "clear-lake", name: "Clear Lake SP", system: "reserve_ca", region: "bay",
+    drive: 135, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 147,
+    desc: "California's oldest lake — tule shores, bass water, Mt. Konocti above.",
+    url: "https://www.reservecalifornia.com/park/628",
+    lat: 39.0111, lng: -122.8141 },
+  { id: "lake-solano", name: "Lake Solano Park", system: "solano_co", region: "bay",
+    drive: 70, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 87,
+    desc: "Putah Creek's calm stretch below the dam — otters, resident peacocks, easy paddling.",
+    url: "https://www.solanocounty.com/depts/rm/countypark/",
+    lat: 38.488, lng: -121.996 },
+  { id: "doran-beach", name: "Doran Regional Park", system: "sonoma_co", region: "bay",
+    drive: 75, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 128,
+    desc: "Two miles of flat sand between Bodega Bay and the harbor — the family classic.",
+    url: "https://parks.sonomacounty.ca.gov/visit/find-a-park/doran-regional-park",
+    lat: 38.3129, lng: -123.029 },
+  { id: "westside-regional", name: "Westside Regional Park", system: "sonoma_co", region: "bay",
+    drive: 75, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 47,
+    desc: "Bodega Bay's calm-water side — crabbing docks and kayak launches.",
+    url: "https://parks.sonomacounty.ca.gov/visit/find-a-park/westside-regional-park",
+    lat: 38.318, lng: -123.055 },
+  { id: "stillwater-cove", name: "Stillwater Cove Regional Park", system: "sonoma_co", region: "bay",
+    drive: 115, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 23,
+    desc: "A pocket cove north of Jenner — quiet sites above the kelp.",
+    url: "https://parks.sonomacounty.ca.gov/visit/find-a-park/stillwater-cove-regional-park",
+    lat: 38.5466, lng: -123.2964 },
+  { id: "coyote-lake", name: "Coyote Lake – Harvey Bear", system: "scc_parks", region: "bay",
+    drive: 75, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 74,
+    desc: "Reservoir camp in the oak hills east of Gilroy — wintering bald eagles.",
+    url: "https://parks.santaclaracounty.gov/locations/coyote-lake-harvey-bear-ranch-county-park",
+    lat: 37.1219, lng: -121.5464 },
+  { id: "gualala-point", name: "Gualala Point Regional Park", system: "sonoma_co", region: "northcoast",
+    drive: 140, env: ["coast", "redwoods"], dogs: true, rv: true, access: "drive_in", sites: 25,
+    desc: "Redwood flat along the Gualala River, a footbridge from the beach.",
+    url: "https://parks.sonomacounty.ca.gov/visit/find-a-park/gualala-point-regional-park",
+    lat: 38.7657, lng: -123.5232 },
+  { id: "westport-union", name: "Westport-Union Landing SB", system: "reserve_ca", region: "northcoast",
+    drive: 215, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 86,
+    desc: "Blufftop sites over a wild, empty stretch of Mendocino coast.",
+    url: "https://www.reservecalifornia.com/park/1235",
+    lat: 39.6761, lng: -123.7905 },
+  { id: "colusa", name: "Colusa-Sacramento River SRA", system: "reserve_ca", region: "shasta",
+    drive: 120, env: ["oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 20,
+    desc: "Shady riverbank camp on the Sacramento — canoe launches and salmon runs.",
+    url: "https://www.reservecalifornia.com/park/632",
+    lat: 39.2182, lng: -122.0165 },
+  { id: "lake-oroville", name: "Lake Oroville SRA — Loafer Creek", system: "reserve_ca", region: "shasta",
+    drive: 165, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 137,
+    desc: "Above the state's tallest dam — houseboat water and bald eagles.",
+    url: "https://www.reservecalifornia.com/park/662",
+    lat: 39.5343, lng: -121.467 },
+  { id: "tahoe-sra", name: "Tahoe SRA (Tahoe City)", system: "reserve_ca", region: "tahoe",
+    drive: 205, env: ["alpine", "lake"], dogs: true, rv: true, access: "drive_in", sites: 28,
+    desc: "In-town camp — walk to the lake, coffee, and the Truckee River outlet.",
+    url: "https://www.reservecalifornia.com/park/728",
+    lat: 39.1762, lng: -120.135 },
+  { id: "kaspian", name: "Kaspian (West Shore)", system: "rec_gov", region: "tahoe",
+    drive: 210, env: ["alpine", "lake"], dogs: true, rv: false, access: "walk_in", sites: 9,
+    desc: "Tiny West Shore camp under the pines — Blackwood Canyon at your back.",
+    url: "https://www.recreation.gov/camping/campgrounds/232875",
+    lat: 39.1137, lng: -120.1587 },
+  { id: "fashoda", name: "Fashoda (Union Valley)", system: "rec_gov", region: "tahoe",
+    drive: 195, env: ["alpine", "lake"], dogs: true, rv: true, access: "drive_in", sites: 30,
+    desc: "Crystal Basin tent camp on Union Valley Reservoir's granite shore.",
+    url: "https://www.recreation.gov/camping/campgrounds/234135",
+    lat: 38.8682, lng: -120.3975 },
+  { id: "wrights-lake", name: "Wrights Lake", system: "rec_gov", region: "tahoe",
+    drive: 210, env: ["alpine", "lake"], dogs: true, rv: true, access: "drive_in", sites: 65,
+    desc: "High granite lake at 7,000 feet — canoe water, Desolation trailheads.",
+    url: "https://www.recreation.gov/camping/campgrounds/231954",
+    lat: 38.8494, lng: -120.2311 },
+  { id: "silver-lake-east", name: "Silver Lake East (Hwy 88)", system: "rec_gov", region: "tahoe",
+    drive: 210, env: ["alpine", "lake"], dogs: true, rv: true, access: "drive_in", sites: 48,
+    desc: "Carson Pass blue gem below Thunder Mountain — kayaks, islands, granite.",
+    url: "https://www.recreation.gov/camping/campgrounds/232263",
+    lat: 38.675, lng: -119.8875 },
+  { id: "salmon-creek", name: "Salmon Creek (Lakes Basin)", system: "rec_gov", region: "tahoe",
+    drive: 225, env: ["alpine", "lake"], dogs: true, rv: true, access: "drive_in", sites: 29,
+    desc: "Sierra Buttes country — a dozen alpine lakes within a morning's walk.",
+    url: "https://www.recreation.gov/camping/campgrounds/234540",
+    lat: 39.6235, lng: -120.6124 },
+  { id: "folsom-lake", name: "Folsom Lake SRA", system: "reserve_ca", region: "yosemite",
+    drive: 125, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 169,
+    desc: "Beals Point and Peninsula camps on the foothill reservoir.",
+    url: "https://www.reservecalifornia.com/park/643",
+    lat: 38.7089, lng: -121.1704 },
+  { id: "indian-grinding-rock", name: "Indian Grinding Rock SHP", system: "reserve_ca", region: "yosemite",
+    drive: 150, env: ["oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 22,
+    desc: "Chaw'se — 1,185 bedrock mortars and a reconstructed Miwok roundhouse.",
+    url: "https://www.reservecalifornia.com/park/659",
+    lat: 38.4256, lng: -120.64 },
+  { id: "tuttletown", name: "Tuttletown (New Melones)", system: "rec_gov", region: "yosemite",
+    drive: 165, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 163,
+    desc: "New Melones' quieter shore — paddling coves and oak shade.",
+    url: "https://www.recreation.gov/camping/campgrounds/234072",
+    lat: 37.9839, lng: -120.5081 },
+  { id: "arroyo-seco", name: "Arroyo Seco (Los Padres)", system: "rec_gov", region: "central",
+    drive: 165, env: ["oak_woodland", "chaparral"], dogs: true, rv: true, access: "drive_in", sites: 39,
+    desc: "Gorge-mouth camp on the wild Arroyo Seco — deep green swimming holes.",
+    url: "https://www.recreation.gov/camping/campgrounds/231958",
+    lat: 36.2397, lng: -121.4786 },
+  { id: "laguna-seca", name: "Laguna Seca Recreation Area", system: "monterey_co", region: "central",
+    drive: 130, env: ["oak_woodland", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 98,
+    desc: "Oak-hill camp ringing the famous raceway — quiet except race weekends.",
+    url: "https://www.countyofmonterey.gov/government/departments-i-z/parks",
+    lat: 36.5841, lng: -121.753 },
+
+  { id: "forks-bass-lake", name: "Forks (Bass Lake)", system: "rec_gov", region: "yosemite",
+    drive: 230, env: ["lake"], dogs: true, rv: true, access: "drive_in", sites: 26,
+    desc: "Bass Lake's classic camp near the Forks — warm-water swimming, Yosemite 30 min up the hill.",
+    url: "https://www.recreation.gov/camping/campgrounds/232878",
+    lat: 37.3127, lng: -119.57 },
+  { id: "lupine-bass-lake", name: "Lupine (Bass Lake)", system: "rec_gov", region: "yosemite",
+    drive: 230, env: ["lake"], dogs: true, rv: true, access: "drive_in", sites: 51,
+    desc: "Shoreline pines on Bass Lake's south side — paddleboard water all summer.",
+    url: "https://www.recreation.gov/camping/campgrounds/232802",
+    lat: 37.3095, lng: -119.5472 },
 
 ];
 

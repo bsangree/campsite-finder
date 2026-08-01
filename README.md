@@ -4,11 +4,18 @@
 
 ![Bay Area Campsite Finder](social-card.png)
 
-One page that answers "where can I camp this weekend?" — live availability across
-nearly 100 Northern California campgrounds, from the coast redwoods to Tahoe, Yosemite,
-the Eastern Sierra, and Big Sur — in the one place the official sites don't offer:
-side by side. Filter by region, drive time, environment; watch the hard ones (Whitney
-Portal, Yosemite Valley) and get a push notification when they open.
+One page that answers "where can I camp this weekend?" — **every public campground
+within ~4 hours of San Francisco** (121 and counting), plus the far North Coast,
+Shasta, and the Eastern Sierra beyond. Live availability side by side, the one view
+the official sites don't offer. Filter by region, drive time, environment; watch the
+hard ones (Whitney Portal, Yosemite Valley) and get a push notification when they open.
+
+**Scope, honestly:** "every public campground" means individually reservable, drive-in
+or walk-in car camping run by state, county, or federal agencies. Not included:
+private campgrounds and resorts (Lawson's Landing, Costanoa, KOAs, Big Sur's private
+camps), utility-district lakes (Sly Park/EID, Camanche & Pardee/EBMUD, PG&E camps),
+group-only and boat-in sites, and dispersed/non-reservable Forest Service spots.
+Spot a public campground that's missing? Open an issue.
 
 - **List view** — every campground with a live open-site count for your dates
 - **Map view** — the same thing on a topo map: green = open (with count), rust = full

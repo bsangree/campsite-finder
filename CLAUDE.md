@@ -10,7 +10,10 @@ explain things plainly, keep everything as simple as possible, never over-engine
 ## Architecture (deliberate choices — don't "upgrade" without asking)
 
 - **One file: `index.html`.** No framework, no build, no backend, no database.
-  Park data is the `PARKS` array inside the file (98 campgrounds as of 2026-08-01,
+  Park data is the `PARKS` array inside the file (121 campgrounds as of 2026-08-01 —
+  the claim is "every public campground within ~4h of SF" (see README scope note:
+  excludes private/utility-district/group-only/dispersed); keep the claim true when
+  adding or hearing about missing parks.
   spanning 7 `region` values: bay / northcoast / shasta / tahoe / yosemite / eastside /
   central — the Region filter is load-bearing at this scale; grid + availability
   fetches respect it).

@@ -79,6 +79,22 @@ PARKS = [
     ("morro-bay", "rc", 680),
     ("san-simeon", "rc", 713),
     ("pismo", "rc", 691),
+    # --- 4h-radius sweep ---
+    ("clear-lake", "rc", 628),
+    ("westport-union", "rc", 1235),
+    ("colusa", "rc", 632),
+    ("lake-oroville", "rc", 662),
+    ("tahoe-sra", "rc", 728),
+    ("kaspian", "rg", 232875),
+    ("fashoda", "rg", 234135),
+    ("wrights-lake", "rg", 231954),
+    ("silver-lake-east", "rg", 232263),
+    ("salmon-creek", "rg", 234540),
+    ("folsom-lake", "rc", 643),
+    ("indian-grinding-rock", "rc", 659),
+    ("tuttletown", "rg", 234072),
+    ("arroyo-seco", "rg", 231958),,
+    ("forks-bass-lake", "rg", 232878), ("lupine-bass-lake", "rg", 232802)
 ]
 
 def http_json(url, payload=None, timeout=15):
