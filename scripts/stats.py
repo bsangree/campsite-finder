@@ -65,8 +65,17 @@ def main():
         if len(rs) >= 2:
             latest_pair[key] = (rs[-2], rs[-1])
 
+    # A park is "live" only if the recorder has actually seen it recently — otherwise
+    # emitting stats (esp. "no openings") would be misleading (e.g. upstream IP blocks).
+    last_ok = {}
+    for r in rows:
+        if r["t"] > last_ok.get(r["park"], datetime.min.replace(tzinfo=timezone.utc)):
+            last_ok[r["park"]] = r["t"]
+
     parks = {}
     for park in {k[0] for k in series}:
+        if now - last_ok[park] > timedelta(hours=48):
+            continue  # stale — frontend shows nothing rather than a wrong claim
         fs = flips.get(park, [])
         recent = [f for f in fs if f > cutoff30]
         entry = {"flips30": len(recent), "lastOpen": max(fs).isoformat() if fs else None}
