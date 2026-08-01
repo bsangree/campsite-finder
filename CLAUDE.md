@@ -59,14 +59,23 @@ appends one JSONL line per park to `log.jsonl` on the **`data` branch**:
 - ⚠️ Known gap: `poll.py`'s park list (28) predates the Big Sur + later additions in
   `index.html` (42). Sync it when touching Phase 1.
 
-## Roadmap — Phase 1 is next (unblocked, enough data)
+## Phase 1 — SHIPPED 2026-08-01
 
-1. Daily Action computes per-park stats from `log.jsonl` → commit `stats.json` to main:
-   openings in last 30d, typical day-of-week/hour of openings, last-opened timestamp.
-2. Cards + map popups show it: "Opened 6× last 30 days · usually Tue evening".
-3. **Watch** feature: recorder compares current poll to previous; on full→available flip
-   for a watched park, notify (simplest: GitHub Action sends email; Ben will say what he wants).
-4. Optional: also record Wednesday arrivals so stats cover midweek, not just weekends.
+- `scripts/poll.py` records BOTH upcoming Wednesday (1 night) and Friday (2 nights)
+  per park — 76 rows/run. Series are tracked separately by target weekday.
+- `scripts/stats.py` runs in the same workflow after each poll: writes `stats.json`
+  to the data branch ({park: {flips30, lastOpen, typical}}), where a "flip" is a
+  full→open transition. `typical` (e.g. "Wed mornings", America/Los_Angeles) is only
+  claimed when a weekday holds ≥40% of flips.
+- **Watch alerts:** parks in `watches.json` (repo root) trigger an ntfy.sh push when
+  they flip full→open in the just-completed poll (freshness-guarded, 20 min). The
+  topic is in the repo's `NTFY_TOPIC` Actions secret — see memory or ask Ben; never
+  commit it (public repo). Seeded watches: steep-ravine, kirby-cove, julia-pfeiffer.
+- Frontend: `loadStats()` fetches stats.json (raw.githubusercontent, data branch) +
+  watches.json (same-origin). Full parks' cards + all popups show the stat line and a
+  "Watching" tag. Popups also show: facility/loop availability breakdown (from the
+  existing fetchRC/fetchRecGov responses) and live RC park alerts
+  (`GET {RC}/search/alerts/{placeId}`, lazy per popup-open, rust text).
 
 ## Design system (from a design review — keep these rules)
 

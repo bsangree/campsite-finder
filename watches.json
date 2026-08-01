@@ -1,0 +1,4 @@
+{
+  "_comment": "Parks that trigger a phone notification (via ntfy.sh) when they flip from full to open. The ntfy topic lives in the repo's NTFY_TOPIC Actions secret.",
+  "watch": ["steep-ravine", "kirby-cove", "julia-pfeiffer"]
+}

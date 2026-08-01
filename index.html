@@ -549,10 +549,15 @@ async function fetchRC(placeId, startISO, nights) {
   });
   const data = await res.json();
   let count = 0;
+  const facilities = [];
   for (const f of Object.values(data.SelectedPlace?.Facilities || {})) {
-    for (const ut of Object.values(f.UnitTypes || {})) count += ut.AvailableCount || 0;
+    let n = 0;
+    for (const ut of Object.values(f.UnitTypes || {})) n += ut.AvailableCount || 0;
+    if (n > 0) facilities.push({ name: (f.Name || '').replace(/\s*\(.*?\)\s*/g, ' ').trim(), n });
+    count += n;
   }
-  return count > 0 ? { status: 'available', sitesAvailable: count } : { status: 'full' };
+  facilities.sort((a, b) => b.n - a.n);
+  return count > 0 ? { status: 'available', sitesAvailable: count, facilities } : { status: 'full' };
 }
 
 const recGovMonthCache = {};
@@ -573,12 +578,19 @@ async function fetchRecGov(facilityId, startISO, nights) {
   const monthData = await Promise.all(months.map(m => fetchRecGovMonth(facilityId, m)));
   const sites = Object.assign({}, ...monthData.map(d => d.campsites || {}));
   let count = 0;
+  const byLoop = {};
   for (const s of Object.values(sites)) {
     if (/day.?use|group/i.test(s.loop || '') || /day.?use/i.test(s.site || '')) continue;
     const ok = dates.every(d => s.availabilities?.[fmtISO(d) + 'T00:00:00Z'] === 'Available');
-    if (ok) count++;
+    if (ok) {
+      count++;
+      let L = (s.loop || 'Sites').replace(/\s*\(.*?\)\s*/g, ' ').trim();
+      if (L.length <= 2) L = 'Loop ' + L;
+      byLoop[L] = (byLoop[L] || 0) + 1;
+    }
   }
-  return count > 0 ? { status: 'available', sitesAvailable: count } : { status: 'full' };
+  const facilities = Object.entries(byLoop).map(([name, n]) => ({ name, n })).sort((a, b) => b.n - a.n);
+  return count > 0 ? { status: 'available', sitesAvailable: count, facilities } : { status: 'full' };
 }
 
 let fetchSeq = 0;
@@ -611,6 +623,36 @@ async function refreshAvailability(startISO, nights) {
 
 function getStatus(park) {
   return liveStatus[park.id] || { status: initialStatus(park) };
+}
+
+// ============================================================================
+// STATS + WATCHES — written hourly by the recorder to the data branch
+// ============================================================================
+
+let parkStats = {}, watchedIds = new Set();
+
+async function loadStats() {
+  try {
+    const [s, w] = await Promise.all([
+      fetch('https://raw.githubusercontent.com/bsangree/campsite-finder/data/stats.json')
+        .then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('watches.json').then(r => r.ok ? r.json() : null).catch(() => null),
+    ]);
+    if (s) parkStats = s.parks || {};
+    if (w) watchedIds = new Set(w.watch || []);
+    if (viewMode !== 'grid') (viewMode === 'map' ? renderMap : render)();
+  } catch (e) { /* stats are decoration; never block the app */ }
+}
+
+function statLine(park) {
+  if (!hasLiveApi(park)) return '';
+  const s = parkStats[park.id];
+  const bits = [];
+  if (s) bits.push(s.flips30 > 0
+    ? `Opened ${s.flips30}× in 30 days${s.typical ? ` · usually ${s.typical}` : ''}`
+    : 'No openings in the last 30 days');
+  if (watchedIds.has(park.id)) bits.push('<span class="text-forest-700 font-medium">Watching</span>');
+  return bits.join(' · ');
 }
 
 // ============================================================================
@@ -731,13 +773,44 @@ function popupHtml(park, startISO, nights) {
          style="display:block;text-align:center;background:#2f4a2c;color:#fff;font-weight:600;font-size:14px;border-radius:8px;padding:12px 0;margin-top:2px;text-decoration:none">Book ↗</a>`
     : `<a href="${url}" target="_blank" rel="noopener"
          style="color:#2f4a2c;font-weight:600;font-size:13px">Check dates ↗</a>`;
+  const fac = st.facilities?.length
+    ? `<div style="color:#57534e;font-size:12px;margin-bottom:4px">${
+        st.facilities.slice(0, 3).map(f => `${f.name} ${f.n}`).join(' · ')}${
+        st.facilities.length > 3 ? ` · +${st.facilities.length - 3} more` : ''}</div>`
+    : '';
+  const stat = statLine(park);
   return `<div style="min-width:180px">
     <div style="font-weight:600;font-size:15px">${park.name}</div>
     <div style="color:#78716c;font-size:12px;margin:2px 0 6px">${fmtDrive(park.drive)} from SF · ${park.sites} sites</div>
     <div style="font-size:13px;margin-bottom:4px">${stTxt}</div>
+    ${fac}
+    <div data-alerts="${park.id}" style="color:#A14D3B;font-size:12px;margin-bottom:4px;display:none"></div>
+    ${stat ? `<div style="color:#78716c;font-size:12px;margin-bottom:4px">${stat}</div>` : ''}
     <div data-weather="${park.id}" style="color:#78716c;font-size:12px;margin-bottom:8px;min-height:17px">&nbsp;</div>
     ${bookHtml}
   </div>`;
+}
+
+// Live park alerts (fire bans, closures) — ReserveCalifornia parks only, lazy per popup
+const alertsCache = {};
+async function fillAlerts(park) {
+  const pid = rcPlaceId(park);
+  const el = document.querySelector(`[data-alerts="${park.id}"]`);
+  if (!pid || !el) return;
+  try {
+    if (!(park.id in alertsCache)) {
+      const list = await fetch(`${RC_API}/search/alerts/${pid}`).then(r => r.json());
+      const now = new Date();
+      alertsCache[park.id] = (Array.isArray(list) ? list : []).filter(a =>
+        a.IsLive && new Date(a.StartDate) <= now && new Date(a.EndDate) >= now);
+    }
+    const as = alertsCache[park.id];
+    if (as.length) {
+      const t = (as[0].Title || '').replace(/^Attention Alert\s*[-–:]\s*/i, '').slice(0, 80);
+      el.textContent = `Alert${as.length > 1 ? `s (${as.length})` : ''}: ${t}`;
+      el.style.display = 'block';
+    }
+  } catch (e) { /* alerts are best-effort */ }
 }
 
 // Arrival-day forecast in popups — Open-Meteo (free, CORS-open, no key; 16-day horizon)
@@ -799,7 +872,7 @@ function renderMap() {
   for (const p of filtered) {
     const m = L.marker([p.lat, p.lng], { icon: markerIcon(getStatus(p)), title: p.name }).addTo(map);
     m.bindPopup(popupHtml(p, startISO, nights), { maxWidth: 260 });
-    m.on('popupopen', () => fillWeather(p));
+    m.on('popupopen', () => { fillWeather(p); fillAlerts(p); });
     markerById[p.id] = m;
   }
   document.getElementById('resultCount').innerHTML =
@@ -935,6 +1008,9 @@ function parkCard(park, startISO, nights) {
       </div>
       <div class="text-[13px] text-stone-500 mt-1">${meta}</div>
       <p class="text-sm text-stone-700 leading-relaxed mt-2.5">${park.desc}</p>
+      ${(() => { const sl = avail.status === 'full' ? statLine(park)
+                   : (watchedIds.has(park.id) ? '<span class="text-forest-700 font-medium">Watching</span>' : '');
+                 return sl ? `<div class="text-[12px] text-stone-500 mt-2">${sl}</div>` : ''; })()}
       <div class="mt-3">
         <a href="${buildBookingUrl(park, startISO, nights)}" target="_blank" rel="noopener"
            data-link="${park.id}" class="${sourceLinkCls(park)}">${linkText}</a>
@@ -1095,6 +1171,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const initialView = readUrl();
   setView(initialView);
   onDatesChanged();
+  loadStats();
 });
 </script>
 </body>

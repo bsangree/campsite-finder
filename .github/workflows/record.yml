@@ -22,12 +22,17 @@ jobs:
       - name: Poll parks
         run: python3 scripts/poll.py >> data-branch/log.jsonl
 
+      - name: Stats + watch notifications
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/stats.py data-branch/log.jsonl --notify > data-branch/stats.json
+
       - name: Commit
         run: |
           cd data-branch
           git config user.name  "availability-bot"
           git config user.email "actions@github.com"
           LINES=$(wc -l < log.jsonl)
-          git add log.jsonl
+          git add log.jsonl stats.json
           git commit -m "poll $(date -u +%Y-%m-%dT%H:%MZ) — ${LINES} obs" || echo "no changes"
           git push

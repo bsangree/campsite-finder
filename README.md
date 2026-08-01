@@ -25,10 +25,13 @@ pages load (ReserveCalifornia and Recreation.gov). Your browser calls them direc
 there's no server in the middle, so 100 visitors look like 100 normal reservation-site
 users, not one scraper.
 
-A scheduled GitHub Action (`.github/workflows/record.yml`) has also been quietly
-logging availability for every park since June 2026 to the `data` branch — the
-groundwork for cancellation-pattern stats ("this park opens up most often Tuesday
-evenings") and watch alerts. Runs free on public-repo Actions.
+A scheduled GitHub Action (`.github/workflows/record.yml`) has been logging
+availability for every park since June 2026 to the `data` branch — for both weekend
+(Friday) and midweek (Wednesday) arrivals. From that history it computes per-park
+cancellation stats hourly (`stats.json`: "opened 9× in 30 days, usually Wed mornings"),
+which the site shows on full parks. Parks listed in `watches.json` additionally trigger
+a push notification (via [ntfy.sh](https://ntfy.sh)) the moment they flip from full to
+open. All of it runs free on public-repo Actions — still no server.
 
 ## The story
 

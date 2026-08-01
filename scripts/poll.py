@@ -42,6 +42,12 @@ def upcoming_friday():
     days = (4 - today.weekday()) % 7  # Mon=0..Sun=6; Fri=4
     return today + timedelta(days=days)
 
+def upcoming_wednesday():
+    from datetime import date, timedelta
+    today = date.today()
+    days = (2 - today.weekday()) % 7  # Wed=2
+    return today + timedelta(days=days)
+
 def check_rc(place_id, start, nights=2):
     body = {
         "PlaceId": place_id, "Latitude": 0, "Longitude": 0,
@@ -81,22 +87,20 @@ def check_rg(facility_id, start, nights=2):
 
 def main():
     ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    fri = upcoming_friday()
-    seen_rc = {}
+    targets = [(upcoming_wednesday(), 1), (upcoming_friday(), 2)]  # midweek + weekend
+    seen = {}  # (system, ext, date) — pantoll & steep-ravine share placeId 682
     for pid, sys_, ext in PARKS:
-        try:
-            if sys_ == "rc":
-                # pantoll & steep-ravine share placeId 682; dedupe the API call
-                n = seen_rc.get(ext)
+        for d, nights in targets:
+            key = (sys_, ext, d)
+            try:
+                n = seen.get(key)
                 if n is None:
-                    n = seen_rc[ext] = check_rc(ext, fri)
-            else:
-                n = check_rg(ext, fri)
-            rec = {"ts": ts, "park": pid, "date": fri.isoformat(), "nights": 2, "open": n}
-        except Exception as e:
-            rec = {"ts": ts, "park": pid, "date": fri.isoformat(), "nights": 2, "error": str(e)[:120]}
-        print(json.dumps(rec), flush=True)
-        time.sleep(0.2)  # be polite
+                    n = seen[key] = check_rc(ext, d, nights) if sys_ == "rc" else check_rg(str(ext), d, nights)
+                rec = {"ts": ts, "park": pid, "date": d.isoformat(), "nights": nights, "open": n}
+            except Exception as e:
+                rec = {"ts": ts, "park": pid, "date": d.isoformat(), "nights": nights, "error": str(e)[:120]}
+            print(json.dumps(rec), flush=True)
+            time.sleep(0.15)  # be polite
 
 if __name__ == "__main__":
     main()
