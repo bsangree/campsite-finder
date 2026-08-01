@@ -1,0 +1,127 @@
+{
+ "generated": "2026-08-01T20:09:23+00:00",
+ "parks": {
+  "sugarloaf": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "castle-rock": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "sunset-sb": {
+   "flips30": 1,
+   "lastOpen": "2026-07-11T15:11:42+00:00"
+  },
+  "hawk-camp": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "pantoll": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "bothe-napa": {
+   "flips30": 1,
+   "lastOpen": "2026-07-04T17:40:32+00:00"
+  },
+  "pinnacles": {
+   "flips30": 8,
+   "lastOpen": "2026-07-18T00:07:06+00:00"
+  },
+  "portola-redwoods": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "austin-creek": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "kirk-creek": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "henry-cowell": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "big-basin": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "manresa-sb": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "salt-point": {
+   "flips30": 1,
+   "lastOpen": "2026-07-11T15:11:42+00:00"
+  },
+  "kirby-cove": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "china-camp": {
+   "flips30": 1,
+   "lastOpen": "2026-07-04T17:40:32+00:00"
+  },
+  "angel-island": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "steep-ravine": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "half-moon-bay": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "plaskett-creek": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "new-brighton": {
+   "flips30": 1,
+   "lastOpen": "2026-07-08T15:16:12+00:00"
+  },
+  "fremont-peak": {
+   "flips30": 3,
+   "lastOpen": "2026-07-15T17:41:55+00:00",
+   "typical": "Sat mornings"
+  },
+  "haypress": {
+   "flips30": 5,
+   "lastOpen": "2026-07-24T14:30:41+00:00"
+  },
+  "brannan-island": {
+   "flips30": 2,
+   "lastOpen": "2026-07-11T01:07:56+00:00"
+  },
+  "bicentennial": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "bodega-dunes": {
+   "flips30": 0,
+   "lastOpen": "2026-07-01T08:48:35+00:00"
+  },
+  "samuel-p-taylor": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "mt-diablo": {
+   "flips30": 3,
+   "lastOpen": "2026-07-11T15:11:42+00:00"
+  },
+  "point-reyes": {
+   "flips30": 9,
+   "lastOpen": "2026-08-01T14:18:07+00:00",
+   "typical": "Wed mornings"
+  },
+  "henry-coe": {
+   "flips30": 2,
+   "lastOpen": "2026-07-14T16:58:17+00:00"
+  }
+ }
+}
