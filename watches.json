@@ -1,4 +1,4 @@
 {
-  "_comment": "Parks that trigger a phone notification (via ntfy.sh) when they flip from full to open. The ntfy topic lives in the repo's NTFY_TOPIC Actions secret.",
-  "watch": ["steep-ravine", "kirby-cove", "julia-pfeiffer"]
+  "_comment": "Parks that trigger an ntfy.sh push when they flip full -> open. Only rec.gov parks can currently fire: ReserveCalifornia blocks the GitHub runners the recorder runs on (see CLAUDE.md), so RC parks here would be dormant. Topic lives in the NTFY_TOPIC Actions secret.",
+  "watch": ["kirby-cove"]
 }

@@ -20,6 +20,8 @@ jobs:
           path: data-branch
 
       - name: Poll parks
+        env:
+          POLL_SKIP: rc  # ReserveCalifornia 403s GitHub IPs (2026-07-17, probe-confirmed) — see CLAUDE.md
         run: python3 scripts/poll.py >> data-branch/log.jsonl
 
       - name: Stats + watch notifications

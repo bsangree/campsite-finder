@@ -88,6 +88,15 @@ appends one JSONL line per park to `log.jsonl` on the **`data` branch**:
 
 ## Gotchas learned the hard way
 
+- **ReserveCalifornia 403s GitHub Actions runner IPs** (started 2026-07-17; probe with
+  full browser headers confirmed it's IP-level, not fingerprinting). The recorder
+  therefore runs with `POLL_SKIP=rc` — history/stats/watches cover rec.gov parks only
+  (Ben's explicit choice, 2026-08-01). The SITE is unaffected: visitors' browsers call
+  RC directly. To add RC recording later: run `scripts/poll.py` (no POLL_SKIP) from a
+  residential IP (launchd on Ben's Mac) or try a non-Azure egress (Cloudflare Worker —
+  untested, may also be blocked). Stats already auto-drop parks with no successful
+  observation in 48h, so a poller can come and go safely.
+
 - Leaflet `fitBounds` on a zero-width container degenerates to max zoom — guarded with a
   ResizeObserver refit in `renderMap()`. Don't remove it.
 - ReserveCalifornia rebuilt their site once already (old `/Web/#!park/{id}` URLs 404).

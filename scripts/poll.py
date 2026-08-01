@@ -4,7 +4,7 @@ Poll live availability for all parks and emit one JSONL line per park to stdout.
 Run by .github/workflows/record.yml every 15 min; output is appended to log.jsonl
 on the `data` branch.
 """
-import json, sys, time, urllib.request
+import json, os, sys, time, urllib.request
 from datetime import datetime, timezone
 
 RC_API = "https://california-rdr.prod.cali.rd12.recreation-management.tylerapp.com/rdr"
@@ -88,8 +88,13 @@ def check_rg(facility_id, start, nights=2):
 def main():
     ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
     targets = [(upcoming_wednesday(), 1), (upcoming_friday(), 2)]  # midweek + weekend
+    # POLL_SKIP=rc in the Action: ReserveCalifornia 403s GitHub runner IPs (since 2026-07-17).
+    # Run locally (residential IP) without the env var to record RC parks too.
+    skip = set(filter(None, os.environ.get("POLL_SKIP", "").split(",")))
     seen = {}  # (system, ext, date) — pantoll & steep-ravine share placeId 682
     for pid, sys_, ext in PARKS:
+        if sys_ in skip:
+            continue
         for d, nights in targets:
             key = (sys_, ext, d)
             try:
