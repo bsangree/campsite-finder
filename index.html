@@ -800,7 +800,7 @@ const PARKS = [
   { id: "lake-solano", name: "Lake Solano Park", system: "solano_co", region: "bay",
     drive: 70, env: ["lake", "oak_woodland"], dogs: true, rv: true, access: "drive_in", sites: 87,
     desc: "Putah Creek's calm stretch below the dam — otters, resident peacocks, easy paddling.",
-    url: "https://www.solanocounty.com/depts/rm/countypark/",
+    url: "https://parkreservations.solanocounty.com/",
     lat: 38.488, lng: -121.996 },
   { id: "doran-beach", name: "Doran Regional Park", system: "sonoma_co", region: "bay",
     drive: 75, env: ["coast"], dogs: true, rv: true, access: "drive_in", sites: 128,
@@ -895,7 +895,7 @@ const PARKS = [
   { id: "laguna-seca", name: "Laguna Seca Recreation Area", system: "monterey_co", region: "central",
     drive: 130, env: ["oak_woodland", "grassland"], dogs: true, rv: true, access: "drive_in", sites: 98,
     desc: "Oak-hill camp ringing the famous raceway — quiet except race weekends.",
-    url: "https://www.countyofmonterey.gov/government/departments-i-z/parks",
+    url: "https://weathertechraceway.com/pages/camping",
     lat: 36.5841, lng: -121.753 },
 
   { id: "forks-bass-lake", name: "Forks (Bass Lake)", system: "rec_gov", region: "yosemite",
@@ -1358,7 +1358,9 @@ function setView(mode) {
 function buildBookingUrl(park, startISO, nights) {
   if (!startISO) return park.url;
   if (rcPlaceId(park))  return `${park.url}?date=${startISO}&night=${nights}`;
-  if (park.system === 'rec_gov') return `${park.url}/availability?date=${startISO}`;
+  // rec.gov's SPA ignores all date params (date/start_date/start — tested 2026-08);
+  // the grid always opens on the current month, so link it clean.
+  if (park.system === 'rec_gov') return `${park.url}/availability`;
   return park.url;
 }
 

@@ -42,7 +42,10 @@ explain things plainly, keep everything as simple as possible, never over-engine
 - `GET https://www.recreation.gov/api/camps/availability/campground/{id}/month?start_date=YYYY-MM-01T00%3A00%3A00.000Z`
   → `campsites{}.availabilities{"YYYY-MM-DDT00:00:00Z": "Available"|...}`.
   A site counts as open only if ALL requested nights are "Available"; skip day-use/group loops.
-- Booking deep link: `/camping/campgrounds/{id}/availability?date=YYYY-MM-DD`.
+- Booking link: `/camping/campgrounds/{id}/availability` — their SPA IGNORES all date
+  query params (`date`, `start_date`/`end_date`, `start`/`end` all tested 2026-08-01
+  by watching which month the page's API fetches). The grid opens on the current
+  month; dates cannot be carried through. ReserveCalifornia CAN (`?date=&night=`).
 
 **These are undocumented internal APIs.** If badges suddenly all show "—", the provider
 changed something — re-derive from their site's network traffic / JS bundles (that's how
