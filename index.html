@@ -4,6 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bay Area Campsite Finder</title>
+  <meta name="description" content="Live availability at 42 campgrounds around the Bay Area and Big Sur — pick a weekend, see what's open, book it." />
+  <meta property="og:title" content="Bay Area Campsite Finder" />
+  <meta property="og:description" content="Live availability at 42 campgrounds around the Bay Area and Big Sur — pick a weekend, see what's open, book it." />
+  <meta property="og:image" content="https://bsangree.github.io/campsite-finder/social-card.png" />
+  <meta property="og:url" content="https://bsangree.github.io/campsite-finder/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -72,6 +80,13 @@
       <button data-quick="weekend" class="quick-date h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">This wknd</button>
       <button data-quick="next-weekend" class="quick-date h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Next wknd</button>
     </div>
+  </div>
+</div>
+
+<div id="apiBanner" class="hidden max-w-7xl mx-auto px-4 pt-4">
+  <div class="bg-sand-100 border border-stone-900/10 rounded-xl px-4 py-3 text-sm text-stone-700">
+    Live availability isn't reachable right now — the reservation systems may have changed something.
+    The park list and booking links below still work; click through to check dates directly.
   </div>
 </div>
 
@@ -544,7 +559,11 @@ async function refreshAvailability(startISO, nights) {
     }
     updateCardStatus(p.id);
   }));
-  if (seq === fetchSeq) (viewMode === 'map' ? renderMap : render)();
+  if (seq === fetchSeq) {
+    const errs = checkable.filter(([p]) => liveStatus[p.id]?.status === 'error').length;
+    document.getElementById('apiBanner').classList.toggle('hidden', errs < checkable.length / 2);
+    (viewMode === 'map' ? renderMap : render)();
+  }
 }
 
 function getStatus(park) {
