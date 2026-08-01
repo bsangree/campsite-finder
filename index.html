@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bay Area Campsite Finder</title>
-  <meta name="description" content="Live availability at 42 campgrounds around the Bay Area and Big Sur — pick a weekend, see what's open, book it." />
+  <meta name="description" content="Live availability at 45+ campgrounds from Mendocino to Big Sur — pick a weekend, see what's open, book it." />
   <meta property="og:title" content="Bay Area Campsite Finder" />
-  <meta property="og:description" content="Live availability at 42 campgrounds around the Bay Area and Big Sur — pick a weekend, see what's open, book it." />
+  <meta property="og:description" content="Live availability at 45+ campgrounds from Mendocino to Big Sur — pick a weekend, see what's open, book it." />
   <meta property="og:image" content="https://bsangree.github.io/campsite-finder/social-card.png" />
   <meta property="og:url" content="https://bsangree.github.io/campsite-finder/" />
   <meta property="og:type" content="website" />
@@ -50,7 +50,7 @@
       <div>
         <div class="text-forest-200 text-[13px] mb-0.5">Bay Area</div>
         <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight">Campsite Finder</h1>
-        <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across 30+ campgrounds — state parks, national parks, GGNRA. Pick a weekend, see what's open, book it.</p>
+        <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across 45+ campgrounds, Mendocino to Big Sur. Pick a weekend, see what's open, book it.</p>
       </div>
       <div id="headerStats" class="text-right shrink-0"></div>
     </div>
@@ -115,7 +115,7 @@
             <option value="60">≤ 1 hr</option>
             <option value="90">≤ 1.5 hr</option>
             <option value="120">≤ 2 hr</option>
-            <option value="200">≤ 3.5 hr (Big Sur)</option>
+            <option value="200">≤ 3.5 hr (Big Sur, Mendocino)</option>
           </select>
         </div>
 
@@ -373,6 +373,12 @@ const PARKS = [
     url: "https://parks.santaclaracounty.gov/locations/joseph-d-grant-county-park",
     lat: 37.341, lng: -121.716 },
 
+  { id: "uvas-canyon", name: "Uvas Canyon", system: "scc_parks",
+    drive: 80, env: ["redwoods", "oak_woodland"], dogs: true, rv: false, access: "drive_in", sites: 25,
+    desc: "Waterfall-loop canyon above Morgan Hill — best Dec–May when the falls run. Small and shady.",
+    url: "https://parks.santaclaracounty.gov/locations/uvas-canyon-county-park",
+    lat: 37.0841, lng: -121.793 },
+
   { id: "henry-coe", name: "Henry W. Coe SP", system: "reserve_ca",
     drive: 90, env: ["oak_woodland", "grassland", "chaparral"], dogs: false, rv: false, access: "drive_in", sites: 20,
     desc: "Vast wilderness park; HQ drive-in + endless backcountry.",
@@ -447,6 +453,31 @@ const PARKS = [
     desc: "Surprising redwood pocket in Napa Valley. Pool in summer.",
     url: "https://www.reservecalifornia.com/park/620",
     lat: 38.5532, lng: -122.5257 },
+
+  // --- Anderson Valley / Mendocino coast ---
+  { id: "hendy-woods", name: "Hendy Woods SP", system: "reserve_ca",
+    drive: 140, env: ["redwoods"], dogs: true, rv: true, access: "drive_in", sites: 92,
+    desc: "Old-growth redwood groves on the Navarro River — Anderson Valley wine country's secret camp.",
+    url: "https://www.reservecalifornia.com/park/654",
+    lat: 39.0849, lng: -123.485 },
+
+  { id: "van-damme", name: "Van Damme SP", system: "reserve_ca",
+    drive: 185, env: ["coast", "redwoods"], dogs: true, rv: true, access: "drive_in", sites: 74,
+    desc: "Fern Canyon trail, a pygmy forest, and a sheltered cove just south of Mendocino village.",
+    url: "https://www.reservecalifornia.com/park/731",
+    lat: 39.2764, lng: -123.7733 },
+
+  { id: "russian-gulch", name: "Russian Gulch SP", system: "reserve_ca",
+    drive: 190, env: ["coast", "redwoods"], dogs: true, rv: true, access: "drive_in", sites: 26,
+    desc: "Fern-canyon redwoods meeting a rocky cove — waterfall hike + the Devil's Punchbowl blowhole.",
+    url: "https://www.reservecalifornia.com/park/701",
+    lat: 39.3307, lng: -123.8058 },
+
+  { id: "mackerricher", name: "MacKerricher SP", system: "reserve_ca",
+    drive: 200, env: ["coast", "lake"], dogs: true, rv: true, access: "drive_in", sites: 107,
+    desc: "Nine miles of beach, tidepools, a harbor-seal haul-out, and Lake Cleone. North of Fort Bragg.",
+    url: "https://www.reservecalifornia.com/park/668",
+    lat: 39.489, lng: -123.79 },
 
   // --- Sonoma Coast ---
   { id: "bodega-dunes", name: "Bodega Dunes (Sonoma Coast SP)", system: "reserve_ca",
@@ -679,10 +710,53 @@ function popupHtml(park, startISO, nights) {
   return `<div style="min-width:180px">
     <div style="font-weight:600;font-size:15px">${park.name}</div>
     <div style="color:#78716c;font-size:12px;margin:2px 0 6px">${fmtDrive(park.drive)} from SF · ${park.sites} sites</div>
-    <div style="font-size:13px;margin-bottom:8px">${stTxt}</div>
+    <div style="font-size:13px;margin-bottom:4px">${stTxt}</div>
+    <div data-weather="${park.id}" style="color:#78716c;font-size:12px;margin-bottom:8px"></div>
     <a href="${buildBookingUrl(park, startISO, nights)}" target="_blank" rel="noopener"
        style="color:#2f4a2c;font-weight:600;font-size:13px">${hasLiveApi(park) ? 'Book' : 'Check'} ↗</a>
   </div>`;
+}
+
+// Arrival-day forecast in popups — Open-Meteo (free, CORS-open, no key; 16-day horizon)
+const weatherCache = {};
+function wmoText(code) {
+  if (code === 0) return 'Clear';
+  if (code <= 2) return 'Partly sunny';
+  if (code === 3) return 'Overcast';
+  if (code === 45 || code === 48) return 'Foggy';
+  if (code <= 57) return 'Drizzle';
+  if (code <= 67) return 'Rain';
+  if (code <= 77) return 'Snow';
+  if (code <= 82) return 'Showers';
+  if (code >= 95) return 'Thunderstorms';
+  return '';
+}
+async function fillWeather(park) {
+  const el = document.querySelector(`[data-weather="${park.id}"]`);
+  if (!el) return;
+  const startISO = document.getElementById('startDate').value;
+  const key = park.id + '|' + startISO;
+  try {
+    if (!(key in weatherCache)) {
+      const today = fmtISO(new Date()), horizon = fmtISO(addDays(new Date(), 15));
+      if (startISO < today || startISO > horizon) {
+        weatherCache[key] = null;
+      } else {
+        const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${park.lat}&longitude=${park.lng}` +
+          `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max` +
+          `&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&start_date=${startISO}&end_date=${startISO}`);
+        const dd = (await r.json()).daily;
+        weatherCache[key] = dd?.time?.length ? {
+          code: dd.weather_code[0], hi: Math.round(dd.temperature_2m_max[0]),
+          lo: Math.round(dd.temperature_2m_min[0]), rain: dd.precipitation_probability_max[0] ?? 0,
+        } : null;
+      }
+    }
+    const w = weatherCache[key];
+    el.textContent = w
+      ? `${wmoText(w.code)} · ${w.hi}° / ${w.lo}°${w.rain >= 20 ? ` · ${w.rain}% rain` : ''}`
+      : 'Forecast opens 16 days out';
+  } catch { el.textContent = ''; }
 }
 
 function renderMap() {
@@ -702,6 +776,7 @@ function renderMap() {
   for (const p of filtered) {
     const m = L.marker([p.lat, p.lng], { icon: markerIcon(getStatus(p)), title: p.name }).addTo(map);
     m.bindPopup(popupHtml(p, startISO, nights));
+    m.on('popupopen', () => fillWeather(p));
     markerById[p.id] = m;
   }
   document.getElementById('resultCount').textContent = `${filtered.length} campgrounds on map`;

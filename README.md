@@ -5,7 +5,7 @@
 ![Bay Area Campsite Finder](social-card.png)
 
 One page that answers "where can I camp this weekend?" — live availability across
-42 campgrounds from Sonoma to Big Sur, in the one place the official sites don't
+45+ campgrounds from Mendocino to Big Sur, in the one place the official sites don't
 offer: side by side.
 
 - **List view** — every campground with a live open-site count for your dates

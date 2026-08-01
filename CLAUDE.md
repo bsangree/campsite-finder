@@ -10,7 +10,11 @@ explain things plainly, keep everything as simple as possible, never over-engine
 ## Architecture (deliberate choices — don't "upgrade" without asking)
 
 - **One file: `index.html`.** No framework, no build, no backend, no database.
-  Park data is the `PARKS` array inside the file (~42 campgrounds).
+  Park data is the `PARKS` array inside the file (47 campgrounds as of 2026-08-01).
+  ⚠️ When adding a park with live availability, ALSO add it to `scripts/poll.py`
+  so the recorder tracks it — this has drifted before.
+- Map popups show an arrival-day forecast from Open-Meteo (free, CORS-open, no key,
+  16-day horizon) — fetched lazily on popup open, cached per park+date.
 - Tailwind via CDN; Leaflet 1.9.4 via unpkg + free Esri World Topo tiles (map view).
 - Ben's machine has **no Node.js** — that's why this is not a Next.js app. Keep it that way.
 - Three views, toggled top-right: **List / Map / Scan 8 weekends** (grid of parks × 8 Fridays).

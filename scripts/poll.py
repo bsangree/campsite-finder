@@ -22,6 +22,8 @@ PARKS = [
     ("brannan-island", "rc", 621),
     ("pfeiffer-big-sur", "rc", 690), ("andrew-molera", "rc", 1077),
     ("julia-pfeiffer", "rc", 661), ("limekiln", "rc", 666),
+    ("hendy-woods", "rc", 654), ("van-damme", "rc", 731),
+    ("russian-gulch", "rc", 701), ("mackerricher", "rc", 668),
     ("kirby-cove", "rg", 232491), ("bicentennial", "rg", 272229), ("hawk-camp", "rg", 258815),
     ("haypress", "rg", 10067346), ("point-reyes", "rg", 233359), ("pinnacles", "rg", 234015),
     ("kirk-creek", "rg", 233116), ("plaskett-creek", "rg", 231959),
