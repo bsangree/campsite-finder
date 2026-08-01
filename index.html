@@ -991,6 +991,7 @@ function sourceLinkCls(park) {
 }
 
 function parkCard(park, startISO, nights) {
+  const avail = getStatus(park);
   const access = { drive_in: "Drive-in", walk_in: "Walk-in", hike_in: "Hike-in" }[park.access];
   const meta = [
     fmtDrive(park.drive),
@@ -1007,7 +1008,7 @@ function parkCard(park, startISO, nights) {
     <article data-card="${park.id}" class="bg-white border border-stone-900/10 rounded-xl p-4">
       <div class="flex items-start justify-between gap-3">
         <h3 class="text-[17px] font-semibold text-stone-900 leading-tight">${park.name}</h3>
-        <div data-status="${park.id}" class="shrink-0 text-right">${availBlock(getStatus(park))}</div>
+        <div data-status="${park.id}" class="shrink-0 text-right">${availBlock(avail)}</div>
       </div>
       <div class="text-[13px] text-stone-500 mt-1">${meta}</div>
       <p class="text-sm text-stone-700 leading-relaxed mt-2.5">${park.desc}</p>
