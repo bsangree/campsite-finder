@@ -36,7 +36,8 @@
       border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); font-weight:600; }
     .mk-av   { background:#3d5e39; color:#fff; font-size:12px; }
     .mk-full { background:#A14D3B; }
-    .mk-gray { background:#a8a29e; }
+    .mk-gray { background:#fff; border-color:#a8a29e; box-shadow:0 1px 4px rgba(0,0,0,.25); }
+    .leaflet-tile { filter:saturate(0.3) contrast(0.95); }
     .leaflet-popup-content { font-family:inherit; margin:10px 12px; line-height:1.4; }
     .leaflet-container { font:inherit; }
   </style>
@@ -49,7 +50,7 @@
     <div class="flex items-end justify-between gap-4">
       <div>
         <div class="text-forest-200 text-[13px] mb-0.5">Bay Area</div>
-        <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight">Campsite Finder</h1>
+        <h1 class="text-[28px] sm:text-5xl font-semibold tracking-tight whitespace-nowrap">Campsite Finder</h1>
         <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across 45+ campgrounds, Mendocino to Big Sur. Pick a weekend, see what's open, book it.</p>
       </div>
       <div id="headerStats" class="text-right shrink-0"></div>
@@ -75,12 +76,19 @@
       <button id="nextWeek" title="+1 week" class="w-11 h-11 shrink-0 bg-white border border-stone-900/10 rounded-lg hover:bg-stone-50 text-stone-600">▶</button>
     </div>
     <div id="dateSummary" class="text-sm font-medium text-stone-800 order-last sm:order-none w-full sm:w-auto"></div>
-    <div class="flex gap-1.5 sm:ml-auto">
+    <div class="hidden sm:flex gap-1.5 sm:ml-auto">
       <button data-quick="tonight" class="quick-date h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Tonight</button>
       <button data-quick="weekend" class="quick-date h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">This wknd</button>
       <button data-quick="next-weekend" class="quick-date h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Next wknd</button>
     </div>
   </div>
+</div>
+
+<!-- Mobile-only preset row (outside the sticky bar so the bar stays compact on scroll) -->
+<div class="sm:hidden max-w-7xl mx-auto px-4 pt-2.5 flex gap-1.5">
+  <button data-quick="tonight" class="quick-date flex-1 h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Tonight</button>
+  <button data-quick="weekend" class="quick-date flex-1 h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">This wknd</button>
+  <button data-quick="next-weekend" class="quick-date flex-1 h-11 text-[13px] px-3 bg-white border border-stone-900/10 hover:bg-stone-50 rounded-lg">Next wknd</button>
 </div>
 
 <div id="apiBanner" class="hidden max-w-7xl mx-auto px-4 pt-4">
@@ -148,9 +156,9 @@
         <div id="resultCount" class="text-sm text-stone-600"></div>
         <div class="flex items-center gap-2">
           <div class="flex bg-white border border-stone-900/10 rounded-lg p-0.5 text-sm h-10">
-            <button id="viewMap" class="view-tab px-3 rounded-md">Map</button>
-            <button id="viewList" class="view-tab px-3 rounded-md">List</button>
-            <button id="viewGrid" class="view-tab px-3 rounded-md">Scan 8 weekends</button>
+            <button id="viewMap" class="view-tab px-3 rounded-md whitespace-nowrap">Map</button>
+            <button id="viewList" class="view-tab px-3 rounded-md whitespace-nowrap">List</button>
+            <button id="viewGrid" class="view-tab px-3 rounded-md whitespace-nowrap"><span class="sm:hidden">8 wknds</span><span class="hidden sm:inline">Scan 8 weekends</span></button>
           </div>
           <select id="sortBy" class="h-10 text-sm bg-white border border-stone-900/10 rounded-lg px-3">
             <option value="availability">Availability</option>
@@ -162,7 +170,7 @@
 
       <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
 
-      <div id="gridView" class="hidden hscroll-fade bg-white border border-stone-900/10 rounded-xl overflow-x-auto" style="scroll-snap-type:x proximity"></div>
+      <div id="gridView" class="hidden hscroll-fade bg-white border border-stone-900/10 rounded-xl overflow-x-auto overflow-y-auto max-h-[72vh]" style="scroll-snap-type:x proximity"></div>
 
       <div id="mapView" class="hidden bg-white border border-stone-900/10 rounded-xl overflow-hidden">
         <div id="map" class="w-full" style="height:72vh; min-height:420px"></div>
@@ -627,7 +635,7 @@ function gridCell(park, dateISO, nights) {
     const n = st.sitesAvailable;
     cls = n >= 10 ? 'bg-forest-600 text-white hover:bg-forest-700' : 'bg-forest-200 text-forest-900 hover:bg-forest-300';
     txt = n;
-  } else if (st.status === 'full') { cls = 'bg-sand-100 text-stone-300'; txt = '—'; }
+  } else if (st.status === 'full') { cls = 'bg-sand-100 text-stone-400'; txt = '—'; }
   else if (st.status === 'loading') { cls = 'bg-stone-100 text-stone-400 animate-pulse'; txt = '…'; }
   else { cls = 'bg-stone-100 text-stone-400'; txt = '?'; }
   return `<a href="${buildBookingUrl(park, dateISO, nights)}" target="_blank" rel="noopener"
@@ -648,13 +656,19 @@ function renderGrid() {
       </th>`}).join('')}
   </tr>`;
 
-  const rows = filtered.map(p => `<tr class="border-t border-stone-900/5">
-    <td class="sticky left-0 bg-white px-3 py-2 max-w-[150px] sm:max-w-none">
-      <div class="font-medium text-sm leading-tight truncate">${p.name}</div>
+  const nameTd = p => `<td class="sticky left-0 bg-white px-3 py-2 max-w-[150px] sm:max-w-none">
+      <div class="font-medium text-sm leading-tight sm:truncate">${p.name}</div>
       <div class="hidden sm:block text-[11px] text-stone-500">${fmtDrive(p.drive)} · ${SYSTEMS[p.system].label}</div>
-    </td>
+    </td>`;
+  const liveRow = p => `<tr class="border-t border-stone-900/5">${nameTd(p)}
     ${dates.map(d => `<td class="px-1.5 py-2" data-grid="${p.id}|${d}">${gridCell(p, d, nights)}</td>`).join('')}
-  </tr>`).join('');
+  </tr>`;
+  const grayRow = p => `<tr class="border-t border-stone-900/5">${nameTd(p)}
+    <td colspan="${GRID_WEEKS}" class="px-1.5 py-2"><a href="${p.url}" target="_blank" rel="noopener"
+      class="block w-full h-9 leading-9 px-3 text-[13px] text-stone-500 bg-sand-100/60 rounded hover:text-stone-700">Not bookable online — check site ↗</a></td>
+  </tr>`;
+  const rows = [...filtered.filter(p => hasLiveApi(p)).map(liveRow),
+                ...filtered.filter(p => !hasLiveApi(p)).map(grayRow)].join('');
 
   document.getElementById('gridView').innerHTML = `<table class="w-full border-collapse"><thead>${head}</thead><tbody>${rows}</tbody></table>`;
   document.getElementById('resultCount').textContent = `${filtered.length} campgrounds × ${GRID_WEEKS} weekends`;
@@ -707,13 +721,18 @@ function popupHtml(park, startISO, nights) {
     : st.status === 'full' ? `<span style="color:#A14D3B;font-weight:600">Full</span>`
     : st.status === 'loading' ? `<span style="color:#78716c">Checking…</span>`
     : `<span style="color:#78716c">Check site</span>`;
+  const url = buildBookingUrl(park, startISO, nights);
+  const bookHtml = (st.status === 'available' && hasLiveApi(park))
+    ? `<a href="${url}" target="_blank" rel="noopener"
+         style="display:block;text-align:center;background:#2f4a2c;color:#fff;font-weight:600;font-size:14px;border-radius:8px;padding:12px 0;margin-top:2px;text-decoration:none">Book ↗</a>`
+    : `<a href="${url}" target="_blank" rel="noopener"
+         style="color:#2f4a2c;font-weight:600;font-size:13px">Check dates ↗</a>`;
   return `<div style="min-width:180px">
     <div style="font-weight:600;font-size:15px">${park.name}</div>
     <div style="color:#78716c;font-size:12px;margin:2px 0 6px">${fmtDrive(park.drive)} from SF · ${park.sites} sites</div>
     <div style="font-size:13px;margin-bottom:4px">${stTxt}</div>
-    <div data-weather="${park.id}" style="color:#78716c;font-size:12px;margin-bottom:8px"></div>
-    <a href="${buildBookingUrl(park, startISO, nights)}" target="_blank" rel="noopener"
-       style="color:#2f4a2c;font-weight:600;font-size:13px">${hasLiveApi(park) ? 'Book' : 'Check'} ↗</a>
+    <div data-weather="${park.id}" style="color:#78716c;font-size:12px;margin-bottom:8px;min-height:17px">&nbsp;</div>
+    ${bookHtml}
   </div>`;
 }
 
@@ -775,11 +794,12 @@ function renderMap() {
     filtered = filtered.filter(p => getStatus(p).status === 'available');
   for (const p of filtered) {
     const m = L.marker([p.lat, p.lng], { icon: markerIcon(getStatus(p)), title: p.name }).addTo(map);
-    m.bindPopup(popupHtml(p, startISO, nights));
+    m.bindPopup(popupHtml(p, startISO, nights), { maxWidth: 260 });
     m.on('popupopen', () => fillWeather(p));
     markerById[p.id] = m;
   }
-  document.getElementById('resultCount').textContent = `${filtered.length} campgrounds on map`;
+  document.getElementById('resultCount').innerHTML =
+    `${filtered.length} campgrounds <span class="text-stone-400">· green = open · rust = full · hollow = check site</span>`;
   map._fitPts = filtered.map(p => [p.lat, p.lng]);
   const fit = () => {
     map.invalidateSize();
@@ -887,7 +907,7 @@ function updateCardStatus(parkId) {
 
 function sourceLinkCls(park) {
   const st = getStatus(park).status;
-  return `text-[13px] font-medium ${st==='available' ? 'text-forest-700 hover:text-forest-800' : 'text-stone-500 hover:text-stone-700'}`;
+  return `inline-block py-3 -my-3 text-[13px] font-medium ${st==='available' ? 'text-forest-700 hover:text-forest-800' : 'text-stone-500 hover:text-stone-700'}`;
 }
 
 function parkCard(park, startISO, nights) {
@@ -990,8 +1010,7 @@ function writeUrl() {
   if (document.getElementById('rvOnly').checked) p.set('rv','1');
   if (document.getElementById('driveInOnly').checked) p.set('drivein','1');
   if (document.getElementById('availOnly').checked) p.set('avail','1');
-  if (viewMode==='grid') p.set('v','grid');
-  if (viewMode==='list') p.set('v','list'); // map is the default; no param needed
+  p.set('v', viewMode); // always explicit: the bare-URL default is viewport-dependent
   history.replaceState(null, '', '?'+p.toString());
 }
 function readUrl() {
@@ -1001,7 +1020,8 @@ function readUrl() {
   if (p.get('drive')) document.getElementById('maxDrive').value = p.get('drive');
   if (p.get('env')) p.get('env').split(',').forEach(e => { const cb=document.querySelector(`#envFilters input[value="${e}"]`); if(cb) cb.checked=true; });
   ['dogs','rv','drivein','avail'].forEach(k => { if(p.get(k)==='1') document.getElementById({dogs:'dogsOnly',rv:'rvOnly',drivein:'driveInOnly',avail:'availOnly'}[k]).checked=true; });
-  return ['grid','list','map'].includes(p.get('v')) ? p.get('v') : 'map';
+  const dflt = matchMedia('(min-width: 640px)').matches ? 'map' : 'list';
+  return ['grid','list','map'].includes(p.get('v')) ? p.get('v') : dflt;
 }
 
 function onDatesChanged() {
