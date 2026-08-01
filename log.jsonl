@@ -16201,3 +16201,19 @@
 {"ts": "2026-08-01T20:17:08+00:00", "park": "kirk-creek", "date": "2026-08-07", "nights": 2, "open": 0}
 {"ts": "2026-08-01T20:17:08+00:00", "park": "plaskett-creek", "date": "2026-08-05", "nights": 1, "open": 0}
 {"ts": "2026-08-01T20:17:08+00:00", "park": "plaskett-creek", "date": "2026-08-07", "nights": 2, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "kirby-cove", "date": "2026-08-05", "nights": 1, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "kirby-cove", "date": "2026-08-07", "nights": 2, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "bicentennial", "date": "2026-08-05", "nights": 1, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "bicentennial", "date": "2026-08-07", "nights": 2, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "hawk-camp", "date": "2026-08-05", "nights": 1, "open": 3}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "hawk-camp", "date": "2026-08-07", "nights": 2, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "haypress", "date": "2026-08-05", "nights": 1, "open": 2}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "haypress", "date": "2026-08-07", "nights": 2, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "point-reyes", "date": "2026-08-05", "nights": 1, "open": 7}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "point-reyes", "date": "2026-08-07", "nights": 2, "open": 1}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "pinnacles", "date": "2026-08-05", "nights": 1, "error": "HTTP Error 429: Too Many Requests"}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "pinnacles", "date": "2026-08-07", "nights": 2, "open": 24}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "kirk-creek", "date": "2026-08-05", "nights": 1, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "kirk-creek", "date": "2026-08-07", "nights": 2, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "plaskett-creek", "date": "2026-08-05", "nights": 1, "open": 0}
+{"ts": "2026-08-01T20:37:48+00:00", "park": "plaskett-creek", "date": "2026-08-07", "nights": 2, "open": 0}
