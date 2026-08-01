@@ -160,8 +160,8 @@
         <div id="resultCount" class="text-sm text-stone-600"></div>
         <div class="flex items-center gap-2">
           <div class="flex bg-white border border-stone-900/10 rounded-lg p-0.5 text-sm h-10">
-            <button id="viewMap" class="view-tab px-3 rounded-md whitespace-nowrap">Map</button>
             <button id="viewList" class="view-tab px-3 rounded-md whitespace-nowrap">List</button>
+            <button id="viewMap" class="view-tab px-3 rounded-md whitespace-nowrap">Map</button>
             <button id="viewGrid" class="view-tab px-3 rounded-md whitespace-nowrap"><span class="sm:hidden">8 wknds</span><span class="hidden sm:inline">Scan 8 weekends</span></button>
           </div>
           <select id="sortBy" class="h-10 text-sm bg-white border border-stone-900/10 rounded-lg px-3">
@@ -1111,8 +1111,7 @@ function readUrl() {
   if (p.get('drive')) document.getElementById('maxDrive').value = p.get('drive');
   if (p.get('env')) p.get('env').split(',').forEach(e => { const cb=document.querySelector(`#envFilters input[value="${e}"]`); if(cb) cb.checked=true; });
   ['dogs','rv','drivein','avail'].forEach(k => { if(p.get(k)==='1') document.getElementById({dogs:'dogsOnly',rv:'rvOnly',drivein:'driveInOnly',avail:'availOnly'}[k]).checked=true; });
-  const dflt = matchMedia('(min-width: 640px)').matches ? 'map' : 'list';
-  return ['grid','list','map'].includes(p.get('v')) ? p.get('v') : dflt;
+  return ['grid','list','map'].includes(p.get('v')) ? p.get('v') : 'list';
 }
 
 function onDatesChanged() {
