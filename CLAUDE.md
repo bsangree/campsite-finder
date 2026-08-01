@@ -10,7 +10,10 @@ explain things plainly, keep everything as simple as possible, never over-engine
 ## Architecture (deliberate choices — don't "upgrade" without asking)
 
 - **One file: `index.html`.** No framework, no build, no backend, no database.
-  Park data is the `PARKS` array inside the file (47 campgrounds as of 2026-08-01).
+  Park data is the `PARKS` array inside the file (98 campgrounds as of 2026-08-01,
+  spanning 7 `region` values: bay / northcoast / shasta / tahoe / yosemite / eastside /
+  central — the Region filter is load-bearing at this scale; grid + availability
+  fetches respect it).
   ⚠️ When adding a park with live availability, ALSO add it to `scripts/poll.py`
   so the recorder tracks it — this has drifted before.
 - Map popups show an arrival-day forecast from Open-Meteo (free, CORS-open, no key,

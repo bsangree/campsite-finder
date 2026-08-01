@@ -5,8 +5,10 @@
 ![Bay Area Campsite Finder](social-card.png)
 
 One page that answers "where can I camp this weekend?" — live availability across
-45+ campgrounds from Mendocino to Big Sur, in the one place the official sites don't
-offer: side by side.
+nearly 100 Northern California campgrounds, from the coast redwoods to Tahoe, Yosemite,
+the Eastern Sierra, and Big Sur — in the one place the official sites don't offer:
+side by side. Filter by region, drive time, environment; watch the hard ones (Whitney
+Portal, Yosemite Valley) and get a push notification when they open.
 
 - **List view** — every campground with a live open-site count for your dates
 - **Map view** — the same thing on a topo map: green = open (with count), rust = full
