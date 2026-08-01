@@ -806,8 +806,12 @@ async function fillAlerts(park) {
     }
     const as = alertsCache[park.id];
     if (as.length) {
-      const t = (as[0].Title || '').replace(/^Attention Alert\s*[-–:]\s*/i, '').slice(0, 80);
-      el.textContent = `Alert${as.length > 1 ? `s (${as.length})` : ''}: ${t}`;
+      const strip = h => (h || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      let t = strip(as[0].Title).replace(/^Attention Alert\s*[-–:]\s*/i, '');
+      // Park staff often title alerts with just the park name — useless; show the body instead
+      if (t.length < 12 || park.name.toLowerCase().includes(t.toLowerCase()))
+        t = strip(as[0].Description);
+      el.textContent = `Alert${as.length > 1 ? `s (${as.length})` : ''}: ${t.slice(0, 110)}${t.length > 110 ? '…' : ''}`;
       el.style.display = 'block';
     }
   } catch (e) { /* alerts are best-effort */ }
@@ -849,10 +853,9 @@ async function fillWeather(park) {
       }
     }
     const w = weatherCache[key];
-    el.textContent = w
-      ? `${wmoText(w.code)} · ${w.hi}° / ${w.lo}°${w.rain >= 20 ? ` · ${w.rain}% rain` : ''}`
-      : 'Forecast opens 16 days out';
-  } catch { el.textContent = ''; }
+    if (w) el.textContent = `${wmoText(w.code)} · ${w.hi}° / ${w.lo}°${w.rain >= 20 ? ` · ${w.rain}% rain` : ''}`;
+    else el.style.display = 'none'; // date beyond the forecast horizon — say nothing
+  } catch { el.style.display = 'none'; }
 }
 
 function renderMap() {
