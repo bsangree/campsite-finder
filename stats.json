@@ -1,34 +1,34 @@
 {
- "generated": "2026-08-01T20:13:32+00:00",
+ "generated": "2026-08-01T20:17:08+00:00",
  "parks": {
+  "kirby-cove": {
+   "flips30": 0,
+   "lastOpen": null
+  },
   "point-reyes": {
    "flips30": 9,
    "lastOpen": "2026-08-01T14:18:07+00:00",
    "typical": "Wed mornings"
   },
-  "kirby-cove": {
+  "pinnacles": {
+   "flips30": 8,
+   "lastOpen": "2026-07-18T00:07:06+00:00"
+  },
+  "haypress": {
+   "flips30": 5,
+   "lastOpen": "2026-07-24T14:30:41+00:00"
+  },
+  "kirk-creek": {
    "flips30": 0,
    "lastOpen": null
   },
-  "kirk-creek": {
+  "bicentennial": {
    "flips30": 0,
    "lastOpen": null
   },
   "plaskett-creek": {
    "flips30": 0,
    "lastOpen": null
-  },
-  "haypress": {
-   "flips30": 5,
-   "lastOpen": "2026-07-24T14:30:41+00:00"
-  },
-  "bicentennial": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "pinnacles": {
-   "flips30": 8,
-   "lastOpen": "2026-07-18T00:07:06+00:00"
   },
   "hawk-camp": {
    "flips30": 0,
