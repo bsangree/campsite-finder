@@ -20,8 +20,11 @@ PARKS = [
     ("fremont-peak", "rc", 645), ("sugarloaf", "rc", 725), ("bothe-napa", "rc", 620),
     ("austin-creek", "rc", 1085), ("bodega-dunes", "rc", 718), ("salt-point", "rc", 703),
     ("brannan-island", "rc", 621),
+    ("pfeiffer-big-sur", "rc", 690), ("andrew-molera", "rc", 1077),
+    ("julia-pfeiffer", "rc", 661), ("limekiln", "rc", 666),
     ("kirby-cove", "rg", 232491), ("bicentennial", "rg", 272229), ("hawk-camp", "rg", 258815),
     ("haypress", "rg", 10067346), ("point-reyes", "rg", 233359), ("pinnacles", "rg", 234015),
+    ("kirk-creek", "rg", 233116), ("plaskett-creek", "rg", 231959),
 ]
 
 def http_json(url, payload=None, timeout=15):
