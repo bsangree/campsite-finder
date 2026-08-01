@@ -45,16 +45,20 @@
 <body class="text-stone-900 antialiased">
 
 <!-- ===================== HEADER ===================== -->
-<header class="bg-forest-800 text-white">
-  <div class="max-w-7xl mx-auto px-4 pt-5 pb-5 sm:pt-7 sm:pb-8">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <div class="text-forest-200 text-[13px] mb-0.5">Bay Area</div>
-        <h1 class="text-[28px] sm:text-5xl font-semibold tracking-tight whitespace-nowrap">Campsite Finder</h1>
-        <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across 45+ campgrounds, Mendocino to Big Sur. Pick a weekend, see what's open, book it.</p>
-      </div>
-      <div id="headerStats" class="text-right shrink-0"></div>
+<header class="bg-forest-800 text-white relative overflow-hidden">
+  <div class="hidden lg:block absolute top-0 right-0 bottom-0 w-[420px]">
+    <img src="header.jpg" alt="" class="w-full h-full object-cover">
+    <div class="absolute inset-0" style="background:linear-gradient(to right,
+      #243a22 0%, rgba(36,58,34,.45) 30%, rgba(36,58,34,.12) 60%, rgba(36,58,34,.1) 100%)"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 pt-5 pb-5 sm:pt-7 sm:pb-8
+              flex items-center justify-between gap-4">
+    <div class="sm:max-w-[620px]">
+      <div class="text-forest-200 text-[13px] mb-0.5">Bay Area</div>
+      <h1 class="text-[28px] sm:text-5xl font-semibold tracking-tight whitespace-nowrap">Campsite Finder</h1>
+      <p class="hidden sm:block text-forest-100 mt-2 max-w-xl">Live availability across 45+ campgrounds, Mendocino to Big Sur. Pick a weekend, see what's open, book it.</p>
     </div>
+    <div id="headerStats" class="shrink-0 text-center sm:mr-10"></div>
   </div>
 </header>
 
@@ -966,10 +970,17 @@ function render() {
       (totalSites ? ` · ${totalSites} sites` : '') +
       (availOnly ? ` · <button onclick="document.getElementById('availOnly').checked=false; render(); writeUrl()" class="underline">show all</button>` : '');
 
+  // Header stat: styled as a map marker — it IS the same visual language as the map
+  const statSize = 'width:clamp(52px,9vw,72px);height:clamp(52px,9vw,72px);font-size:clamp(21px,3.5vw,30px);border-width:3px';
+  const capStyle = 'text-shadow:0 1px 8px rgba(28,46,26,.8)'; // stat sits on the photo at lg+
   document.getElementById('headerStats').innerHTML = counts.loading
-    ? `<span class="text-forest-200 text-sm">checking…</span>`
-    : `<div class="text-3xl sm:text-4xl font-semibold text-white leading-none">${counts.available}</div>
-       <div class="text-[12px] text-forest-200 mt-1">open right now</div>`;
+    ? `<div class="mk mx-auto animate-pulse" style="${statSize};background:#5a8055;color:transparent">0</div>
+       <div class="text-[12px] text-forest-200 mt-2" style="${capStyle}">checking…</div>`
+    : counts.available > 0
+    ? `<div class="mk mk-av mx-auto" style="${statSize}">${counts.available}</div>
+       <div class="text-[12px] text-forest-200 mt-2" style="${capStyle}">open right now</div>`
+    : `<div class="mk mx-auto" style="${statSize};background:#fff;border:3px solid #a8a29e;color:#78716c">0</div>
+       <div class="text-[12px] text-forest-200 mt-2" style="${capStyle}">none open — scan 8 weekends</div>`;
 
   const fc = activeFilterCount();
   document.getElementById('filterCount').textContent = fc ? `· ${fc}` : '';

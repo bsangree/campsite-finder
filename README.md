@@ -42,3 +42,5 @@ every bug fix along the way. Then I used it to book three real camping trips.
 Personal tool, shared as-is. The availability feeds are unofficial and may change
 without notice — if statuses stop loading, the booking links still work. Not
 affiliated with California State Parks, the National Park Service, or any park system.
+
+Header photo: Bradley Lembach / Unsplash.
