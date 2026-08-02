@@ -13,15 +13,13 @@ explain things plainly, keep everything as simple as possible, never over-engine
 ## Architecture (deliberate choices — don't "upgrade" without asking)
 
 - **One file: `index.html`.** No framework, no build, no backend, no database.
-  Park data is the `PARKS` array inside the file (121 campgrounds as of 2026-08-01 —
-  the claim is "every public campground within ~4h of SF" (see README scope note:
-  excludes private/utility-district/group-only/dispersed); keep the claim true when
-  adding or hearing about missing parks.
-  spanning 7 `region` values: bay / northcoast / shasta / tahoe / yosemite / eastside /
-  central — the Region filter is load-bearing at this scale; grid + availability
-  fetches respect it).
+  Park data is the `PARKS` array inside the file — 121 campgrounds as of 2026-08-02,
+  spanning 7 `region` values (bay / northcoast / shasta / tahoe / yosemite / eastside /
+  central). The Region filter is load-bearing at this scale; grid + availability
+  fetches respect it. The public claim is "every public campground within ~4h of SF"
+  (README documents the exclusions) — keep it true when adding parks.
   ⚠️ When adding a park with live availability, ALSO add it to `scripts/poll.py`
-  so the recorder tracks it — this has drifted before.
+  (this has drifted twice).
 - Map popups show an arrival-day forecast from Open-Meteo (free, CORS-open, no key,
   16-day horizon) — fetched lazily on popup open, cached per park+date.
 - Tailwind via CDN; Leaflet 1.9.4 via unpkg + free Esri World Topo tiles (map view).
@@ -68,8 +66,7 @@ appends one JSONL line per park to `log.jsonl` on the **`data` branch**:
 
 - Health: `gh run list --workflow=record-availability --limit 5`
 - Data: `git fetch origin data && git show origin/data:log.jsonl | wc -l` (~12k+ obs)
-- ⚠️ Known gap: `poll.py`'s park list (28) predates the Big Sur + later additions in
-  `index.html` (42). Sync it when touching Phase 1.
+- poll.py tracks all 105 live parks (in sync with index.html as of 2026-08-02).
 
 ## Phase 1 — SHIPPED 2026-08-01
 
@@ -82,7 +79,7 @@ appends one JSONL line per park to `log.jsonl` on the **`data` branch**:
 - **Watch alerts:** parks in `watches.json` (repo root) trigger an ntfy.sh push when
   they flip full→open in the just-completed poll (freshness-guarded, 20 min). The
   topic is in the repo's `NTFY_TOPIC` Actions secret — see memory or ask Ben; never
-  commit it (public repo). Seeded watches: steep-ravine, kirby-cove, julia-pfeiffer.
+  commit it (public repo). Current watches: kirby-cove, whitney-portal, upper-pines (rec.gov-only can fire).
 - Frontend: `loadStats()` fetches stats.json (raw.githubusercontent, data branch) +
   watches.json (same-origin). Full parks' cards + all popups show the stat line and a
   "Watching" tag. Popups also show: facility/loop availability breakdown (from the
