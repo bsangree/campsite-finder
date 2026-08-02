@@ -1,8 +1,10 @@
-# Bay Area Campsite Finder
+# Ben Camping
+
+*(say it out loud)*
 
 **Live: https://bsangree.github.io/campsite-finder/**
 
-![Bay Area Campsite Finder](social-card.png)
+![Ben Camping](social-card.png)
 
 One page that answers "where can I camp this weekend?" — **every public campground
 within ~4 hours of San Francisco** (121 and counting), plus the far North Coast,

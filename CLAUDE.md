@@ -1,4 +1,7 @@
-# Campsite Finder — project context for Claude
+# Ben Camping (née Campsite Finder) — project context for Claude
+
+Site is named **"Ben Camping"** (pun: "been camping") as of 2026-08-01. The URL stays
+`bsangree.github.io/campsite-finder` — never rename the repo; it breaks shared links.
 
 One-page Bay Area campsite availability dashboard. Owner: Ben Sangree (not an engineer —
 explain things plainly, keep everything as simple as possible, never over-engineer).
