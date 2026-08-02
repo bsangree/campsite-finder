@@ -93,7 +93,7 @@ PARKS = [
     ("folsom-lake", "rc", 643),
     ("indian-grinding-rock", "rc", 659),
     ("tuttletown", "rg", 234072),
-    ("arroyo-seco", "rg", 231958),,
+    ("arroyo-seco", "rg", 231958),
     ("forks-bass-lake", "rg", 232878), ("lupine-bass-lake", "rg", 232802)
 ]
 
