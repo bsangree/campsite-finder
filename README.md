@@ -1,7 +1,5 @@
 # Ben Camping
 
-*(say it out loud)*
-
 **Live: https://bsangree.github.io/campsite-finder/**
 
 ![Ben Camping](social-card.png)
