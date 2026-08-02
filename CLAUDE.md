@@ -100,6 +100,11 @@ appends one JSONL line per park to `log.jsonl` on the **`data` branch**:
 
 ## Gotchas learned the hard way
 
+- **After ANY edit to scripts/poll.py or index.html, run the artifact before pushing**
+  (`POLL_SKIP=rc python3 scripts/poll.py` must emit clean JSON; the site must load with
+  zero console errors). Two incidents from skipping this: a List-view crash (undefined
+  var in parkCard) and a 17-hour recorder outage (double comma from a scripted patch).
+
 - **ReserveCalifornia 403s GitHub Actions runner IPs** (started 2026-07-17; probe with
   full browser headers confirmed it's IP-level, not fingerprinting). The recorder
   therefore runs with `POLL_SKIP=rc` — history/stats/watches cover rec.gov parks only
