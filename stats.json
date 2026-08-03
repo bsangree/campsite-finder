@@ -1,64 +1,19 @@
 {
- "generated": "2026-08-03T18:23:27+00:00",
+ "generated": "2026-08-03T20:04:58+00:00",
  "parks": {
-  "bicentennial": {
+  "tuttletown": {
    "flips30": 0,
    "lastOpen": null
   },
-  "forks-bass-lake": {
-   "flips30": 1,
-   "lastOpen": "2026-08-02T20:40:02+00:00"
+  "haypress": {
+   "flips30": 5,
+   "lastOpen": "2026-07-24T14:30:41+00:00"
   },
-  "point-reyes": {
-   "flips30": 9,
-   "lastOpen": "2026-08-01T14:18:07+00:00",
-   "typical": "Wed mornings"
-  },
-  "hawk-camp": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "william-kent": {
-   "flips30": 1,
-   "lastOpen": "2026-08-03T04:44:52+00:00"
-  },
-  "manzanita-lake": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "bridalveil-creek": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "lake-alpine": {
-   "flips30": 0,
-   "lastOpen": null
+  "fallen-leaf": {
+   "flips30": 2,
+   "lastOpen": "2026-08-03T08:04:17+00:00"
   },
   "big-pine-creek": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "pinnacles": {
-   "flips30": 7,
-   "lastOpen": "2026-07-18T00:07:06+00:00"
-  },
-  "oh-ridge": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "twin-lakes-mammoth": {
-   "flips30": 1,
-   "lastOpen": "2026-08-03T16:37:44+00:00"
-  },
-  "kirk-creek": {
-   "flips30": 1,
-   "lastOpen": "2026-08-03T01:11:53+00:00"
-  },
-  "arroyo-seco": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "wawona": {
    "flips30": 0,
    "lastOpen": null
   },
@@ -66,23 +21,84 @@
    "flips30": 0,
    "lastOpen": null
   },
+  "fowlers-mccloud": {
+   "flips30": 0,
+   "lastOpen": null
+  },
   "crane-flat": {
    "flips30": 0,
    "lastOpen": null
   },
-  "hodgdon-meadow": {
-   "flips30": 0,
-   "lastOpen": null
+  "upper-pines": {
+   "flips30": 2,
+   "lastOpen": "2026-08-03T18:23:27+00:00"
   },
-  "glory-hole": {
-   "flips30": 0,
-   "lastOpen": null
+  "summit-lake-lassen": {
+   "flips30": 1,
+   "lastOpen": "2026-08-02T16:33:25+00:00"
+  },
+  "north-pines": {
+   "flips30": 2,
+   "lastOpen": "2026-08-03T18:23:27+00:00"
   },
   "kaspian": {
    "flips30": 0,
    "lastOpen": null
   },
+  "william-kent": {
+   "flips30": 1,
+   "lastOpen": "2026-08-03T04:44:52+00:00"
+  },
+  "glory-hole": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "arroyo-seco": {
+   "flips30": 0,
+   "lastOpen": null
+  },
   "salmon-creek": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "wrights-lake": {
+   "flips30": 1,
+   "lastOpen": "2026-08-02T22:34:39+00:00"
+  },
+  "bridalveil-creek": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "silver-lake-june": {
+   "flips30": 1,
+   "lastOpen": "2026-08-03T16:37:44+00:00"
+  },
+  "wawona": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "manzanita-lake": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "hawk-camp": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "lower-pines": {
+   "flips30": 3,
+   "lastOpen": "2026-08-03T14:00:21+00:00",
+   "typical": "Sun afternoons"
+  },
+  "hayward-flat": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "summerdale": {
+   "flips30": 1,
+   "lastOpen": "2026-08-02T15:29:36+00:00"
+  },
+  "bicentennial": {
    "flips30": 0,
    "lastOpen": null
   },
@@ -94,72 +110,68 @@
    "flips30": 0,
    "lastOpen": null
   },
-  "tuttletown": {
+  "lake-alpine": {
    "flips30": 0,
    "lastOpen": null
   },
-  "hayward-flat": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "haypress": {
-   "flips30": 5,
-   "lastOpen": "2026-07-24T14:30:41+00:00"
-  },
-  "fashoda": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "whitney-portal": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "plaskett-creek": {
+  "kirk-creek": {
    "flips30": 1,
-   "lastOpen": "2026-08-03T04:44:52+00:00"
+   "lastOpen": "2026-08-03T01:11:53+00:00"
   },
-  "nevada-beach": {
-   "flips30": 0,
-   "lastOpen": null
+  "pinnacles": {
+   "flips30": 7,
+   "lastOpen": "2026-07-18T00:07:06+00:00"
   },
-  "silver-lake-june": {
+  "lake-mary": {
    "flips30": 1,
-   "lastOpen": "2026-08-03T16:37:44+00:00"
-  },
-  "upper-pines": {
-   "flips30": 2,
-   "lastOpen": "2026-08-03T18:23:27+00:00"
-  },
-  "antlers": {
-   "flips30": 0,
-   "lastOpen": null
-  },
-  "lower-pines": {
-   "flips30": 3,
-   "lastOpen": "2026-08-03T14:00:21+00:00",
-   "typical": "Sun afternoons"
-  },
-  "onion-valley": {
-   "flips30": 1,
-   "lastOpen": "2026-08-02T17:41:11+00:00"
+   "lastOpen": "2026-08-02T20:40:02+00:00"
   },
   "four-jeffrey": {
    "flips30": 1,
    "lastOpen": "2026-08-03T16:37:44+00:00"
   },
-  "summerdale": {
+  "convict-lake": {
    "flips30": 1,
-   "lastOpen": "2026-08-02T15:29:36+00:00"
+   "lastOpen": "2026-08-02T15:33:32+00:00"
   },
-  "fallen-leaf": {
-   "flips30": 2,
-   "lastOpen": "2026-08-03T08:04:17+00:00"
+  "nevada-beach": {
+   "flips30": 0,
+   "lastOpen": null
   },
-  "summit-lake-lassen": {
+  "twin-lakes-mammoth": {
    "flips30": 1,
-   "lastOpen": "2026-08-02T16:33:25+00:00"
+   "lastOpen": "2026-08-03T16:37:44+00:00"
   },
-  "fowlers-mccloud": {
+  "lupine-bass-lake": {
+   "flips30": 1,
+   "lastOpen": "2026-08-02T20:40:02+00:00"
+  },
+  "hodgdon-meadow": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "oh-ridge": {
+   "flips30": 0,
+   "lastOpen": null
+  },
+  "forks-bass-lake": {
+   "flips30": 1,
+   "lastOpen": "2026-08-02T20:40:02+00:00"
+  },
+  "plaskett-creek": {
+   "flips30": 1,
+   "lastOpen": "2026-08-03T04:44:52+00:00"
+  },
+  "onion-valley": {
+   "flips30": 1,
+   "lastOpen": "2026-08-02T17:41:11+00:00"
+  },
+  "point-reyes": {
+   "flips30": 9,
+   "lastOpen": "2026-08-01T14:18:07+00:00",
+   "typical": "Wed mornings"
+  },
+  "whitney-portal": {
    "flips30": 0,
    "lastOpen": null
   },
@@ -167,29 +179,17 @@
    "flips30": 0,
    "lastOpen": null
   },
-  "north-pines": {
-   "flips30": 2,
-   "lastOpen": "2026-08-03T18:23:27+00:00"
+  "antlers": {
+   "flips30": 0,
+   "lastOpen": null
   },
-  "lake-mary": {
-   "flips30": 1,
-   "lastOpen": "2026-08-02T20:40:02+00:00"
-  },
-  "wrights-lake": {
-   "flips30": 1,
-   "lastOpen": "2026-08-02T22:34:39+00:00"
+  "fashoda": {
+   "flips30": 0,
+   "lastOpen": null
   },
   "stumpy-meadows": {
    "flips30": 0,
    "lastOpen": null
-  },
-  "convict-lake": {
-   "flips30": 1,
-   "lastOpen": "2026-08-02T15:33:32+00:00"
-  },
-  "lupine-bass-lake": {
-   "flips30": 1,
-   "lastOpen": "2026-08-02T20:40:02+00:00"
   }
  }
 }
